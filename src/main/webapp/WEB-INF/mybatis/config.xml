@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- jdbc CamelCase 변환 파라메터 NULL 존재시 varchar변환 -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="VARCHAR" />
+	</settings>
+
+	<!-- Vo클래스 별칭지정 -->
+	<!-- <typeAliases>
+		<typeAlias type="" alias=""/>
+	</typeAliases> -->
+</configuration> 
