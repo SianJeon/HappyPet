@@ -11,6 +11,7 @@
 	width: 1040px;
 	height: 300px;
 	background-color : rgba(245,196,90, 0.6);
+	background-color : linear-gradient(to left, rgba(245,196,90,0.6), rgba(245, 208, 127, 0.6) );
 	border-top-left-radius: 300px;
 	border-bottom-left-radius: 300px;
 }

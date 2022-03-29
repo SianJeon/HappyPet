@@ -10,6 +10,7 @@
 </head>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/css/HomeAnimation.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <body>
 <jsp:include page = "/WEB-INF/views/include/bootstrap.jsp"/>
     

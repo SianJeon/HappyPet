@@ -1,3 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+
+<body>
+	<input id="modalToggle" class="hide" type="checkbox">
+	<section class="modal">
+  		<div class="btn btn-open" for="modalToggle">Open modal</div>
+  
+  	<div class="inside">
+    	<div class="btn-close" for="modalToggle">X</div>
+    	<p>Text goes here.</p>
+  	</div>
+	</section>
+</body>
+<style>
 * { box-sizing: border-box }
 .hide { display: none }
 html {
@@ -119,7 +141,7 @@ body {
 }
 
 @keyframes delayedFadeIn {
-  from {
+  from: {
     opacity: 0
   }
   55% {
@@ -132,61 +154,5 @@ body {
     opacity: 1
   }
 }
-
-@keyframes fadeInLeft {
-	0% {
-		  opacity: 0;
-		  transform: translate3d(100%, 0, 0);
-	}
-	to {
-		  opacity: 1;
-		  transform: translateZ(0);
-	}	
-}
-
-@keyframes fadeInRight {
-	0% {
-		  opacity: 0;
-		  transform: translate3d(-100%, 0, 0);
-	}
-	to {
-		  opacity: 1;
-		  transform: translateZ(0);
-	}	
-}
-
-@keyframes conversionCircle {
-    0%
-    {
-        border-top-left-radius: 100%;
-        border-top-right-radius: 100%;
-        border-bottom-left-radius: 100%;
-        border-bottom-right-radius: 100%;
-    }
-    50%
-    {
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%;
-        border-bottom-left-radius: 50%;
-        border-bottom-right-radius: 50%;
-    }
-    to{
-        border-top-left-radius: 0%;
-        border-top-right-radius: 0%;
-        border-bottom-left-radius: 0%;
-        border-bottom-right-radius: 0%;
-        /* animation: angledgree 1s; */
-    }
-}
-
-@keyframes angledegree {
-    
-    0%
-    {
-        transform: rotate(0deg);
-    }
-    to
-    {
-        transform: rotate(45deg);
-    }
-}
+</style>
+</html>

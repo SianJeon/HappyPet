@@ -3,18 +3,14 @@
 <style>
 * {margin : 0; padding : 0}
 body {background-color: rgba(248, 196, 53, 0.2);}
-.logo {width: 125px; }
-.logo-container{ display: flex; justify-content: space-between;}
+.logo {width: 80px; }
+.logo-container{ display: flex; justify-content: space-between; border-bottom: 2px solid white;}
 .sub-content {margin-top: 150px;}
 
 .rounded-circle:hover
 {
 	animation: conversionCircle 1s, angledegree 1.5s;
 	animation-fill-mode: forwards;
-}
-.addAnimation
-{
-	animation: angledegree 1s;
 }
 
 .page-top
@@ -25,7 +21,7 @@ body {background-color: rgba(248, 196, 53, 0.2);}
 }
 .right-bar
 {
-	margin-top: 150px;
+	margin-top: 110px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -35,23 +31,38 @@ body {background-color: rgba(248, 196, 53, 0.2);}
 	border-bottom-left-radius: 150px;
 	background-image: linear-gradient(270deg, rgba(247, 118, 6, 0.9), rgba(245, 196, 90, 0.6));
 	
-	animation: fadeInRight 1s;
+	animation: fadeInRight 1s, zoomout 2s, height 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes zoomout 
+{
+    0%
+    {
+        border-top-left-radius: 150px;
+        border-bottom-left-radius: 150px;
+    }
+    to
+    {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+}
+@keyframes height 
+{
+    0%
+    {
+        width: 0%;
+        height: 30%;
+    }
+    to
+    {
+        width: 100%;
+        height: 72.5vh;
+    }
 }
 .right-bar > * {color: white;}
 .right-bar > h2 {font-size: 50px; }
 .right-bar > h4 {padding-top: 30;}
-.left-bar
-{
-	top: 80px;
-	left: 0;
-	width: 40%;
-	height: 300px;
-	border-top-right-radius: 150px;
-	border-bottom-right-radius: 150px;
-	background-color: rgba(247, 247, 247, 0.7);
-
-	animation: fadeInLeft 2s;
-}
 
 .background-animal
 {
@@ -69,36 +80,40 @@ body {background-color: rgba(248, 196, 53, 0.2);}
     margin: 6px;
     background-color: rgba(247, 118, 6, 0.9);
 }
+.board-Name
+{
+    width: 45%;
+    text-align: center;
+    text-decoration: line-through;
+    
+}
 </style>
-	
-	<div class = "background-animal container-fluid">
-		<img class="" src="images/mian1.jpg" alt="">
-	</div>
-	<div class = "logo-container" style = "margin : 30px">
-		<a href="#"><img class="logo" src="images/animal-logo.png" alt=""></a>
+<div class = "background-animal container-fluid">
+  <img class="" src="images/mian1.jpg" alt="">
+</div>
+<div class = "logo-container" style = "margin : 30px">
+  <a href="#"><img class="logo" src="images/animal-logo.png" alt=""></a>
+    <div class="board-Name">자유게시판</div>
 		<div class="rounded-circle menu-btn d-flex justify-content-center align-items-center "
 			style="font-weight: 200; font-size: small;">
 			menu
 		</div>
 		<input id="modalToggle" class="hide" type="checkbox">
-		<section class="modal">
+		<!-- <section class="modal">
 			<label class="btn btn-open" for="modalToggle">Open modal</label>
 
 			<div class="inside">
 		    	<label class="btn-close" for="modalToggle">X</label>
 		    	<p>Text goes here.</p>
 			</div>
-		</section>
+		</section> -->
 
 
 	</div>
 	<div class="sub-content">
 		<div class="page-top">
-			<div class = "left-bar"></div>
 			<div class = "right-bar d-flex flex-column justify-content-center align-items-center">
-				<h2>Adopt Animals </h2>
-				<h2>Adopt Familay</h2>
-				<h4>Animal & Pet은 사지 않고 입양하는 문화를 만듭니다.</h4>
+        <!-- 주요 내용 입력 부분 -->
 			</div>
 		</div>
 	</div>
@@ -230,13 +245,13 @@ body {background-color: rgba(248, 196, 53, 0.2);}
   to {
     width: 9999px;
     height: 9999px;
-    border-radius: 9999px;	
+    border-radius: 9999px;
     color: transparent;
   }
 }
 
 @-webkit-keyframes delayedFadeIn {
-  from: {
+  from {
     opacity: 0
   }
   55% {
@@ -251,7 +266,7 @@ body {background-color: rgba(248, 196, 53, 0.2);}
 }
 
 @keyframes delayedFadeIn {
-  from: {
+  from {
     opacity: 0
   }
   55% {
@@ -265,4 +280,4 @@ body {background-color: rgba(248, 196, 53, 0.2);}
   }
 }
 </style>
-<jsp:include page="/WEB-INF/views/include/bottom.jsp" />s
+<jsp:include page="/WEB-INF/views/include/bottom.jsp" />
