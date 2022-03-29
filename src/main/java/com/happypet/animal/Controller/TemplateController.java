@@ -11,16 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TemplateController {
 
-	@Autowired
-    TemplateDAO dao;
-
     @RequestMapping("/")
     public String testHandle(Model model)
     {
-    	System.out.println("TestHandle start");
-    	TemplateVo vo = dao.testDAO();
-        model.addAttribute("vo", vo.getUser_id());
-        System.out.println(vo.getUser_id());
         return "home";
     }
     
