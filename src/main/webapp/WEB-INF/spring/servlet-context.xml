@@ -66,5 +66,5 @@
 		<task:scheduled ref="simpleTask" method="printAnyThing" cron="0 * 14 * * *"/>
 	</task:scheduled-tasks> 
 	<task:annotation-driven /> -->
-
+	
 </beans>
