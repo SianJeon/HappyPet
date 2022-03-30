@@ -32,4 +32,6 @@ replay_pid*
 
 *.sql
 
+exFile/
+
 target/
