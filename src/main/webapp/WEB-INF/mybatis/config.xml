@@ -7,7 +7,10 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
-
+		<typeAliases>
+			<typeAlias type="com.happypet.animal.Entity.AnimalVo" alias="animalVo"/>
+		
+		</typeAliases>
 	<!-- Vo클래스 별칭지정 -->
 	<!-- <typeAliases>
 		<typeAlias type="" alias=""/>
