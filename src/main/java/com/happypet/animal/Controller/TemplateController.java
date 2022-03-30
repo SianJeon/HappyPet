@@ -17,7 +17,8 @@ public class TemplateController {
     @RequestMapping("/")
     public String testHandle(Model model)
     {
-        // return "mainPP";
-        return "template";
+        return "index";
+        // return "template";
+        // return "contact";
     }
 }
