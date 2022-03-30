@@ -33,7 +33,7 @@ public class AnimalController {
     	return "/animal/animallist";
     }
 
-    
+     
     
     @ResponseBody
     @RequestMapping("/animal/list")
