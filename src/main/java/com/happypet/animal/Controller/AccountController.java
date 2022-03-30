@@ -1,19 +1,24 @@
 package com.happypet.animal.Controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.happypet.animal.Entity.AccountVo;
 import com.happypet.animal.Service.AccountService;
+import com.happypet.animal.Service.MailService;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -22,41 +27,8 @@ public class AccountController {
 	@Autowired
 	AccountService as;
 	
-	// 로그인 화면 이동
-	@RequestMapping("/login")
-	public String loginHandle() {
-		return "account/login";
-	}
-	
-	// 로그인
-	@PostMapping("/session")
-	public String sessionHandle(HttpSession session, @RequestParam String loginId, @RequestParam String loginPass, Model model) {
-		
-		
-		boolean valid = as.isValidAccount(loginId, loginPass);
-		
-		if (valid) {
-			AccountVo vo = as.selectOneById(loginId);
-			// vo == null ?
-			session.setAttribute("loginUser", vo);
-			
-			return "redirect:/";
-		} else {
-			model.addAttribute("err", "error");
-			return "account/login";
-		}
-		
-		
-	}
-	
-
-	// 로그아웃
-	@RequestMapping("/logout")
-	public String logoutHandle(HttpSession session) {
-		session.invalidate();
-		
-		return "redirect:/";
-	}
+	@Autowired
+	MailService ms;
 	
 	// 마이페이지
 	@RequestMapping("/mypage")
@@ -95,23 +67,79 @@ public class AccountController {
 	}
 	
 	@PostMapping("/settings/passChk")
-	public String passChkHandle(@ModelAttribute("loginUser") AccountVo vo, @RequestParam String userPass) {
+	@ResponseBody
+	public int passChkHandle(@ModelAttribute("loginUser") AccountVo vo, @RequestParam String userPass) {
 		
-		String result = "";
+		int rst;
 		
 		boolean valid = as.isValidAccount(vo.getUserId(), userPass);
-		
-		System.out.println(valid);
-		
+	
 		if(valid == true) {
-			result = "passOk";
+			rst = 1;
 		}else{
-			result = "passNo";
+			rst = 0;
 		}
 		
-		return result;
+		return rst;
 	}
 	
+	@PostMapping("/settings/changePass")
+	@ResponseBody
+	public int changePassHandle(@ModelAttribute("loginUser") AccountVo vo, @RequestParam String userPass) {
+		int rst = 0;
+		
+		vo.setUserPass(userPass);
+		
+		boolean r = as.changePass(vo);
+		
+		if(r == true) rst = 1;
+		
+		
+		return rst;
+	}
 	
+	// 메일 인증 화면이동
+	@GetMapping("/settings/auth")
+	public String authHandle() {
+		
+		return "account/auth";
+	}
+	
+	// 인증 번호 발송용
+	@ResponseBody
+	@RequestMapping("/settings/reqAuth")
+	public Map<String, Object> reqAuthHandle(@ModelAttribute("loginUser") AccountVo vo, HttpSession hs){
+		
+		Map<String, Object> rst = ms.sendAuthMail(vo.getEmail()) ;
+		
+		if(rst.containsKey("authKey")) {
+			hs.setAttribute("authKey", rst.get("authKey"));
+			rst.remove("authKey");
+		}
+		
+		return rst;
+	}
+	
+	@RequestMapping("/settings/verify")
+	public String verifyHandle(@ModelAttribute AccountVo vo, 
+			HttpSession hs, @RequestParam String key, Model model) {
+		
+		String authKey =(String)hs.getAttribute("authKey");
+		if(authKey.equals(key)) {
+			AccountVo loginVo = (AccountVo)hs.getAttribute("loginUser");
+			
+			vo.setAuth("Y");
+			vo.setUserId(loginVo.getUserId());
+			
+			as.updateData(vo);
+			
+			AccountVo reVo = as.selectOneById(vo.getUserId());
+			hs.setAttribute("loginUser", reVo);
+			return "redirect:/settings/auth";
+		}else {
+			model.addAttribute("err", "errr");
+			return "account/auth";
+		}
+	}
 	
 }

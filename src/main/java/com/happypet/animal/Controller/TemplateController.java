@@ -17,4 +17,10 @@ public class TemplateController {
         return "home";
     }
     
+    @RequestMapping("/settingss")
+    public String templateHandle(Model model)
+    {
+        return "account/settingss";
+    }
+    
 }

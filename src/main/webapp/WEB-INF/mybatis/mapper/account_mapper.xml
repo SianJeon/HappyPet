@@ -40,4 +40,8 @@
 		</set>
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	<select id="idCheck" resultType="int">
+        SELECT COUNT(USER_ID) FROM ACCOUNT WHERE USER_ID = #{id}
+    </select>
 </mapper>

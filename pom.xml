@@ -135,7 +135,14 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>4.3.25.RELEASE</version>
 		</dependency>
-
+		
+		<!-- Spring Utility -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>4.3.25.RELEASE</version>
+		</dependency>
 		<!-- mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>

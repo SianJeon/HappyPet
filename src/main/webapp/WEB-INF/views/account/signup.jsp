@@ -14,6 +14,7 @@
 						placeholder="사용할 아이디" id="id" />
 					<b> <form:errors path="userId" />
 					</b>
+					<input type="button" onclick="chkId()" value="중복확인">
 				</div>
 				<div class="form-group">
 					<label for="pwd">비밀번호</label>
@@ -63,6 +64,25 @@
 			$("#pwd_confirm").focus();
 			return false;
 		}
+	}
+	
+	function chkId(){
+		var id = $('#id').val();
+		
+		$.ajax({
+			url : 'signup/chkId',
+			type : 'POST',
+			data : {id:id},
+			success : function(cnt){
+				if(cnt != 1){
+					alert("사용가능한 아이디입니다.");
+				}else{
+					alert("이미 사용중인 아이디입니다.");
+				}
+			},error : function(){
+				alert("에러입니다.");
+			}
+		});
 	}
 	
 	function sample4_execDaumPostcode() {

@@ -71,9 +71,18 @@
 <div>
 	<label for="password">현재 비밀번호 확인</label>
 	<div class="col-3">
-		<input type="password" class="form-control" placeholder="현재 비밀번호" id="userPass" name="userPass"/>
-		<input type="button" onclick="passChk()" value="비밀번호 확인"> <span id="passChk">비밀번호를 확인하세요</span>
-	</div>	
+		<input type="password" class="form-control" placeholder="현재 비밀번호" id="userPass"/>
+		<input type="button" onclick="passChk()" value="비밀번호 확인">
+	</div>
+	<div class="newPass" style="display:none;">
+	<hr>
+		<label for="password">변경할 비밀번호</label>
+		<div class="col-3">
+			<input type="password" class="form-control" placeholder="변경할 비밀번호" id="newPass"/>
+			<input type="password" class="form-control" placeholder="비밀번호 확인" id="newPass_confirm"/>
+		</div>
+			<button type="button" onclick="changePass()" class="btn btn-secondary btn-block mt-2" id="bt">변경</button>
+	</div>
 </div>
 
 <script>
@@ -109,15 +118,52 @@
 		}
 		
 		function passChk(){
+			var userPass = $("#userPass").val();
 			$.ajax({
-				type : "POST",
 				url : "/settings/passChk",
+				type : "POST",
 				data : {
-					userPass : $("#userPass").val()
+					userPass : userPass
+				},
+				success: function(rst){
+					if(rst == 1){
+						alert("비밀번호확인");
+						$('.newPass').css('display','inline');
+					}else{
+						alert("비밀번호 불일치");
+					}
+				},error:function(){
+					alert("에러입니다.");
 				}
-			}).done(function(result){
-				console.log(result);
 			});
+		}
+		
+		function changePass(){
+			if ($("#newPass").val() != $("#newPass_confirm").val()) {
+				alert("비밀번호 불일치");
+				$("#newPass_confirm").focus();
+				return false;
+			}
+			
+			var userPass = $("#newPass").val();
+			
+			$.ajax({
+				url : "/settings/changePass",
+				type : "POST",
+				data : {
+					userPass : userPass
+				},
+				success: function(rst){
+					if(rst == 1){
+						alert("비밀번호변경완료");
+					}else{
+						alert("비밀번호변경실패");
+					}
+				},error:function(){
+					alert("에러입니다.");
+				}
+			});
+			
 		}
 </script>
 

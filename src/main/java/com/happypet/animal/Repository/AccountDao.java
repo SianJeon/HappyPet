@@ -27,4 +27,9 @@ public class AccountDao {
 	public int updateOne(AccountVo vo) {
 		return ss.update("account.updateOne", vo);
 	}
+	
+	public int idCheck(String id) {
+        int cnt = ss.selectOne("account.idCheck", id);
+        return cnt;
+    }
 }

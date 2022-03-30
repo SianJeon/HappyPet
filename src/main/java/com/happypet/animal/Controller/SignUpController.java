@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ public class SignUpController {
 	AccountService as;
 	
 	@Autowired
-	CommonService cs;
+	CommonService cs;                
 	
 	@ModelAttribute
 	public AccountVo defaultModel() {
@@ -52,6 +53,16 @@ public class SignUpController {
 		
 		return "account/signupok";
 	}
+	
+	@PostMapping("signup/chkId")
+	@ResponseBody
+	public int idCheck(@RequestParam("id") String id){
+       
+        int cnt = as.idCheck(id);
+        
+        return cnt;
+    }
+	
 	
 	@ResponseBody
 	@RequestMapping("/find/zipcode")

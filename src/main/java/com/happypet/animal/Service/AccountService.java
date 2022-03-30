@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.happypet.animal.Entity.AccountVo;
 import com.happypet.animal.Repository.AccountDao;
@@ -24,7 +25,7 @@ public class AccountService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-public boolean insertAccount(AccountVo vo) {
+	public boolean insertAccount(AccountVo vo) {
 		
 		String pass = vo.getUserPass();
 		String encodedPass = passwordEncoder.encode(pass);
@@ -33,6 +34,18 @@ public boolean insertAccount(AccountVo vo) {
 		int r = dao.insertAccount(vo);
 		
 		return r == 1 ? true : false; 
+	}
+	
+	public boolean changePass(AccountVo vo) {
+		
+		String pass = vo.getUserPass();
+		String encodedPass = passwordEncoder.encode(pass);
+		vo.setUserPass(encodedPass);
+		
+		int r = dao.updateOne(vo);
+		
+		return r == 1 ? true:false;
+		
 	}
 	
 	public boolean isValidAccount(String id, String pass) {
@@ -74,10 +87,16 @@ public boolean insertAccount(AccountVo vo) {
 		return r == 1 ? true:false;
 	}
 	
-public boolean updateData(AccountVo vo) {
+	public boolean updateData(AccountVo vo) {
 		
 		int r = dao.updateOne(vo);
 		
 		return r==1 ? true: false;
 	}
+	
+	public int idCheck(String id) {
+        int cnt = dao.idCheck(id);
+        return cnt;
+    }
+	
 }
