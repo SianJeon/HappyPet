@@ -99,4 +99,8 @@ public class AccountService {
         return cnt;
     }
 	
+	public void deleteId(String id) {
+		dao.deleteId(id);
+	}
+	
 }

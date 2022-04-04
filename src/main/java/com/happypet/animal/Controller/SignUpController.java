@@ -3,6 +3,7 @@ package com.happypet.animal.Controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
  
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +71,26 @@ public class SignUpController {
 		List<Map> li =cs.findZipcode(data);
 		
 		return li;
+	}
+	
+	@RequestMapping("/settings/deleteView")
+	public String deleteViewHandle() {
+		return "account/delete";
+	}
+	
+	@RequestMapping("/settings/delete")
+	public String deleteAccountHandle(@ModelAttribute AccountVo vo, 
+			HttpSession hs) {
+		
+		as.deleteId(vo.getUserId());
+		
+		Object obj = hs.getAttribute("loginUser");
+		
+		if(obj != null) {
+			hs.removeAttribute("loginUser");
+			hs.invalidate();
+		}
+		
+		return "deleteDone";
 	}
 }

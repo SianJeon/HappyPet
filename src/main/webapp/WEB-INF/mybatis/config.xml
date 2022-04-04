@@ -11,5 +11,6 @@
 	<!-- Vo클래스 별칭지정 -->
 	<typeAliases>
 		<typeAlias type="com.happypet.animal.Entity.AccountVo" alias="account"/>
+		<typeAlias type="com.happypet.animal.Entity.HospitalVo" alias="hospital"/>
 	</typeAliases>
 </configuration> 

@@ -44,7 +44,14 @@ public class AccountController {
 		return "account/settings";
 	}
 	
-	// 프사 변경
+	// 프사 변경화면
+	@RequestMapping("/settings/profiles")
+	public String profilesHandle() {
+		
+		
+		return "account/setting/profile";
+	}
+	
 	@RequestMapping("/settings/profile")
 	public String profileHandle(@ModelAttribute("loginUser") AccountVo vo, @RequestParam MultipartFile attach) {
 		
@@ -52,7 +59,23 @@ public class AccountController {
 		
 		boolean r = as.addProfile(vo);
 		
-		return "redirect:/settings";
+		return "redirect: /settings/profiles";
+	}
+	
+	// 개인정보변경화면
+	@RequestMapping("/settings/privacy")
+	public String privacyHandle() {
+		
+		
+		return "account/setting/privacy";
+	}
+	
+	// 개인정보변경화면
+	@RequestMapping("/settings/password")
+	public String passwordHandle() {
+		
+		
+		return "account/setting/password";
 	}
 	
 	@PostMapping("/settings/modify")
@@ -141,5 +164,4 @@ public class AccountController {
 			return "account/auth";
 		}
 	}
-	
 }

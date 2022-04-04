@@ -44,4 +44,8 @@
 	<select id="idCheck" resultType="int">
         SELECT COUNT(USER_ID) FROM ACCOUNT WHERE USER_ID = #{id}
     </select>
+    
+    <delete id="deleteOne">
+		DELETE FROM ACCOUNT WHERE USER_ID = #{id}
+	</delete>
 </mapper>

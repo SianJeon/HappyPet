@@ -32,4 +32,8 @@ public class AccountDao {
         int cnt = ss.selectOne("account.idCheck", id);
         return cnt;
     }
+	
+	public void deleteId(String id) {
+		ss.update("account.deleteOne", id);
+	}
 }

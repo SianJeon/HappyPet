@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <jsp:include page="/WEB-INF/views/account/include/top.jsp" />
+ <div class="row g-12" style="margin: 0 25%;">
 <h5>이메일 인증 <small>| ${loginUser.email }</small></h5>
 
 <c:choose>
@@ -17,8 +18,9 @@
 		</div>
 	</c:when>
 	<c:otherwise>
-		<button type="button" class="btn btn-secondary mb-2" id="req">인증키 발송</button>
+		<button type="button" class="btn btn-primary w-30 py-8" id="req">인증키 발송</button>
 		<label id="req_result"></label>
+		<br>
 		<form action="/settings/verify" method="post" autocomplete="off">
 			<div class="form-group">
 				<label for="zipcode">인증코드</label> <input type="text"
@@ -30,7 +32,8 @@
 					style="display: none;">
 				</select>
 			</div>
-			<button type="submit" class="btn btn-primary btn-block mt-2"
+			<br>
+			<button type="submit" class="btn btn-primary w-40 py-6"
 				id="bt" >인증</button>
 		</form>
 		<script>
@@ -57,4 +60,5 @@
 		</script>
 	</c:otherwise>
 </c:choose>
+</div>
 <jsp:include page="/WEB-INF/views/account/include/bottom.jsp" />

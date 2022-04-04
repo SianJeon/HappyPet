@@ -1,59 +1,69 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<jsp:include page="/WEB-INF/views/include/top.jsp" />
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<h1>회원가입페이지</h1>
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <h1 class="display-1 text-white animated slideInDown">회원가입</p></h1>
+        </div>
+    </div>
+    
+   <div class="row g-12" style="margin: 0 25%;"> 
 
-<form:form action="/signup" method="post" autocomplete="off"
+	<form:form action="/signup" method="post" autocomplete="off"
 				onsubmit="return valid_form();" modelAttribute="accountVo">
-				<div class="form-group">
+				<div class="col-12 col-sm-6">
 					<label for="id">아이디</label>
 					<form:input type="text" class="form-control" path="userId"
 						placeholder="사용할 아이디" id="id" />
 					<b> <form:errors path="userId" />
 					</b>
-					<input type="button" onclick="chkId()" value="중복확인">
+					<input type="button" onclick="chkId()" class="btn btn-primary w-50 py-" value="중복확인">
 				</div>
-				<div class="form-group">
+				<br>
+				<div class="col-12 col-sm-6">
 					<label for="pwd">비밀번호</label>
 					<form:input type="password" class="form-control"
 						placeholder="사용할 비밀번호" id="pwd" path="userPass" />
 				</div>
-				<div class="form-group">
+				<div class="col-12 col-sm-6">
 					<label for="pwd_confirm">비밀번호 재확인</label> <input type="password"
 						class="form-control" placeholder="비밀번호 재확인" id="pwd_confirm">
 				</div>
-				<div class="form-group">
+				<br>
+				<div class="col-12 col-sm-6">
 					<label for="name">사용자 이름</label>
 					<form:input type="text" class="form-control" placeholder="사용자 이름"
 						id="name" path="userName" />
 					<b> <form:errors path="userName" />
 					</b>
 				</div>
-				<div class="form-group">
+				<br>
+				<div class="col-12 col-sm-6">
 					<label for="zipcode">주소</label>
 					<div class="form-row">
 						<div class="col-3">
 							<form:input type="text" class="form-control" placeholder="우편번호"
 								id="zipcode" path="zipcode" />
 						</div>
-						<div><input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br></div>
+						<div><input type="button" class="btn btn-primary w-50 py-" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br></div>
 						<div class="col-9">
 							<form:input type="text" class="form-control" placeholder="상세주소"
 								path="address" id="address" />
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
+				<br>
+				<div class="col-12 col-sm-6">
 					<label for="email">이메일</label>
 					<form:input type="email" class="form-control" path="email"
 						placeholder="등록할 이메일" id="email" />
 				</div>
-				<button type="submit" class="btn btn-primary btn-block mt-5">가입</button>
+				<br>
+				<button type="submit" class="btn btn-primary w-50 py-">가입</button>
 			</form:form>
-			
+</div>	
 <script>
 	function valid_form() {
 		if ($("#id").val().length >= 4) {
@@ -117,4 +127,6 @@
 	}
 
 </script>
-<jsp:include page="/WEB-INF/views/include/bottom.jsp" />
+
+
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />

@@ -17,10 +17,39 @@ public class TemplateController {
         return "home";
     }
     
-    @RequestMapping("/settingss")
-    public String templateHandle(Model model)
+    @RequestMapping("/appointment")
+    public String appointmentHandle(Model model)
     {
-        return "account/settingss";
+        return "exFile/appointment";
     }
+    
+    @RequestMapping("/project")
+    public String projectHandle(Model model)
+    {
+        return "exFile/project";
+    }
+    
+    @RequestMapping("/404")
+    public String fourZeroHandle(Model model)
+    {
+        return "exFile/404";
+    }
+    
+    @RequestMapping("/about")
+    public String aboutHandle(Model model)
+    {
+        return "exFile/about";
+    }
+    
+    @RequestMapping("/temp")
+    public String tempHandle(Model model)
+    {
+        return "exFile/temp";
+    }
+    
+    
+    
+    
+    
     
 }
