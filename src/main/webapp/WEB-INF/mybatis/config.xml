@@ -9,6 +9,7 @@
 	</settings>
 		<typeAliases>
 			<typeAlias type="com.happypet.animal.Entity.AnimalVo" alias="animalVo"/>
+			<typeAlias type="com.happypet.animal.Entity.FileBoardVo" alias="fileBoardVo"/>
 		
 		</typeAliases>
 	<!-- Vo클래스 별칭지정 -->

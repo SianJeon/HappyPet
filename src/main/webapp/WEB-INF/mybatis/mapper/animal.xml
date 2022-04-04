@@ -6,10 +6,35 @@
   
   	<insert id="add">
   	
-  	
-  	
+  		INSERT INTO ANIMAL_LIST(no,desertionNo,filename,happenDt,happenPlace,kindCd,colorCd,age,weight,noticeNo,noticeSdt,noticeEdt,popfile,processState,sexCd,neuterYn,specialMark,careNm,careTel,careAddr,orgNm,chargeNm,officetel)
+  		VALUES(ANIMAL_SEQ.NEXTVAL,#{desertionNo},#{filename},#{happenDt},#{happenPlace},#{kindCd},#{colorCd},#{age},#{weight},#{noticeNo},#{noticeSdt},#{noticeEdt},#{popfile},#{processState},#{sexCd},#{neuterYn},#{specialMark},#{careNm},#{careTel},#{careAddr},#{orgNm},#{chargeNm},#{officetel})
+  		
   	
   	</insert>
   	
+  	
+  	<select id="detail" resultType="animalVo">
+  	
+  		SELECT popfile,happenDt,happenPlace,kindCd,colorCd,age,weight,noticeSdt,noticeEdt,sexCd,neuterYn,specialMark
+  		FROM ANIMAL_LIST
+  		WHERE desertionNo = #{desertionNo}
+  	
+  	
+  	
+  	</select>
+  
+  	<insert id="insertBoard" parameterType="fileBoardVo">
+		
+		INSERT INTO ADOPT_REVIEW(no,title,content,writedate,writer)
+		VALUES(AR_SEQ.NEXTVAL, #{title},#{content},SYSDATE,#{writer})
+		
+		
+	</insert>
+		
+		<insert id="insertData">
+		INSERT INTO FILEDATA VALUES(FILEDATA_SEQ.NEXTVAL,#{name},#{path},#{type},#{len},#{owner})
+	
+	</insert>
+		
   
 </mapper>
