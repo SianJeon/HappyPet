@@ -44,27 +44,34 @@ input[type=number] {
 
 </style>
 <body>
-    <div class="row">
-    <div class="nav-bar d-flex flex-column col-2 text-center stop-dragging">
+<div class="row">
+    <div class="nav-bar col-2 text-center stop-dragging">
         <div><h1>관리 페이지</h1></div>
-        <div class="nav-div p-2" data-mode="market-admin" style = "background-color : beige">
-            쇼핑몰 관리
-        </div>
+        <div class="nav-div p-2" data-mode="market-admin"
+            onclick = "location.href='admin/market/insert'"
+         style = "background-color : beige">쇼핑몰 관리</div>
         <div class="nav-div p-2" data-mode = "">xxxx 관리</div>
         <div class="nav-div p-2" data-mode = "">zzzz 관리</div>
         <div class="nav-div p-2" data-mode = "">yyyy 관리</div>
     </div>
-
     
     
-        <!-- 마켓 관리페이지 -->
-        <div class="col-10" id="mView">
-            <%-- 초기 홈화면  --%>
-            <jsp:include page="/WEB-INF/views/admin/market/market-insert.jsp" />
-
-        </div>
+    <!-- 마켓 관리페이지 -->
+    <div class="col-10" id="mView">
         
-        <!--  -->
+        <div style = "border : 1px solid black">
+            <div>
+                관리자 로그인
+            </div>
+            <div>
+                id : <input type = "text" >
+            </div>
+            <div>
+                password : <input type="password" name="" id="">
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/admin/include/footer.jsp" />
@@ -72,7 +79,7 @@ input[type=number] {
 <script>
 
     $(".nav-div").on("click", function(e){
-        
+
         $(".nav-div").each(function() {
             if(e.target == this) {
                 $(this).css("background-color", "beige");
@@ -80,9 +87,9 @@ input[type=number] {
                 $(this).css("background-color", "#f8f8f8");
             }
         })
-		$.ajax("/"+$(this).data("mode")).done(function(inner){
-            $("#mView").html();
-			$("#mView").html(inner);
-		});
+		// $.ajax("/"+$(this).data("mode")).done(function(inner){
+        //     $("#mView").html();
+		// 	$("#mView").html(inner);
+		// });
     });
 </script>

@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     MarketService marketService;
     
-    @RequestMapping("admin")
+    @RequestMapping("")
     public String adminHandle()
     {
         return "admin/admin";
@@ -46,8 +46,12 @@ public class AdminController {
     } 
     
     
-    @RequestMapping("/market-admin")
-    public String adminMarketHometHandle() {return "admin/market/market-insert";}
+    @RequestMapping("/market/insert")
+    public String adminMarketHometHandle() 
+    {
+    	System.out.println("Dddd");
+    	return "admin/market/market-insert";
+	}
 
     @RequestMapping("market/modify")
     public String adminMarketModifyHandle(Model model) 
@@ -57,9 +61,11 @@ public class AdminController {
         return "admin/market/market-modify";
     }
     
-    @RequestMapping("/market-modifySubmit")
-    public String adminModifyActionHandle(@ModelAttribute MarketVo vo)
+    @RequestMapping("market/market-modifySubmit")
+    public String adminModifyActionHandle(@ModelAttribute MarketVo vo, Model model)
     {
+    	System.out.println("dddd");
+    	model.addAttribute("vo", marketService.modifyList());
         MarketVo mVo = vo;
 
         System.out.println(mVo.getCategory());
@@ -69,8 +75,5 @@ public class AdminController {
         System.out.println(mVo.getProductPrice());
         return "admin/market/market-modify";
     }
-
-    @RequestMapping("market/insert")
-    public String adminMarketInsertHandle() {return "admin/market/market-insert";}
 
 }
