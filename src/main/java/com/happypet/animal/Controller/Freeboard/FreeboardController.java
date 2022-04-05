@@ -30,6 +30,7 @@ public class FreeboardController {
 		return "freeboard/list";
 	}
 	
+	
 	@RequestMapping(path="/list", method= RequestMethod.GET)
 	public String listGetHandler(Model model) {
 		
@@ -38,6 +39,7 @@ public class FreeboardController {
 		
 		return "freeboard/list";
 	}
+	
 	
 	@RequestMapping(path="/insert", method= RequestMethod.GET)
 	public String insertGetHandler() {

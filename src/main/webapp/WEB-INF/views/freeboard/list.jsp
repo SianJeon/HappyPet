@@ -140,7 +140,7 @@ justify-content: center;
 				</div>
 				<div class="prev_next">
 					<c:if test="${paging.startPage != 1 }">
-					<a href="/feeboard/list?nowPage=${paging.startPage -1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+					<a href="/feeboard/boardPaging?nowPage=${paging.startPage -1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 					</c:if>
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 					<c:choose>
@@ -148,12 +148,12 @@ justify-content: center;
 							<b>${p }</b>
 						</c:when>
 						<c:when test="${p != paging.nowPage }">
-							<a href="/freeboard/list?nowPage=${ p}&cntPerPage=${paging.cntPerPage}">${p }</a>
+							<a href="/freeboard/boardPaging?nowPage=${ p}&cntPerPage=${paging.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 					<c:if test="${paging.endPage != paging.lastPage}">
 				<a
-					href="/freeboard/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging}">&gt;</a>
+					href="/freeboard/boardPaging?nowPage=${paging.endPage+1 }&cntPerPage=${paging}">&gt;</a>
 			</c:if>
 				</c:forEach>
 				</div>
