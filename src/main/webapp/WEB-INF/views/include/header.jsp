@@ -50,6 +50,26 @@
         <%-- <img class="position-absolute top-50 start-50 translate-middle" src="img/icons/icon-1.png" alt="Icon"> --%>
     </div>
     <!-- Spinner End -->
+    
+     <c:choose>
+				<c:when test="${!empty sessionScope.loginUser }">
+    <div class="container-fluid bg-dark p-0 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-3">
+                    <a class="text-body px-2" href=""><i class="fa fa-user-alt text-primary me-2"></i>${loginUser.userName } 님</a>
+                    <a class="text-body px-2" href=""><i class="fa fa-envelope-open text-primary me-2"></i>${loginUser.email }</a>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-2">
+                    <a class="text-body px-2" href="/mypage">myPage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </c:when>
+	</c:choose>
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
@@ -75,7 +95,14 @@
                 <a href="" class="nav-item nav-link">주변병원</a>
                 <a href="/market" class="nav-item nav-link">마켓</a>
             </div>
-            <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">로그인</a>
+            <c:choose>
+				<c:when test="${empty sessionScope.loginUser }">
+           			 <a href="/login" class="btn btn-primary py-2 px-4 d-none d-lg-block">로그인</a>
+           		</c:when>
+				<c:otherwise>
+					 <a href="/logout" class="btn btn-primary py-2 px-4 d-none d-lg-block">로그아웃</a>
+				</c:otherwise>
+			</c:choose>
         </div>
     </nav>
     <!-- Navbar End -->
