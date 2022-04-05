@@ -7,11 +7,20 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
-
 	<!-- Vo클래스 별칭지정 -->
 	<typeAliases>
-		<typeAlias type="com.happypet.animal.Entity.MarketEntity.MarketVo" alias="marketVo"/>
-		<typeAlias type="com.happypet.animal.Entity.MarketEntity.MarketFileVo" alias="marketFileVo"/>
-		<typeAlias type="com.happypet.animal.Entity.MarketEntity.ConbineMarket" alias="ConbineMarketVo"/>
+		<typeAlias type="com.happypet.animal.Entity.AnimalVo"
+			alias="animalVo" />
+		<typeAlias type="com.happypet.animal.Entity.FileBoardVo"
+			alias="fileBoardVo" />
+		<typeAlias
+			type="com.happypet.animal.Entity.MarketEntity.MarketVo"
+			alias="marketVo" />
+		<typeAlias
+			type="com.happypet.animal.Entity.MarketEntity.MarketFileVo"
+			alias="marketFileVo" />
+		<typeAlias
+			type="com.happypet.animal.Entity.MarketEntity.ConbineMarket"
+			alias="ConbineMarketVo" />
 	</typeAliases>
 </configuration> 

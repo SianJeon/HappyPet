@@ -67,8 +67,8 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">입양</a>
                     <div class="dropdown-menu border-0 m-0">
                         <a href="" class="dropdown-item"></a>
-                        <a href="" class="dropdown-item">알아서</a>
-                        <a href="" class="dropdown-item">넣으세요</a>
+                        <a href="/animal" class="dropdown-item">입양가능반련동물</a>
+                        <a href="/adopt" class="dropdown-item">입양후기</a>
                     </div>
                 </div>    
                 <a href="" class="nav-item nav-link">자유게시판</a>
