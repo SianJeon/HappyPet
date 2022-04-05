@@ -49,6 +49,11 @@
   background-color: white;
   border-top: 3px solid crimson;
 }
+.lb-img {
+  position: absolute;
+  clip: rect(0, 200px, 200px, 0);
+}
+
 </style>
 
 <div style="border-bottom: 2px solid crimson;"></div>
