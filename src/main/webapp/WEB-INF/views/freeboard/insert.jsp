@@ -44,6 +44,7 @@ a:link {
 				<div style="margin-top: 10px;">
 					<input type="text" name="writer" placeholder="작성자"
 						style="width: 40%" required />
+					<input type="text" name="pw" placeholder="비밀번호" required/>
 				</div>
 				<div style="margin-top: 10px;">
 					<input type="text" name="title" class="form-control"
