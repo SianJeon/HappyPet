@@ -10,4 +10,10 @@
 	<select id="findDataByNo" resultType="hospital">
 		SELECT * FROM HOSPITAL_LIST WHERE NO = #{no}
 	</select>
+	
+	<insert id="insertReview">
+		INSERT INTO	HOSPITAL_REVIEW 
+		VALUES
+			(HR_SEQ.NEXTVAL,)
+	</insert>
 </mapper>

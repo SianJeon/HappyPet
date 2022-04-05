@@ -3,7 +3,32 @@ package com.happypet.animal.Entity;
 public class HospitalVo {
 	
 	int no;
-	String bsn_nm,road_nm_addr,rep_person,tel_no,lat,lot;
+	String bsn_nm,road_nm_addr,rep_person,tel_no,lat,lot, repPerson, bsnNm, roadNmAddr,telNo;
+	
+	public String getBsnNm() {
+		return bsnNm;
+	}
+	public String getTelNo() {
+		return telNo;
+	}
+	public void setTelNo(String telNo) {
+		this.telNo = telNo;
+	}
+	public void setBsnNm(String bsnNm) {
+		this.bsnNm = bsnNm;
+	}
+	public String getRoadNmAddr() {
+		return roadNmAddr;
+	}
+	public void setRoadNmAddr(String roadNmAddr) {
+		this.roadNmAddr = roadNmAddr;
+	}
+	public String getRepPerson() {
+		return repPerson;
+	}
+	public void setRepPerson(String repPerson) {
+		this.repPerson = repPerson;
+	}
 	
 	public int getNo() {
 		return no;

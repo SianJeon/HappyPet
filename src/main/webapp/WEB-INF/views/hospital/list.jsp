@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-﻿
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -35,7 +34,7 @@
 		</ul>
 	</nav>
 </div>
-	﻿<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
 	
 		$(function(){
@@ -66,7 +65,6 @@
 		
 		function makePage(totalList, curPage, pageList, blockPage){
 	
-			console.log(totalList, curPage, pageList, blockPage)
 			var totalPage = Math.floor(totalList/pageList);
 			var totalBlock = Math.ceil(totalList/blockPage);
 			var curBlock = Math.ceil(curPage/blockPage);

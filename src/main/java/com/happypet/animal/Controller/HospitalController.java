@@ -38,7 +38,9 @@ public class HospitalController {
 	@RequestMapping("hospital/detail")
 	public String hospitalDetailHandle(@RequestParam("no") int no, Model model) {
 		
-		model.addAttribute("data", hs.findDataByNo(no));
+		HospitalVo vo = hs.findDataByNo(no);
+		
+		model.addAttribute("data", vo);
 		
 		return "hospital/detail";
 	}

@@ -47,6 +47,19 @@ public class TemplateController {
         return "exFile/temp";
     }
     
+    @RequestMapping("/feature")
+    public String featureHandle(Model model)
+    {
+        return "exFile/feature";
+    }
+    
+    @RequestMapping("/contact")
+    public String contactHandle(Model model)
+    {
+        return "exFile/contact";
+    }
+    
+    
     
     
     
