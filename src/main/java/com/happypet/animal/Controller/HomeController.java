@@ -8,14 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class TemplateController {
-
-
-	@Autowired
-    TemplateDAO dao;
+public class HomeController {
 
     @RequestMapping("/")
-    public String testHandle(Model model)
+    public String homeHandle(Model model)
     {
         return "index";
         // return "template";

@@ -2822,6 +2822,7 @@
 		slideBy: 1,
 		dotClass: 'owl-dot',
 		dotsClass: 'owl-dots',
+		modifyClass : 'modi',
 		dots: true,
 		dotsEach: false,
 		dotsData: false,
