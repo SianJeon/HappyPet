@@ -139,7 +139,7 @@ justify-content: center;
 					<a href="insert" class="btn_a" title="자유게시판 게시글 작성하기">글쓰기</a>
 				</div>
 				<div class="prev_next">
-					<c:if test="${paging.startPage != 1 }">
+					<c:if test="{paging.startPage != 1 }">
 					<a href="/feeboard/list?nowPage=${paging.startPage -1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 					</c:if>
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
@@ -156,7 +156,7 @@ justify-content: center;
 					href="/freeboard/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging}">&gt;</a>
 			</c:if>
 				</c:forEach>
-				</div>
+			</div>
 	</div>			
 
 <jsp:include page="/WEB-INF/views/freeboard/include/footer.jsp"/>

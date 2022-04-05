@@ -1,12 +1,14 @@
-package com.happypet.animal.Service;
+package com.happypet.animal.Service.Freeboard;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.happypet.animal.Entity.FreeboardVo;
-import com.happypet.animal.Repository.FreeboardDAO;
+import com.happypet.animal.Entity.Freeboard.FreeboardVo;
+import com.happypet.animal.Repository.Freeboard.FreeboardDAO;
 
 @Service
 public class FreeboardService {
@@ -28,9 +30,13 @@ public class FreeboardService {
 		return list;
 	}
 
-	public FreeboardVo getOneByNo(int no) {
+	public FreeboardVo getOneByNo(int no){
+		
 		FreeboardVo vo = freeboardDao.selectOne(no);
 		
+		freeboardDao.updateHit(no);
 		return vo;
 	}
+	
+			
 }

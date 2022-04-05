@@ -1,4 +1,4 @@
-package com.happypet.animal.Entity;
+package com.happypet.animal.Entity.Freeboard;
 
 import java.util.Date;
 
@@ -10,7 +10,21 @@ public class FreeboardVo {
 	String content;
 	String writer;
 	Date writedate;
+	String fbKey;
+	int hit;
 	
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+	public String getFbKey() {
+		return fbKey;
+	}
+	public void setFbKey(String fbKey) {
+		this.fbKey = fbKey;
+	}
 	public int getNo() {
 		return no;
 	}

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<jsp:include page="/WEB-INF/views/freeboard/include/header.jsp"/>
 <title>insert 페이지</title>
 <style>
 input, textarea, button {
@@ -24,14 +21,20 @@ a:link {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.btn_add{
+	background-color:#B78D65;
+	color:#FFFFFF;
+	padding: 5px;
+}
+.h3{ margin-top:10px; margin-bottom:10px;}
 </style>
 <meta charset="UTF-8">
-<body>
 	<div class="container">
 		<div style="border-bottom: 1px solid; margin-bottom: 30px;">
-			<h2>
-				자유게시판 <small>| 글쓰기</small>
-			</h2>
+			<div class="h3">
+			<a href="/freeboard/list">자유게시판</a>
+			</div>
 			<p style="margin-left: 20px;">
 				<a href="/freeboard/list">글목록</a>
 			</p>
@@ -40,27 +43,20 @@ a:link {
 			<form method="post">
 				<div style="margin-top: 10px;">
 					<input type="text" name="writer" placeholder="작성자"
-						style="width: 40%" />
-						<label for="searchType"  class="hidden">카테고리 선택:</label>
-						<select id="searchType" name="category" title="검색유형 선택">
-							<option value="b-1">자유게시판</option>
-							<option value="b_2">자유게시판2</option>
-							<option value="b_3">자유게시판3</option>
-						</select>
+						style="width: 40%" required />
 				</div>
 				<div style="margin-top: 10px;">
 					<input type="text" name="title" class="form-control"
-						placeholder="글제목" style="width: 82%" />
+						placeholder="글제목" style="width: 82%" required/>
 				</div>
 				<div style="margin-top: 10px;">
 					<textarea rows="10" name="content" placeholder="글내용"
-						style="width: 82%;"></textarea>
+						style="width: 82%;" required></textarea>
 				</div>
 				<div style="margin-top: 10px;">
-					<button type="submit">등록</button>
+					<button class="btn_add" type="submit">등록</button>
 				</div>
 			</form>
 		</div>
 	</div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/freeboard/include/footer.jsp"/>
