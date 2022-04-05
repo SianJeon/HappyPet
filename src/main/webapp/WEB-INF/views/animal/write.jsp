@@ -8,27 +8,81 @@ textarea {
 	width: 100%;
 	height: 500px;
 	padding: 10px 0px 10px 10px;
-	border: none;	
+	border: 1px solid #00f2ee;
 	border-radius: 5px;
 	font-size: 16px;
 	resize: none;
-	
 }
-#content{
-	resize:none;
 
+#content {
+	resize: none;
 }
 
 #post_subject {
 	font-size: 20px;
 	border: none;
-	border-bottom: 1px solid;
-	border-radius: 0;
+	border-bottom: 1px solid #00f2ee;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 0;	color: skyblue;
 	padding: 8px 80px 30px 0;
 	line-height: 1.2;
 }
 
+#test_btn2 {
+	
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
 
+#btn_group button {
+	border: 1px solid skyblue;
+	background-color: rgba(0, 0, 0, 0);
+	color: skyblue;
+	padding: 5px;
+}
+
+#btn_group button:hover {
+	color: white;
+	background-color: skyblue;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #fff;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: skyblue;
+	cursor: pointer;
+	border: 1px solid #4cae4c;
+	border-radius: .25em;
+	-webkit-transition: background-color 0.2s;
+	transition: background-color 0.2s;
+}
+
+.filebox {
+	text-align: center;
+}
+.filebox label:hover {
+	color:white;
+	background-color: skyblue;
+}
+
+.filebox label:active {
+	background-color: skyblue;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
 </style>
 
 <link
@@ -52,11 +106,13 @@ textarea {
 
 					<input id="post_subject" class="no-margin" type="text"
 						name="writer" placeholder="작성자"> <input id="post_subject"
-						name="title" class="no-margin" type="text" value placeholder="제목">
+						name="title" class="no-margin" type="text" placeholder="제목">
 
 				</div>
 				<div class="col-sm-12 col-xs-12" style="padding: 30px;">
-				
+
+					
+
 					<textarea name="content" id="content">
 
 ★ 아이 이름 : 
@@ -80,19 +136,22 @@ textarea {
 				</div>
 			</div>
 		</div>
-		<div style="text-align:center;">
-			<input type="file" name="attach" />
-			<input type="file" name="attach" />
-			<input type="file" name="attach" />
-		<button  type="submit" class="btn btn-secondary">등록</button>
+
+
+		<div class="filebox" id="btn_group">
+			<label for="ex_file">업로드</label> 
+			<input type="file" id="ex_file">
+			<input type="file" id="ex_file">
+			<input type="file" id="ex_file">
+			<button type="submit" id="test_btn2">등록</button>
 		</div>
 
-	
+
 	</form>
 
-	
 
-	
+
+
 
 
 
