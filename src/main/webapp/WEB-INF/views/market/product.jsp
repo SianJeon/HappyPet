@@ -229,14 +229,8 @@
     $(window).scroll(function(event){ 
         scrollHeight = $(document).scrollTop();
         
-        if(scrollHeight < 660)
-        {
-            $("#footer-buy").css("position", "relative");
-        }
-        else
-        {
-            $("#footer-buy").css("position", "sticky");
-        }
+        if(scrollHeight < 660) $("#footer-buy").css("position", "relative");
+        else $("#footer-buy").css("position", "sticky");
     });
 
 
