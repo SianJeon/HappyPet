@@ -1,3 +1,4 @@
+
 package com.happypet.animal.Entity;
 
 public class TemplateVo {

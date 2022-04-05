@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="market">
+    <insert id="insert-Market">
+        insert into market
+        values(seq_market_no.nextval, #{category}, #{company}, 
+              #{productName}, #{productPrice}, #{productStock}, #{detailImgPath}, #{discount})
+    </insert>
+    <insert id="insert-MarketFile">
+        insert into marketFile
+        values(seq_marketFile_no.nextval, seq_market_no.currval, #{mainPath})
+    </insert>
+    
+    <select id="select-MarketHomeList" resultType="ConbineMarketVo">
+        select mf.main_path, m.*
+        from market m left outer join marketFile mf on (m.no = mf.product_no)
+        where main_path like '%' || '_01'
+    </select>
+
+    <select id="select-marketDetail" parameterType="int" resultType="ConbineMarketVo">
+        select *
+        from market
+        where no = #{no}
+    </select>
+
+    <select id="select-marketFileDetailList" parameterType="int" resultType="String">
+        select main_path
+        from marketFile
+        where product_no = #{no}
+    </select>
+
+    <select id="select-marketModifyList" resultType="marketVo">
+        select * from market
+    </select>
+
+    <update id="update-marketList" >
+        update market
+        <set>
+            <if test="">
+                product_name = #{productName},
+            </if>
+            <if test="">
+                product_price = #{productPrice},
+            </if>
+            <if test="">
+                product_stock = #{productStock},
+            </if>
+            <if test="">
+                category = #{category},
+            </if>
+            <if test="">
+                company = #{company},
+            </if>
+            <if test="">
+                discount = #{discount},
+            </if>
+        </set>
+        <where>
+            no = #{no}
+        </where>
+    </update>
+</mapper>   

@@ -1,12 +1,13 @@
- <!-- Footer Start -->
+<%@ page contentType="text/html; charset=UTF-8"%>
+    <!-- Footer Start -->
     <div class="container-fluid bg-dark text-body footer mt-5 pt-5 px-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <h3 class="text-light mb-4">Address</h3>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>info@example.com</p>
+                    <h3 class="text-light mb-4">주소</h3>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>광주 광역시 북구 중흥 1동 경양로 170</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>1588-9868</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>manager@google.com</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-square btn-outline-body me-1" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-square btn-outline-body me-1" href=""><i class="fab fa-facebook-f"></i></a>
