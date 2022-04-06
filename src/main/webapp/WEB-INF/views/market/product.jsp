@@ -14,6 +14,17 @@
     width: 30%;
     color: crimson;  
 }
+.btn-detail 
+{
+    padding-top: 8px;
+    text-align: center;
+    height: 40px;
+    border-radius: 6px;
+    border : 1px solid salmon;  
+    outline: 0; background-color: white;
+    width: 30%;
+    color: crimson;  
+}
 .btn-footerBuy {background-color: crimson; color: white;}
 .btn-count
 { 
@@ -49,9 +60,11 @@
   background-color: white;
   border-top: 3px solid crimson;
 }
-.lb-img {
-  position: absolute;
-  clip: rect(0, 200px, 200px, 0);
+.QnABoard
+{
+    width: 93%;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 </style>
@@ -160,11 +173,146 @@
     </div>
     <div style = "margin : 10px; border-bottom : 1px solid rgb(195, 185, 185)"></div>
     
-    <div class = "d-flex justify-content-center">
-        <img src="${vo.detailImgPath}" alt="" style="width : 500px">
+    <!-- <canvas id = "canvas"></canvas> -->
+    <div class = "d-flex justify-content-center detailImg">
+        <!-- <div style="height: 600px;"> -->
+        <img src="${vo.detailImgPath}" alt="" class = "" style="width : 500px; overflow: hidden;">
+        </div>
+    </div>
+    <!-- <div class="d-flex justify-content-center stop-dragging">
+        <div class = "btn-detail">상품 상세 더보기</div>                                                                                                                                                                        
+    </div> -->
+    
+    <%-- Q & A --%>
+    <div class = "QnABoard container-fluid mr-5 ml-5">
+        <div class = "d-flex justify-content-between">
+            <div><h3>질문 / 답변</h3></div>
+            <div><Button>더 보기</Button></div>
+        </div>
+        <%-- market QnA  --%>
+        <%-- <c:if test="${marketQnA ne null}" > --%>
+            <div class="" style = "border: 1px solid #d1d1d1; border-top: 3px solid black;">
+                <ul style="padding-top: 20px; padding-bottom: 20px;">
+                    <li>질문</li>
+                    <li>이거 개봉후 언제까지 먹어요?</li>
+                    <li>답변</li>
+                    <li>보관 상태에 따라 다르며, 정해져 있는 기간은 없습니다, 개봉 후에는 가급적 빠른 시일 내에 급여해주시고, 밀봉....</li>
+                </ul>
+            </div>
+        <%-- </c:if> --%>
     </div>
 
+    <%-- 구매후기 --%>
+    <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
+       <div class = "d-flex justify-content-between">
+            <div><h3>구매 후기</h3></div>
+            <div><Button>더 보기</Button></div>
+        </div>
+        
+        <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
+            <div class = "row">
+                
+            </div>
+            <div class = "">
+                
+            </div>
+        </div>
+    </div>
+    \
+    <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
+       <div class = "d-flex justify-content-between">
+            <div><h3>구매 후기</h3></div>
+            <div><Button>더 보기</Button></div>
+        </div>
+        
+        <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
+            <div class = "row m-3">
+                <div class = "col-10">
+                    <div>
+                        <span><img src="/img/logo.png" alt=""></span>
+                        <span>2022.04.01</span>
+                        <span>사람이름</span>
+                    </div>
+                    <div>
+                        text-Comment
+                    </div>
+                </div>
+                <div class = "col-2">
+                    <div style = "cursor: pointer;">
+                        <i class="fa-thin fa-thumbs-up">좋아용</i>
+                    </div>
+                </div>
+            </div>
+            <div class = "">
+                ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+            </div>
+        </div>
+    </div>
 
+    <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
+       <div class = "d-flex justify-content-between">
+            <div><h3>취소/교환/반품 안내</h3></div>
+            <div><Button>더 보기</Button></div>
+        </div>
+        
+        <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
+            <div class="customer-buyNotice container">
+                <strong>취소</strong>
+                <ul>
+                    <li> 입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
+                </ul>
+                <div class="toast" data-autohide = "false" style="display: none;">
+                    <div class = "toast-header">
+                        <strong class="text-center">취소 / 교환 / 반품 안내</strong>
+                        <button type="button" class="ml-2 mb-1 closed" data-dismiss="toast">&times;</button>
+                    </div>
+                    <div class="toast-body">
+                        <div class="cancelInfo">
+                            <strong>취소</strong>
+                            <ul>
+                                <li> 입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
+                                <li>전체 주문 중 일부 상품의 부분취소는 불가능합니다.</li>
+                            </ul>
+                        </div>
+                        <div class="swapInfo">
+                            <strong>교환/반품</strong>
+                            <ul>
+                                <li>교환 및 반품은 배송완료일 기준으로 7일 이내 가능합니다.</li>
+                                <li>교환하려는 상품은 처음 배송한 택배사에서 수거하므로 다른 택배사 이용은 불가능합니다.</li>
+                                <li>업체배송 상품은 제공 업체와 상품에 따라 배송비가 다르고, 
+                                    상품의 도착지가 처음 발송한 주소와 다를 수 있으므로 고객센터(1588-2469)로 
+                                    먼저 연락주시기 바랍니다.</li>
+                            </ul>
+                        </div>
+                        <div class="swapImpossibleInfo">
+                            <strong>교환/반품이 불가능한 경우</strong>
+                            <ul>
+                                <li>반품 요청기간이 지난 경우</li>
+                                <li>주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
+                                <li>주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
+                                <li>상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 현저히 감소한 경우</li>
+                                <li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품의 가치가 현저히 감소한 경우</li>
+                                <li>구성품을 분실하였거나 고객님의 취급 부주의로 인한 파손/고장/오염으로 재판매 불가한 경우</li>
+                            </ul>
+                        </div>
+                        <div class="swapDeliveryInfo">
+                            <strong>교환/반품 배송비</strong>
+                            <ul>
+                                <li>단순변심으로 인한 교환/반품은 고객님께서 배송비를 부담하셔야 합니다.</li>
+                                <li>상품의 불량 또는 파손, 오배송의 경우에는 배송비를 강아지대통령에서 부담합니다.</li>
+                                <li>업체배송 상품은 제공업체에 따라 교환/반품 배송비가 다를 수 있으므로 고객센터로 문의하시기 바랍니다.</li>
+                                <li>제주, 산간지역은 추가 배송비가 발생할 수 있습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+
+<%-- sticky --%>
 <div id = "footer-buy" class="row d-flex justify-content-center text-center 
                     wow" data-wow-delay="0.1s">
     <div class="col-4">
@@ -190,6 +338,7 @@
 
 
 <input type="hidden" name="price" value = "${vo.productPrice - vo.discount}">
+<input type="hidden" name="detailImg" value = "${vo.detailImgPath}">
 <script>
     
     var oldVal;
@@ -238,7 +387,18 @@
         else $("#footer-buy").css("position", "sticky");
     });
 
-
+    $(function () {
+        $(".customer-buyNotice").click(function (e) { 
+            $(".toast").css("display", "inline-block");
+            $(".toast").toast("show");            
+        });
+    });
+    $(".closed").click(function (e) { 
+        console.log('e :>> ', e);
+        $(".toast").css("display", "none");
+        $(".toast").toast("hide");            
+        
+    });
 </script>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

@@ -35,6 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 <style>
+* {list-style: none;}
 .stop-dragging
 {
     -ms-user-select: none; 
@@ -42,7 +43,9 @@
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-}</style>
+}
+
+</style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -71,11 +74,11 @@
                         <a href="/adopt" class="dropdown-item">입양후기</a>
                     </div>
                 </div>    
-                <a href="" class="nav-item nav-link">자유게시판</a>
-                <a href="" class="nav-item nav-link">주변병원</a>
+                <a href="/freeboardlist" class="nav-item nav-link">자유게시판</a>
+                <a href="/hospital" class="nav-item nav-link">주변병원</a>
                 <a href="/market" class="nav-item nav-link">마켓</a>
             </div>
-            <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">로그인</a>
+            <a href="/login" class="btn btn-primary py-2 px-4 d-none d-lg-block">로그인</a>
         </div>
     </nav>
     <!-- Navbar End -->

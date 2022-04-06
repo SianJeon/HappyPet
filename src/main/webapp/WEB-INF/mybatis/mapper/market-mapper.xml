@@ -35,26 +35,8 @@
 
     <update id="update-marketList" >
         update market
-        <set>
-            <if test="">
-                product_name = #{productName},
-            </if>
-            <if test="">
-                product_price = #{productPrice},
-            </if>
-            <if test="">
-                product_stock = #{productStock},
-            </if>
-            <if test="">
-                category = #{category},
-            </if>
-            <if test="">
-                company = #{company},
-            </if>
-            <if test="">
-                discount = #{discount},
-            </if>
-        </set>
+        set
+        
         <where>
             no = #{no}
         </where>
