@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+	<insert id="insertOne">
+		INSERT INTO	ACCOUNT
+			(USER_ID, USER_PASS, USER_NAME, EMAIL, ZIPCODE, ADDRESS)
+		VALUES
+			(#{userId}, #{userPass}, #{userName}, #{email}, #{zipcode}, #{address})
+	</insert>
+	
+	<select id="selectOneById" resultType="account">
+		SELECT * FROM ACCOUNT WHERE USER_ID=#{id}
+	</select>
+	
+	<select id="selectPassById" resultType="string">
+		SELECT USER_PASS FROM ACCOUNT WHERE USER_ID=#{id}
+	</select>
+	
+	<update id="updateOne">
+		UPDATE ACCOUNT 
+		<set>
+			<if test="userPass != null">
+				USER_PASS = #{userPass},
+			</if>
+			<if test="zipcode != null">
+				ZIPCODE = #{zipcode},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email},
+			</if>
+			<if test="profile != null">
+				PROFILE = #{profile},
+			</if>
+			<if test="auth != null">
+				AUTH = #{auth},
+			</if>
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<select id="idCheck" resultType="int">
+        SELECT COUNT(USER_ID) FROM ACCOUNT WHERE USER_ID = #{id}
+    </select>
+    
+    <delete id="deleteOne">
+		DELETE FROM ACCOUNT WHERE USER_ID = #{id}
+	</delete>
+</mapper>

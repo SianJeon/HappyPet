@@ -22,5 +22,11 @@
 		<typeAlias
 			type="com.happypet.animal.Entity.MarketEntity.ConbineMarket"
 			alias="ConbineMarketVo" />
+		<typeAlias type="com.happypet.animal.Entity.AccountVo"
+			alias="account" />
+		<typeAlias type="com.happypet.animal.Entity.HospitalVo"
+			alias="hospital" />
+		<typeAlias
+			type="com.happypet.animal.Entity.HospitalReviewVo" alias="hr" />
 	</typeAliases>
 </configuration> 
