@@ -12,6 +12,15 @@ public class FreeboardVo {
 	Date writedate;
 	String fbKey;
 	int hit;
+	String pw;
+	
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	
 	
 	public int getHit() {
 		return hit;
@@ -60,6 +69,13 @@ public class FreeboardVo {
 	}
 	public void setWritedate(Date writedate) {
 		this.writedate = writedate;
+	}
+	
+	@Override
+	public String toString() {
+		return "FreeboardVo [no=" + no + ", category=" + category + ", title=" + title + ", content=" + content
+				+ ", writer=" + writer + ", writedate=" + writedate + ", fbKey=" + fbKey + ", hit=" + hit + ", pw=" + pw
+				+ "]";
 	}
 	
 	

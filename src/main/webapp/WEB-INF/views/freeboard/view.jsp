@@ -13,7 +13,10 @@ a:link {
 	color: #000000;
 }
 
-button {
+.btn_wrap{
+	margin-top: 10px;
+}
+#btn_mot,#btn_del,#btn_lis{
 	padding: 5px;
 	background-color:#B78D65;
 	color:#FFFFFF;
@@ -60,12 +63,10 @@ button {
 			
 			<p style="min-height: 300px; white-space: break-spaces"><c:out value="${one.content}" /></p>
 			</div>
-		<div style="margin-top: 10px;">
-		<form action="/freeboard/list">
-				<button type="button">수정</button>
-				<button type="button">삭제</button>
-				<button type="submit">목록</button>
-			</form>
+		<div class="btn_wrap">
+			<a class="btn" id="btn_mot" href="/freeboard/detail/modify">수정</a>
+			<a class="btn" id="btn_del" href="/freeboard/detail/delete">삭제</a>
+			<a class="btn" id="btn_lis" href="/freeboard/list">목록</a>
 		</div>
 	</div>
 <jsp:include page="/WEB-INF/views/freeboard/include/footer.jsp"/>

@@ -5,10 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.happypet.animal.Entity.Freeboard.FreeboardVo;
 import com.happypet.animal.Entity.Freeboard.PagingVo;
@@ -49,6 +51,7 @@ public class FreeboardController {
 	
 	@RequestMapping(path="/insert", method= RequestMethod.POST)
 	public String insertPostHandler(@ModelAttribute FreeboardVo vo,Model model) {
+		System.out.println(vo);
 		boolean rst = freeboardService.addNewOne(vo);
 		if(!rst) {
 		return "freeboard/insert";
@@ -95,5 +98,43 @@ public class FreeboardController {
 		model.addAttribute("viewAll", pagingService.selectBoard(vo));
 		System.out.println(vo);
 		return "freeboard/boardPaging";
+	}
+	
+	
+	@RequestMapping("/detail/delete")
+	public String delPageHandle(@RequestParam int no, Model model) {
+		
+		FreeboardVo vo = freeboardService.getOneByNo(no);
+		
+		model.addAttribute("user", vo);
+		
+		return "freeboard/detail/delete";
+	}
+	
+	
+	@RequestMapping("/detail/modify")
+	public String modPageHandle() {
+		
+		return "freeboard/detail/modify";
+	}
+	
+	@PostMapping("/detail/delete")
+	public String delPostHandle(String pw, RedirectAttributes rttr) {
+
+		freeboardService.delete(pw);
+		
+		rttr.addFlashAttribute("result","delete success");
+		
+		return "redirect/freeboard/view";
+	}
+	
+	@PostMapping("/detail/modify")
+	public String modPostHandle(String pw, RedirectAttributes rttr) {
+
+		freeboardService.delete(pw);
+		
+		rttr.addFlashAttribute("result","delete success");
+		
+		return "redirect/freeboard/view";
 	}
 }

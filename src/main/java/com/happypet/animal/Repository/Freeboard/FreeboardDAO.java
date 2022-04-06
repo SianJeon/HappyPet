@@ -45,4 +45,9 @@ public class FreeboardDAO {
 	public int countBoard() {
 		return sqlSession.selectOne("freeboard.countBoard");
 	}
+	
+	//게시글 삭제
+	public int deleteBoard(String pw) {
+		return sqlSession.insert("freeboard.deleteBoard", pw);
+	}
 }

@@ -6,8 +6,8 @@
 		<selectKey order="BEFORE" resultType="int" keyProperty="no">
 			SELECT EMP_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO FREEBOARD	(NO,WRITER,CATEGORY,TITLE,CONTENT,WRITEDATE,FB_KEY)
-		VALUES (#{no},#{writer},#{category},#{title},#{content},SYSDATE, 'f-'||#{no} )
+		INSERT INTO FREEBOARD	(NO,WRITER,PW,TITLE,CONTENT,WRITEDATE,FB_KEY)
+		VALUES (#{no},#{writer},#{pw},#{title},#{content},SYSDATE, 'f-'||#{no})
 	</insert>
 
 	<select id="selectAll" resultType="freeboard">
@@ -22,9 +22,6 @@
 	<update id="boardHit" parameterType="int">
 		UPDATE FREEBOARD SET HIT = HIT+1 WHERE NO = #{NO}
 	</update>
-	<delete id="deleteWt">
-		DELECT FREEBOARD WHERE
-	</delete>
 	
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" resultType="int">
@@ -39,4 +36,12 @@
 		)
 		WHERE RN BETEEN #{start} AND #{end}
 	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard">
+		DELETE FROM FREEBOARD WHERE PW = #{pw} AND NO = #{no}
+	</delete>
+	
+	
+	
 </mapper>

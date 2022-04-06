@@ -1,9 +1,6 @@
 package com.happypet.animal.Service.Freeboard;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +35,9 @@ public class FreeboardService {
 		return vo;
 	}
 	
+	public int delete(String pw) {
+		
+		return freeboardDao.deleteBoard(pw);
+	}
 			
 }
