@@ -1,6 +1,5 @@
 package com.happypet.animal.Entity;
 
-import java.util.Date;
 
 public class FileBoardVo {
 

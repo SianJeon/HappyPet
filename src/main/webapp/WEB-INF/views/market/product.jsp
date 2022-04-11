@@ -2,7 +2,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
-
+  
 <style>
 .plus, .minus{width: 38px;}
 .btn-footerCart, .btn-footerBuy
@@ -12,7 +12,7 @@
     border : 1px solid salmon;  
     outline: 0; background-color: white;
     width: 30%;
-    color: crimson;  
+    color: crimson;
 }
 .btn-detail 
 {
@@ -70,8 +70,9 @@
 </style>
 
 <div style="border-bottom: 2px solid crimson;"></div>
-
+<form action = "/market/order" method = "">
 <div class = "container-fluid row">
+<input type="hidden" name="no" value="${vo.no}">
         <div class = "col-6">
             <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="1s">
                 <div class="owl-carousel header-carousel position-relative">
@@ -132,29 +133,35 @@
                             <div>총 상품금액</div>
                         </div>
                         <div class="pt-2">
-                            <button class="btn-count minus">-</button>
-                            <input id = "buy-count" class="text-center btn-count" type="text" 
-                                    value="1" style="width: 85px; ">
-                            <button class="btn-count plus">+</button>
+                            <button type ="button" class="btn-count minus">-</button>
+                            <input class="text-center btn-count buy-count" type="text" 
+                                    value="1" name = "buyAmount" style="width: 85px; ">
+                            <button type ="button" class="btn-count plus">+</button>
                             <span class="purchase-Price" style="float:right; font-size : 22px;">
                                <fmt:formatNumber value="${vo.productPrice - vo.discount}" pattern="#,###" />
                                 </span>
                         </div>
                     </div>
-
+                    <%-- 카트 --%>
+                    <input type = "hidden" value = "${loginUser.userId}" name = "accountId">
+                    <input type = "hidden" value = "${vo.no}" name = "productNo">
                     <div class="container-fluid row stop-dragging mt-3 p-0" 
                         style="margin-left: 0; margin-right: 0;">
                         <div class="btn-cart col-6">
-                            <button>장바구니 담기</button>
+                            <button type="button" onclick="addCart()" 
+                            data-toggle = "modal" data-target="#cartModal">장바구니 담기</button>
                         </div>
+                        <input type = "hidden" value = "" name = "">
                         <div class="btn-buy col-6">
                             <button>바로 구매</button>
                         </div>
+                    </form>
                     </div>
                 </div>
            </div>
         </div>
     </div>
+    
 
     <div class = "row text-center mt-3">
         <div class = "col-3 ">
@@ -206,7 +213,7 @@
     <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
        <div class = "d-flex justify-content-between">
             <div><h3>구매 후기</h3></div>
-            <div><Button>더 보기</Button></div>
+            <div><a href = "/market/review">더 보기</a></div>
         </div>
         
         <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
@@ -218,7 +225,7 @@
             </div>
         </div>
     </div>
-    \
+    
     <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
        <div class = "d-flex justify-content-between">
             <div><h3>구매 후기</h3></div>
@@ -226,17 +233,27 @@
         </div>
         
         <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
-            <div class = "row m-3">
-                <div class = "col-10">
-                    <div>
-                        <span><img src="/img/logo.png" alt=""></span>
-                        <span>2022.04.01</span>
-                        <span>사람이름</span>
+            <div class = "col-10">
+                        <div class = "d-flex">
+                            <div><img src="/img/logo.png" alt=""></div>
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <span>별점</span>
+                                    <span>날짜</span>
+                                    <span>날짜</span>
+                                </div>
+                                <div>
+                                    <span>이름</span>
+                                    <span>이름</span>
+                                    <span>이름</span>
+                                    <span>이름</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            text-Comment
+                        </div>
                     </div>
-                    <div>
-                        text-Comment
-                    </div>
-                </div>
                 <div class = "col-2">
                     <div style = "cursor: pointer;">
                         <i class="fa-thin fa-thumbs-up">좋아용</i>
@@ -248,93 +265,75 @@
             </div>
         </div>
     </div>
+    
 
     <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
-       <div class = "d-flex justify-content-between">
+        <div class = "d-flex justify-content-between" >
             <div><h3>취소/교환/반품 안내</h3></div>
             <div><Button>더 보기</Button></div>
         </div>
-        
-        <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
-            <div class="customer-buyNotice container">
-                <strong>취소</strong>
-                <ul>
-                    <li> 입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
-                </ul>
-                <div class="toast" data-autohide = "false" style="display: none;">
-                    <div class = "toast-header">
-                        <strong class="text-center">취소 / 교환 / 반품 안내</strong>
-                        <button type="button" class="ml-2 mb-1 closed" data-dismiss="toast">&times;</button>
-                    </div>
-                    <div class="toast-body">
-                        <div class="cancelInfo">
-                            <strong>취소</strong>
-                            <ul>
-                                <li> 입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
-                                <li>전체 주문 중 일부 상품의 부분취소는 불가능합니다.</li>
-                            </ul>
+        <div class = "" data-toggle="modal" data-target="#myModal"
+                style = " cursor: pointer; border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
+            <strong>취소</strong>
+            <ul>
+                <li> 입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
+                <li>전체 주문 중 일부 상품의 부분취소는 불가능합니다.</li>
+            </ul>
+        </div>
+        <div class="cancelInfo">
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">취소 / 교환 / 반품 안내</h4>
+                            <button type="button" style = "board : 0px" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <div class="swapInfo">
-                            <strong>교환/반품</strong>
-                            <ul>
-                                <li>교환 및 반품은 배송완료일 기준으로 7일 이내 가능합니다.</li>
-                                <li>교환하려는 상품은 처음 배송한 택배사에서 수거하므로 다른 택배사 이용은 불가능합니다.</li>
-                                <li>업체배송 상품은 제공 업체와 상품에 따라 배송비가 다르고, 
-                                    상품의 도착지가 처음 발송한 주소와 다를 수 있으므로 고객센터(1588-2469)로 
-                                    먼저 연락주시기 바랍니다.</li>
-                            </ul>
-                        </div>
-                        <div class="swapImpossibleInfo">
-                            <strong>교환/반품이 불가능한 경우</strong>
-                            <ul>
-                                <li>반품 요청기간이 지난 경우</li>
-                                <li>주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
-                                <li>주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
-                                <li>상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 현저히 감소한 경우</li>
-                                <li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품의 가치가 현저히 감소한 경우</li>
-                                <li>구성품을 분실하였거나 고객님의 취급 부주의로 인한 파손/고장/오염으로 재판매 불가한 경우</li>
-                            </ul>
-                        </div>
-                        <div class="swapDeliveryInfo">
-                            <strong>교환/반품 배송비</strong>
-                            <ul>
-                                <li>단순변심으로 인한 교환/반품은 고객님께서 배송비를 부담하셔야 합니다.</li>
-                                <li>상품의 불량 또는 파손, 오배송의 경우에는 배송비를 강아지대통령에서 부담합니다.</li>
-                                <li>업체배송 상품은 제공업체에 따라 교환/반품 배송비가 다를 수 있으므로 고객센터로 문의하시기 바랍니다.</li>
-                                <li>제주, 산간지역은 추가 배송비가 발생할 수 있습니다.</li>
-                            </ul>
+                        <div class="modal-body">
+                            <div class="cancelInfo">
+                                <strong>취소</strong>
+                                <ul>
+                                    <li> 입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
+                                    <li>전체 주문 중 일부 상품의 부분취소는 불가능합니다.</li>
+                                </ul>
+                            </div>
+                            <div class="swapInfo">
+                                <strong>교환/반품</strong>
+                                    <ul>
+                                        <li>교환 및 반품은 배송완료일 기준으로 7일 이내 가능합니다.</li>
+                                        <li>교환하려는 상품은 처음 배송한 택배사에서 수거하므로 다른 택배사 이용은 불가능합니다.
+                                        <li>업체배송 상품은 제공 업체와 상품에 따라 배송비가 다르고, 
+                                            상품의 도착지가 처음 발송한 주소와 다를 수 있으므로 고객센터(1588-2469)로 
+                                            먼저 연락주시기 바랍니다.</li>
+                                    </ul>
+                                </div>
+                            <div class="swapImpossibleInfo">
+                                    <strong>교환/반품이 불가능한 경우</strong>
+                                    <ul>
+                                        <li>반품 요청기간이 지난 경우</li>
+                                        <li>주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
+                                        <li>주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
+                                        <li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품의 가치가 현저히 감소한 경우</li>
+                                        <li>상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 현저히 감소한 경우</li>
+                                        <li>구성품을 분실하였거나 고객님의 취급 부주의로 인한 파손/고장/오염으로 재판매 불가한 경우</li>
+                                    </ul>
+                                <div class="swapDeliveryInfo">
+                                    <strong>교환/반품 배송비</strong>
+                                    <ul>
+                                        <li>상품의 불량 또는 파손, 오배송의 경우에는 배송비를 강아지대통령에서 부담합니다.</li>
+                                        <li>단순변심으로 인한 교환/반품은 고객님께서 배송비를 부담하셔야 합니다.</li>
+                                        <li>제주, 산간지역은 추가 배송비가 발생할 수 있습니다.</li>
+                                        <li>업체배송 상품은 제공업체에 따라 교환/반품 배송비가 다를 수 있으므로 고객센터로 문의하시기 바랍니다.</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        
 
 
-<%-- sticky --%>
-<div id = "footer-buy" class="row d-flex justify-content-center text-center 
-                    wow" data-wow-delay="0.1s">
-    <div class="col-4">
-        <div class="pt-2">
-            <span style="padding-right: 12px;">수량</span>
-            <button class="btn-count minus">-</button>
-            <input id = "buy-count" class="text-center btn-count" type="text" 
-                    value="1" style="width: 85px; ">
-            <button class="btn-count plus">+</button>
-        </div>
-    </div>
-    <div class="col-4" style="padding-top: 14px;">
-        <span class="purchase-Price" style="font-size : 18px;"> 
-            <span style="font-family : inherit;">총 상품금액 : </span>
-            <fmt:formatNumber value="${vo.productPrice - vo.discount}" pattern="#,###" />
-        </span>
-    </div>
-    <div class="col-4" style="padding-top: 8px;">
-        <span><button class = "btn-footerCart">장바구니 담기</button></span>
-        <span><button class = "btn-footerBuy">바로 구매</button></span>
-    </div>
-</div>
 
 
 <input type="hidden" name="price" value = "${vo.productPrice - vo.discount}">
@@ -342,7 +341,7 @@
 <script>
     
     var oldVal;
-    $("#buy-count").on("propertychange change keyup paste input", function() {
+    $(".buy-count").on("propertychange change keyup paste input", function() {
         var currentVal = $(this).val();
         if(currentVal == oldVal) {
             return;
@@ -351,15 +350,15 @@
 
         var price = $("[name=price]").val();
         $(".purchase-Price").val(
-            Number(Number(price) * $("#buy-count").val()).toLocaleString()
+            Number(Number(price) * $(".buy-count").val()).toLocaleString()
         );
     });
     
 
     $(".plus").click(function (e) { 
-        var currentVal = $("#buy-count").val();
+        var currentVal = $(".buy-count").val();
 
-        $("#buy-count").val(++currentVal);
+        $(".buy-count").val(++currentVal);
             
         var price = $("[name=price]").val();
 
@@ -368,16 +367,16 @@
         );
     });
     $(".minus").click(function (e) { 
-        var currentVal = $("#buy-count").val();
+        var currentVal = $(".buy-count").val();
         if(currentVal == 1) return;
 
-        $("#buy-count").val(--currentVal);
+        $(".buy-count").val(--currentVal);
 
         var price = $("[name=price]").val();
         $(".purchase-Price").text(
             Number(Number(price) * currentVal).toLocaleString()
         );
-    });
+    }); 
     var scrollHeight; 
     var firstLoad = false;
     $(window).scroll(function(event){ 
@@ -399,6 +398,59 @@
         $(".toast").toast("hide");            
         
     });
+
+    function addCart()
+    {
+        if($("[name=accountId]").val() == '' || $("[name=accountId]").val() == null)
+        {
+
+            return ;
+        }
+        var vo = 
+        {
+            accountNo : $("[name=accountId]").val(),
+            productNo : $("[name=productNo]").val(),
+            buyAmount : $("[name=buyAmount]").val()
+        };
+
+        $.ajax({
+            url: "/market/addCart",
+            data: vo,
+            success: function (response) {
+                console.log('response :>> ', response);
+                if(response)
+                {
+                    alert("장바구니에 담겼습니다.");
+                }
+                else alert("장바구니에 존재합니다 수량을 추가합니다.");
+
+            }
+        });
+
+    }
 </script>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
+<%-- sticky --%>
+<div id = "footer-buy" class="row d-flex justify-content-center text-center 
+                    wow" data-wow-delay="0.1s">
+    <div class="col-4">
+        <div class="pt-2">
+            <span style="padding-right: 12px;">수량</span>
+            <button type ="button" class="btn-count minus">-</button>
+            <input id = "" class="text-center btn-count buy-count" type="text" 
+                    value="1" style="width: 85px; ">
+            <button type ="button" class="btn-count plus">+</button>
+        </div>
+    </div>
+    <div class="col-4" style="padding-top: 14px;">
+        <span class="purchase-Price" style="font-size : 18px;"> 
+            <span style="font-family : inherit;">총 상품금액 : </span>
+            <fmt:formatNumber value="${vo.productPrice - vo.discount}" pattern="#,###" />
+        </span>
+    </div>
+    <div class="col-4" style="padding-top: 8px;">
+        <span><button type="button" onclick="addCart()" class = "btn-footerCart">장바구니 담기</button></span>
+        <span><button class = "btn-footerBuy">바로 구매</button></span>
+    </div>
+</div>

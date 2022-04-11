@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/admin")
@@ -49,7 +48,6 @@ public class AdminController {
     @RequestMapping("/market/insert")
     public String adminMarketHometHandle() 
     {
-    	System.out.println("Dddd");
     	return "admin/market/market-insert";
 	}
 
@@ -64,16 +62,12 @@ public class AdminController {
     @RequestMapping("market/market-modifySubmit")
     public String adminModifyActionHandle(@ModelAttribute MarketVo vo, Model model)
     {
-    	System.out.println("dddd");
     	model.addAttribute("vo", marketService.modifyList());
         MarketVo mVo = vo;
 
-        System.out.println(mVo.getCategory());
-        System.out.println(mVo.getCompany());
-        System.out.println(mVo.getDiscount());
-        System.out.println(mVo.getProductName());
-        System.out.println(mVo.getProductPrice());
-        return "admin/market/market-modify";
+        marketService.updateProduct(mVo);
+
+        return "redirect:/admin/market/modify";
     }
 
 }

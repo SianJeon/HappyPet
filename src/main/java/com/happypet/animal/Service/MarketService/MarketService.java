@@ -8,6 +8,8 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 
 import com.happypet.animal.Entity.MarketEntity.ConbineMarket;
+import com.happypet.animal.Entity.MarketEntity.Market;
+import com.happypet.animal.Entity.MarketEntity.MarketCart;
 import com.happypet.animal.Entity.MarketEntity.MarketFileVo;
 import com.happypet.animal.Entity.MarketEntity.MarketVo;
 import com.happypet.animal.Repository.MarketRepository.MarketDAO;
@@ -25,7 +27,27 @@ public class MarketService {
     @Autowired
     ServletContext servletContext;
 
+    // 오더 리스트 및 수량
+    public ConbineMarket orderList(int no)
+    {
+        ConbineMarket conbineMarket = marketDAO.selectOrderlist(no);
+          // 할인율을 할인할 가격으로 변환해 변수값 변경
+          int discountMoney =  conbineMarket.getProductPrice() * conbineMarket.getDiscount() / 100;
+          conbineMarket.setDiscount((int)Math.ceil(discountMoney / 1000 ) * 1000);
 
+        return conbineMarket;
+    }
+
+    public List<MarketCart> orderAmount(MarketCart cart)
+    {
+        return marketDAO.selectOrderAmount(cart);
+    }
+
+    public MarketCart buyBtn(int no)
+    {
+        return marketDAO.selectBuyBtn(no);
+    }
+    // 마켓 홈화면 리스트
     public List<ConbineMarket> marketHomeList()
     {
         return marketDAO.selectMarketList();
@@ -116,9 +138,37 @@ public class MarketService {
         return true;
     }
 
-    
     public List<MarketVo> modifyList()
     {
         return marketDAO.selectModifyList();
+    }
+
+    public boolean updateProduct(MarketVo vo)
+    {
+    	return 1 == marketDAO.updateMarketProduct(vo) ? true : false;
+    }
+
+    public boolean deleteProduct(MarketVo vo)
+    {
+        return 1 == marketDAO.updateMarketProduct(vo) ? true : false;
+    }
+
+    public boolean insertMarketCart(MarketCart cart)
+    {
+        // 이미 장바구니에 담은 아이템이 있는지 확인
+        boolean result = marketDAO.selectAddMarketCart(cart);
+        if(result)
+        {
+            //장바구니 추가
+            marketDAO.insertMarketCart(cart);
+        }
+        else 
+        { 
+            // 장바구니 담은 갯수만 증가
+            marketDAO.updateMartketCartAmount(cart);
+        }
+        
+        // bool 1 == marketDAO.insertMarketCart(cart);
+        return result;
     }
 }

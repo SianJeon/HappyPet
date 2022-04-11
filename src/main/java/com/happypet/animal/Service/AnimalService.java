@@ -51,29 +51,13 @@ public class AnimalService {
 				 .queryParam("_type", "json").build(true).toUri();
 	
 		
-		System.out.println(url);
-			
-		
-		
 			Map rest = restTemplate.getForObject(url, Map.class);			
 				
 			rest = (Map)rest.get("response");
 			rest = (Map)rest.get("body");
 			rest = (Map)rest.get("items");
 			List<Map> rests = (List<Map>)rest.get("item");
-			
-			
 		
-			
-			System.out.println("rest.get = "+rest.get("item"));
-			
-			
-			
-			
-			System.out.println(rests);
-			
-			
-
 		return rests;
 	}
 	
