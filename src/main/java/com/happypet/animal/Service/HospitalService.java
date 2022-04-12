@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.happypet.animal.Entity.HospitalReviewCommentVo;
+import com.happypet.animal.Entity.HospitalReviewVo;
 import com.happypet.animal.Entity.HospitalVo;
 import com.happypet.animal.Repository.HospitalDao;
 
@@ -55,5 +57,63 @@ public class HospitalService {
 	
 	public HospitalVo findDataByNo(int no) {
 		return dao.findDataByNo(no);
+	}
+	
+	public boolean insertReview(HospitalReviewVo vo) {
+		
+		int r = dao.insertReview(vo);
+		
+		return r==1 ? true : false;
+	}
+	
+	public List<HospitalReviewVo> findReviewByOwner(int owner){
+		return dao.findReviewByOwner(owner);
+	}
+	
+	public HospitalReviewVo findReviewByNo(int no) {
+		return dao.findReviewByNo(no);
+	}
+	
+	public void deleteReview(int no) {
+		dao.deleteReview(no);
+	}
+	
+	public boolean updateReviewByNo(HospitalReviewVo vo) {
+		
+		int r = dao.updateReviewByNo(vo);
+		
+		return r==1 ? true: false;
+	}
+	
+	public boolean insertReviewComment(HospitalReviewCommentVo vo) {
+		
+		int r = dao.insertReviewComment(vo);
+		
+		if(r == 1) {
+			
+			return true;
+		}else return false;
+		
+	}
+	
+	public List<HospitalReviewCommentVo> findCommentByOwner(int owner){
+		return dao.findCommentByOwner(owner);
+	}
+	
+	public void deleteCommentByNo(int no) {
+		dao.deleteCommentByNo(no);
+	}
+	
+	public HospitalReviewCommentVo findCommentByNo(int no) {
+		return dao.findCommentByNo(no);
+	}
+	
+	public boolean modifyCommentByNo(HospitalReviewCommentVo vo) {
+		
+		int r = dao.modifyCommentByNo(vo);
+		
+		if (r == 1){
+			return true;			
+		}else return false;
 	}
 }

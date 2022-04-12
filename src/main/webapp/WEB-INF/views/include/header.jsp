@@ -92,7 +92,7 @@
                     </div>
                 </div>    
                 <a href="" class="nav-item nav-link">자유게시판</a>
-                <a href="" class="nav-item nav-link">주변병원</a>
+                <a href="/hospital" class="nav-item nav-link">주변병원</a>
                 <a href="/market" class="nav-item nav-link">마켓</a>
             </div>
             <c:choose>

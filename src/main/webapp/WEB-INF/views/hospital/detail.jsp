@@ -35,12 +35,17 @@
 
 <div class="container">
 <h5>리뷰</h5>	
+<form action="/hospital/writeReview" method="post"> 
+	<input type="hidden" name="no" value="${data.no }"> 
+	<input type="submit" value="후기작성" class="btn btn-primary">
+</form>
     <table class="table table-striped hospital" >
 	    <thead>
 		      <tr>
 		        <th style="width:10%">no</th>
 		        <th>제목</th>
-		        <th style="width:10%">조회</th>
+		        <th>작성자</th>
+		        <th style="width:10%">작성일</th>
 		      </tr>
 		</thead>
 		<tbody id="hospital_review_list">
@@ -51,22 +56,23 @@
 
 $(function(){
 	 initMap();
-	 hospitalReview();
+  	 hospitalReview();
 });
 
 function hospitalReview(){
+	var no = ${data.no};
 	$.ajax({
 		url : "/hospital/reviewList",
-		data: {},
+		data: { no: no},
 		success:function(list){
 			var _html = "";
-			for(var i = 0 ; i <li.length ; i++){
-				_html += "<tr><td><a href='hospital/detail?no=" + list[i].no + "'>" + list[i].bsn_nm + "</a></td><td>"+ list[i].road_nm_addr +"</td><td>"+ list[i].tel_no + "</td></tr>"
+			for(var i = 0 ; i <list.length ; i++){
+				_html += "<tr><td>"+ list[i].rownum + "</td><td><a href='/hospital/reviewDetail?no="+ list[i].no +"'>"+ list[i].title +"</a></td><td>"
+				+ list[i].writer +"</td><td>"+ list[i].writedate + "</td></tr>"
 			}
 			
 			$("#hospital_review_list").html(_html);
 			
-			makePage(li.length, page, pageList, 5);
 		},error:function(){
 			alert("에러");
 		}
@@ -75,7 +81,6 @@ function hospitalReview(){
 
 //Initialize and add the map
 function initMap() {
-	
   // The location of Uluru
   const uluru = { lat: ${data.lat}, lng: ${data.lot} };
   // The map, centered at Uluru

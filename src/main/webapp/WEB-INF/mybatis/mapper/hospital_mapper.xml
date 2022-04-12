@@ -7,13 +7,67 @@
 			(#{no}, #{bsn_nm}, #{road_nm_addr}, #{rep_person}, #{tel_no}, #{lat}, #{lot})
 	</insert>
 	
-	<select id="findDataByNo" resultType="hospital">
+	<select id="findDataByNo" resultType="hospitalVo">
 		SELECT * FROM HOSPITAL_LIST WHERE NO = #{no}
 	</select>
 	
 	<insert id="insertReview">
-		INSERT INTO	HOSPITAL_REVIEW 
+		INSERT INTO	HOSPITAL_REVIEW (NO, TITLE, CONTENT, WRITER, OWNER, WRITEDATE)
 		VALUES
-			(HR_SEQ.NEXTVAL,)
+			(HOSPITAL_REVIEW_SEQ.NEXTVAL, #{title},#{content}, #{writer},#{owner}, SYSDATE)
 	</insert>
+	
+	<select id="findReviewByOwner" resultType="hospitalReviewVo">
+		SELECT ROWNUM, H.* FROM HOSPITAL_REVIEW H WHERE OWNER = #{owner} ORDER BY ROWNUM DESC
+	</select>
+	
+	<select id="findReviewByNo" resultType="hospitalReviewVo">
+		SELECT * FROM HOSPITAL_REVIEW WHERE NO = #{no}
+	</select>
+	
+	<update id="deleteReview">
+		DELETE FROM HOSPITAL_REVIEW WHERE NO = #{no}
+	</update>
+	
+	<update id="updateReviewByNo">
+		UPDATE HOSPITAL_REVIEW
+		<set>
+			<if test="title != null">
+				TITLE = #{title},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+		</set>
+		WHERE NO = #{no}
+	</update>
+	
+	<insert id="insertReviewComment">
+		INSERT INTO HOSPITAL_REVIEW_COMMENT
+		VALUES (HOSPITAL_REVIEW_COMMENT_SEQ.NEXTVAL, SYSDATE, #{writer}, #{content}, #{owner})
+	</insert>
+	
+	<select id="findCommentByOwner" resultType="hospitalReviewCommentVo">
+		SELECT ROWNUM, H.* FROM HOSPITAL_REVIEW_COMMENT H WHERE OWNER = #{owner} ORDER BY ROWNUM
+	</select>
+	
+	<update id="deleteCommentByNo">
+		DELETE FROM HOSPITAL_REVIEW_COMMENT WHERE NO = #{no}
+	</update>
+	
+	<update id="modifyCommentByNo">
+		UPDATE HOSPITAL_REVIEW_COMMENT
+		SET CONTENT = #{content}
+		WHERE NO = #{no}
+	</update>
+	
+	<select id="findCommentByNo" resultType="hospitalReviewCommentVo">
+		SELECT * FROM HOSPITAL_REVIEW_COMMENT WHERE NO = #{no}
+	</select>
+	
+<!-- 	<insert id="insertData" > -->
+<!-- 		INSERT INTO FILEDATA  -->
+<!-- 			VALUES -->
+<!-- 		(FILEDATA_SEQ.NEXTVAL, #{name}, #{path}, #{type}, #{len}, #{owner}) -->
+<!-- 	</insert> -->
 </mapper>
