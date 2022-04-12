@@ -7,10 +7,13 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.happypet.animal.Entity.PagingVo;
+import com.happypet.animal.Service.AnimalReviewService;
 import com.happypet.animal.Service.AnimalService;
 
 @Controller
@@ -19,6 +22,8 @@ public class AnimalController {
 	@Autowired
 	AnimalService animalService;
 
+	@Autowired
+	AnimalReviewService animalReviewService;
 
 	@RequestMapping("/animal")
 	public String animalList() {
@@ -51,11 +56,16 @@ public class AnimalController {
 	}
 
 	@RequestMapping("/adopt")
-	public String animaladopt() {
-
+	public String animaladopt(Model model) {
+		
+		PagingVo vo = new PagingVo();
+		
+		
+		model.addAttribute("list",animalReviewService.animalreview(vo));
+			
 		return "/animal/adopt";
 	}
-
+	
 	@RequestMapping("/write")
 	public String write() {
 

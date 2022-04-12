@@ -6,26 +6,27 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happypet.animal.Entity.FileDataVo;
+import com.happypet.animal.Entity.AnimalVo;
+import com.happypet.animal.Entity.PagingVo;
 
 @Repository
-public class FileDataDao {
+public class PagingDao {
 
 	
 	@Autowired
 	SqlSession sqlSession;
 	
-	public int fileData(FileDataVo vo) {
+	
+	public List<AnimalVo> page(PagingVo vo) {
 		
 		
-		return sqlSession.insert("animal.insertData",vo);
-		
+		return sqlSession.selectList("paging.page", vo);
 		
 	}
 	
-	public FileDataVo fileDownload(int no) {
+	public int pageAll() {
 		
+		return sqlSession.selectOne("paging.selectAll");
 		
-		return sqlSession.selectOne("animalreview.selectByno", no);
 	}
 }

@@ -11,7 +11,7 @@
 	<typeAliases>
 		<typeAlias type="com.happypet.animal.Entity.AnimalVo"
 			alias="animalVo" />
-		<typeAlias type="com.happypet.animal.Entity.FileBoardVo"
+		<typeAlias type="com.happypet.animal.Entity.AnimalReviewVo"
 			alias="fileBoardVo" />
 		<typeAlias
 			type="com.happypet.animal.Entity.MarketEntity.MarketVo"
@@ -24,9 +24,13 @@
 			alias="ConbineMarketVo" />
 		<typeAlias type="com.happypet.animal.Entity.AccountVo"
 			alias="account" />
+		<typeAlias type="com.happypet.animal.Entity.AnimalDetailVo"
+			alias="animalDetailVo" />
 		<typeAlias type="com.happypet.animal.Entity.HospitalVo"
 			alias="hospital" />
 		<typeAlias
 			type="com.happypet.animal.Entity.HospitalReviewVo" alias="hr" />
+		<typeAlias type="com.happypet.animal.Entity.FileDataVo" alias="fileDataVo"/>	
+			
 	</typeAliases>
 </configuration> 

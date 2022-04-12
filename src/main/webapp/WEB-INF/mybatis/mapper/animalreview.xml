@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="animalreview">
+	
+
+	<select id="selectAll" resultType="fileBoardVO">
+	
+		SELECT f.no,e.title, e.content, f.path 
+		FROM ADOPT_REVIEW e, FILEDATA f
+		where e.no = f.owner
+		offset #{offset} rows fetch next 10 rows only
+	
+	</select>
+	
+	<select id="selectByno" resultType="fileDataVo">
+	
+		SELECT * FROM FILEDATA WHERE no = #{no}
+	
+	</select>
+	
+	<select id="detail" resultType="animalDetailVo">
+	
+		SELECT f.no, e.title, e.content, e.writedate, e.writer
+		FROM ADOPT_REVIEW e, FILEDATA f
+		where e.no = f.owner and f.no = #{no}
+		
+		
+	</select>
+	
+	<insert id="comment">
+		
+		INSERT INTO review_comment
+		VALUES(rc_seq.nextval, to_char(sysdate+9/24,'yyyy.mm.dd hh24:mi') , #{writer},#{content},#{owner})
+		
+	
+	
+	</insert>
+	
+	<select id="commentAll" resultType="com.happypet.animal.Entity.AnimalCommentVo">
+		
+	
+		SELECT * FROM REVIEW_COMMENT where owner = #{no}
+		order by no asc
+	
+	
+	</select>
+	
+	
+	<delete id="commentdele">
+	
+		DELETE FROM REVIEW_COMMENT WHERE no = #{no}
+		
+	
+	</delete>
+	
+	<update id="commentupdate">
+	
+		UPDATE REVIEW_COMMENT
+		SET content = #{content}
+		where no =#{no}
+	
+	</update>
+	
+	<select id="commentselet" resultType="com.happypet.animal.Entity.AnimalCommentVo">
+	
+		SELECT * FROM REVIEW_COMMENT where no = #{no}
+	
+	</select>
+	
+	
+	
+	
+</mapper>

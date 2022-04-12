@@ -3,13 +3,16 @@ package com.happypet.animal.Service;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.happypet.animal.Entity.FileBoardVo;
+import com.happypet.animal.Entity.AnimalReviewVo;
 import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Repository.FileDao;
 import com.happypet.animal.Repository.FileDataDao;
@@ -17,12 +20,13 @@ import com.happypet.animal.Repository.FileDataDao;
 @Service
 public class FileService {
 
+	
 	@Autowired
 	FileDao fileDao;
 	@Autowired
 	FileDataDao fileDataDao;
 	
-public boolean registerOne(FileBoardVo vo, MultipartFile[] attach) {
+public boolean registerOne(AnimalReviewVo vo, MultipartFile[] attach) {
 		
 		int r = fileDao.fileBoard(vo);
 		
@@ -36,9 +40,13 @@ public boolean registerOne(FileBoardVo vo, MultipartFile[] attach) {
 			
 		}
 		
+		
+		
 		File base = new File("/Users/upload");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		File savedir = new File(base,sdf.format(System.currentTimeMillis()));
+		
+		
 		
 		if( !savedir.exists())
 			savedir.mkdirs();
@@ -47,7 +55,9 @@ public boolean registerOne(FileBoardVo vo, MultipartFile[] attach) {
 			if(file ==null || file.isEmpty())
 				continue;
 			
+			
 			File dest = new File(savedir, UUID.randomUUID().toString());
+			
 			
 			try {
 				file.transferTo(dest);
@@ -69,8 +79,8 @@ public boolean registerOne(FileBoardVo vo, MultipartFile[] attach) {
 			
 			
 			fileDataDao.fileData(fdv);
+			System.out.println(fdv);
 		}
-		
 		
 		
 		
@@ -78,6 +88,13 @@ public boolean registerOne(FileBoardVo vo, MultipartFile[] attach) {
 		return true;
 		
 	}
+
+	public FileDataVo filedownload(int no){
+		
+		return fileDataDao.fileDownload(no);
+	}
+	
+
 }
 
 

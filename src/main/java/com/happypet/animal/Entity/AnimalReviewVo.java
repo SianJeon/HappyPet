@@ -1,8 +1,7 @@
 package com.happypet.animal.Entity;
 
-import java.util.Date;
 
-public class FileBoardVo {
+public class AnimalReviewVo {
 
 	
 
@@ -10,7 +9,14 @@ public class FileBoardVo {
 	String title;
 	String content;
 	String writer;
+	String path;
 	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public int getNo() {
 		return no;
 	}
