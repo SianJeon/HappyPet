@@ -30,7 +30,7 @@
 			<div class='head'>
 				<span><strong>댓글작성</strong></span>
 			</div>
-			<textarea id="comment"></textarea>
+			<textarea id="comment" cols="50" rows="4"></textarea>
 			<div>
 				<a class='btn btn-primary py-1 px-2' onclick="comment_regist()">저장</a>
 			</div>

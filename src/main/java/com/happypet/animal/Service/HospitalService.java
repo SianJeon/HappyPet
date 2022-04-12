@@ -7,8 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Entity.HospitalReviewCommentVo;
 import com.happypet.animal.Entity.HospitalReviewVo;
 import com.happypet.animal.Entity.HospitalVo;
@@ -115,5 +117,15 @@ public class HospitalService {
 		if (r == 1){
 			return true;			
 		}else return false;
+	}
+	
+	public boolean insertFile(FileDataVo vo, MultipartFile[] upload) {
+		
+		int r = dao.insertFile(vo);
+		
+		
+		if(r == 1)
+		return true;
+		else return false;
 	}
 }

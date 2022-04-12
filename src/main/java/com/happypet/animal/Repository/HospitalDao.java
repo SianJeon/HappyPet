@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Entity.HospitalReviewCommentVo;
 import com.happypet.animal.Entity.HospitalReviewVo;
 import com.happypet.animal.Entity.HospitalVo;
@@ -66,5 +67,9 @@ public class HospitalDao {
 	
 	public int modifyCommentByNo(HospitalReviewCommentVo vo) {
 		return ss.update("hospital.modifyCommentByNo", vo);
+	}
+	
+	public int insertFile(FileDataVo vo) {
+		return ss.insert("hospital.insertFile", vo);
 	}
 }

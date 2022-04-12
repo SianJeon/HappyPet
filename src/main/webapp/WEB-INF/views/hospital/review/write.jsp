@@ -22,9 +22,22 @@
 	</div>
 	
 	<script>
-		$(function(){
-			CKEDITOR.replace('p_content', {height: 500, /* filebrowserUploadUrl: '/hospital/review/fileUpload' */});
-		});
+	ClassicEditor
+    .create(document.querySelector("#p_content"),
+        {
+            language: "ko",
+            simpleUpload:
+            {
+                uploadUrl: "/hospital/review/upload",
+                withCredentials: true,
+            }
+        })
+    .then(newEditor => {
+        editor = newEditor;
+    })
+    .catch(error => {
+        console.error(error);
+    });
 	</script>
 
 

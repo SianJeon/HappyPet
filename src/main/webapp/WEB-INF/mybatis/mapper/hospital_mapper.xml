@@ -65,9 +65,9 @@
 		SELECT * FROM HOSPITAL_REVIEW_COMMENT WHERE NO = #{no}
 	</select>
 	
-<!-- 	<insert id="insertData" > -->
-<!-- 		INSERT INTO FILEDATA  -->
-<!-- 			VALUES -->
-<!-- 		(FILEDATA_SEQ.NEXTVAL, #{name}, #{path}, #{type}, #{len}, #{owner}) -->
-<!-- 	</insert> -->
+	<insert id="insertFile" >
+		INSERT INTO HOSPITAL_REVIEW_FILEDATA 
+			VALUES
+		(HOSPITAL_REVIEW_FILEDATA_SEQ.NEXTVAL, #{name}, #{path}, #{type}, #{len}, #{owner})
+	</insert>
 </mapper>
