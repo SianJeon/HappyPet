@@ -4,7 +4,7 @@
 	<insert id="insertOne">
 		INSERT INTO	hospital_list
 		VALUES
-			(#{no}, #{bsn_nm}, #{road_nm_addr}, #{rep_person}, #{tel_no}, #{lat}, #{lot})
+			(HOSPITAL_SEQ.NEXTVAL, #{bsn_nm}, #{road_nm_addr}, #{rep_person}, #{tel_no}, #{lat}, #{lot})
 	</insert>
 	
 	<select id="findDataByNo" resultType="hospitalVo">

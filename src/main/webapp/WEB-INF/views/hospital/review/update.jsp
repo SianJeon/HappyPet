@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn"
 	data-wow-delay="0.1s">
 	<div class="container py-5">
@@ -24,9 +23,22 @@
 	</div>
 	
 	<script>
-		$(function(){
-			CKEDITOR.replace('p_content', {height: 500});
-		});
+	ClassicEditor
+    .create(document.querySelector("#p_content"),
+        {
+            language: "ko",
+            simpleUpload:
+            {
+                uploadUrl: "/hospital/review/upload",
+                withCredentials: true,
+            }
+        })
+    .then(newEditor => {
+        editor = newEditor;
+    })
+    .catch(error => {
+        console.error(error);
+    });
 	</script>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
