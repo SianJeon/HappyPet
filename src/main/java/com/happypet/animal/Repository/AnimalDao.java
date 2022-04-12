@@ -49,10 +49,10 @@ public class AnimalDao {
 		
 	}
 	
-	public List<AnimalCommentVo> animalCommentAll(String no) {
+	public List<AnimalCommentVo> animalCommentAll(Map<String,Object> map) {
+	
 		
-		
-		return sqlSession.selectList("animalreview.commentAll", no);
+		return sqlSession.selectList("animalreview.commentAll", map);
 	}
 	
 	public int animalCommentDel(String no) {

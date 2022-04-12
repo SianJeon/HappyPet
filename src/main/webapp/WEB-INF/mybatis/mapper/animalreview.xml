@@ -36,11 +36,13 @@
 	
 	</insert>
 	
-	<select id="commentAll" resultType="com.happypet.animal.Entity.AnimalCommentVo">
+	<select id="commentAll" resultType="com.happypet.animal.Entity.AnimalCommentVo" parameterType="hashmap">
 		
 	
-		SELECT * FROM REVIEW_COMMENT where owner = #{no}
+		SELECT * FROM REVIEW_COMMENT where owner = #{owner}
 		order by no asc
+		offset #{offset} rows fetch next 10 rows only
+	
 	
 	
 	</select>

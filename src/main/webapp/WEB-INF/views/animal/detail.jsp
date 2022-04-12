@@ -22,8 +22,6 @@
 	vertical-align: top;
 }
 
-
-
 .member textarea {
 	border-radius: 3px;
 	box-shadow: none;
@@ -49,7 +47,7 @@ table tr td:#sub {
 <body>
 
 
-	
+
 
 
 	<div class="container row" style="margin: auto;">
@@ -80,6 +78,12 @@ table tr td:#sub {
 				class="rounded mx-auto d-block mt-2" alt="...">
 
 			<div id="comment"></div>
+	
+				<div class="container">
+					<div class="row align-items-start" id="sub1" style="text-align: center;"></div>
+				</div>
+
+
 
 			<form action="comment">
 
@@ -88,6 +92,8 @@ table tr td:#sub {
 					</label> <input type="text" class="form-control" name="writer"
 						id="exampleFormControlInput1" placeholder="작성자">
 				</div>
+
+
 				<div class="member mb-3">
 					<label for="exampleFormControlTextarea1" class="form-label">
 					</label>
@@ -97,6 +103,8 @@ table tr td:#sub {
 				</textarea>
 					<input type="hidden" name="no" value="${detail.no }">
 				</div>
+				
+
 				<button type="submit" class="subbu" style="float: right;">작성</button>
 
 			</form>
@@ -105,106 +113,110 @@ table tr td:#sub {
 		<div class="col-sm-2"></div>
 	</div>
 
-	
-	
+
+
 
 	<script type="text/javascript">
-	
-	
-	commentall();
-			
+		commentall();
 
-			function commentall(){
-			
-				
-				
+		function commentall(page) {
+
+			if (page == null) {
+
+				page = 1;
+
+			}
+			page = page;
+
 			var no = $("input[name=no]").val();
-			
-			
-			$.ajax({
-				
-				url:"/animal/commentall",
-				data:{
-					"no" : no
-					
-					
-				}
-				
-				
-			}).done(function(rst){
-				var tag ="";
-				console.log(rst);
-				
-				for(var i = 0 ; i<rst.length ; i++){
-					
-			tag +=	"<div style='padding:10px 0px;'>";
-			tag +=  "<input id='no' type='hidden' value='"+rst[i].no+"'>";
-			tag +=	"<div id='wirter'> "+rst[i].writer+"<span style='padding:0 5px;'>"+ rst[i].writedate+"</span> </div>"
-			tag +=  "<div>"+rst[i].content+"</div>"
-			tag += "<div class='modi' id='modi_"+i+"'></div>"
-			tag +=  "<div id='sub'><a href='/animal/commentdele?no="+rst[i].no+"&owner="+rst[i].owner+"'>삭제</a><a data-target='#modi_"+ i +"' class='modify'>수정</a>"
-			tag +=	"<div> </div>"
- 			tag +=	"</div>";
-				
-				
-				}
-				
-				
-				$("#comment").html(tag);
-				
-			
-				
-				
-			});
-			
-			
-		
-	
+
+			$
+					.ajax({
+
+						url : "/animal/commentall",
+
+						data : {
+							"owner" : no,
+							"page" : page
+
+						}
+
+					})
+					.done(
+							function(rst) {
+								var tag = "";
+								var dex = "";
+								console.log(rst);
+
+								for (var i = 0; i < rst.datas.length; i++) {
+
+									tag += "<div style='padding:10px 0px;'>";
+									tag += "<input id='no' type='hidden' value='"+rst.datas[i].no+"'>";
+									tag += "<div id='wirter'> " + rst.datas[i].writer
+											+ "<span style='padding:0 5px;'>"
+											+ rst.datas[i].writedate
+											+ "</span> </div>"
+									tag += "<div>" + rst.datas[i].content + "</div>"
+									tag += "<div class='modi' id='modi_"+i+"'></div>"
+									tag += "<div id='sub'><a href='/animal/commentdele?no="
+											+ rst.datas[i].no
+											+ "&owner="
+											+ rst.datas[i].owner
+											+ "'>삭제</a><a data-target='#modi_"+ i +"' class='modify'>수정</a>"
+									tag += "<div> </div>"
+									tag += "</div>";
+
+								}
+
+								for (var i = rst.paging.beginBlock; i <= rst.paging.endBlock; i++) {
+
+									dex += "<a href='#' onclick='review(" + i
+											+ ")'>" + i + "</a>"
+
+								}
+
+								$("#sub1").html(dex);
+
+								$("#comment").html(tag);
+
+							});
+
 		}
-			
-			$(document).on("click",".modify",function(){
-				console.log($(this).data("target"));
-				 
-			$($(this).data("target")).html("<textarea id='content'></textarea><button id='ud'>수정완료</button>");
-					
-			
-			
-			});
-				
-			
-			$(document).on("click","#ud",function(){
-				
-				var no = $("#no").val();
-				var content = $("#content").val();
-				
-				$.ajax({
-					url: "/animal/commentupdate",
-					data:{
-						
-						"no":no,
-						"content" : content
-						
-					}
-				
-				
-				
-				
-					
-					
-				}).done(function(){
-					
-					location.reload();
-					
-				})
-				
-				
-				
-				
+
+		$(document)
+				.on(
+						"click",
+						".modify",
+						function() {
+							console.log($(this).data("target"));
+
+							$($(this).data("target"))
+									.html(
+											"<textarea id='content'></textarea><button id='ud'>수정완료</button>");
+
+						});
+
+		$(document).on("click", "#ud", function() {
+
+			var no = $("#no").val();
+			var content = $("#content").val();
+
+			$.ajax({
+				url : "/animal/commentupdate",
+				data : {
+
+					"no" : no,
+					"content" : content
+
+				}
+
+			}).done(function() {
+
+				location.reload();
+
 			})
-			
-			
-		
-		
+
+		})
 	</script>
 
 

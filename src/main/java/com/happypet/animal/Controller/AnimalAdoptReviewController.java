@@ -68,9 +68,22 @@ public class AnimalAdoptReviewController {
 	
 	@ResponseBody
 	@RequestMapping("animal/commentall")
-	public List<AnimalCommentVo> animalCommentAll(@RequestParam String no) {
+	public Map<String,Object> animalCommentAll(@RequestParam String owner,@RequestParam int page) {
 		
-		return animalReviewService.animalCommentAll(no);
+		
+		
+		
+		Map<String,Object> map = new HashMap<>();
+		
+		
+		map.put("owner",owner);
+		map.put("page", page);
+		
+		
+		
+		
+		
+		return animalReviewService.animalCommentAll(map);
 		
 		
 	}

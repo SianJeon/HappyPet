@@ -58,12 +58,24 @@ public class AnimalReviewService {
 
 	public int animalComment(AnimalCommentVo vo) {
 
+		
+		
 		return animalDao.animalComment(vo);
 	}
 
-	public List<AnimalCommentVo> animalCommentAll(String no) {
-
-		return animalDao.animalCommentAll(no);
+	public Map<String,Object> animalCommentAll(Map<String,Object> map) {
+		
+		PagingVo vo = new PagingVo();
+		vo.setTotalCount(pagingDao.pageAll());
+		vo.setPage((int)map.get("page"));
+		vo.update();
+		
+		map.put("offset",vo.getOffset());
+		map.put("paging", vo);
+		map.put("datas",animalDao.animalCommentAll(map));
+		
+		
+		return map;
 
 	}
 
