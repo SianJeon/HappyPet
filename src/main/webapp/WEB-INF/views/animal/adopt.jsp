@@ -1,39 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <style>
 #write {
-
 	text-align: right;
 	padding-right: 100px;
 }
+
+.col-lg-3{
+	 margin-left: 100px;
+	 margin-right: 20px;
+}
+
 </style>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
+	<div class="container">
+		<div class="row align-items-start" id="sub"></div>
+	</div>
 
 
 
 
 
 
-
-<div id="write"><button type="button" class="btn btn-secondary" onclick="location.href='/write'">글쓰기</button></div>
-
-
-
-<script>
+	<div class="container">
+		<div class="row align-items-start" id="sub1">	
+		
+		</div>
+	</div>
 	
+	
+	<c:if test="${loginUser.userId != null  }">
+		<div id="write">
+			<button type="button" class="btn btn-secondary"
+				onclick="location.href='/write'">글쓰기</button>
+		</div>
+	</c:if>
 
-</script>
 
-<jsp:include page="/WEB-INF/views/include/footer.jsp" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<script>
+		review();
+
+		
+		function review(page) {
+			if(page == null){
+				
+				page = 1; 
+					
+			}
+			page = page;
+			$
+					.ajax({
+
+						url : "animal/review",
+						data:{
+						
+							"page" : page
+							
+							
+						}
+						
+					})
+					.done(
+							function(rst) {
+								var tag = "";	
+								var dex = "";
+									console.log(rst);
+								
+								for (var i = 0; i < rst.datas.length; i++) {
+									tag += '<div class="col">';
+									tag += "<div class='col-lg-3 p-3'>";
+									tag += "<div class='card' style='width:400px'>";
+									tag += "<a href='animal/reviewdetail?no="
+											+ rst.datas[i].no
+											+ "'><img class='card-img-top' src='/download?no="
+											+ rst.datas[i].no
+											+ "' alt='Card image'><a>";
+									tag += "<div class='card-body'>";
+									tag += "<p class='card-title'>"
+											+ rst.datas[i].title + "</p>";
+									tag += "</div>";
+									tag += "</div>";
+									tag += "</div>";
+									tag += "</div>";
+									
+								}
+								
+								for(var i =rst.paging.beginBlock; i<=rst.paging.endBlock ;i++){
+									
+									
+									
+										
+										dex += "<a href='#' style='text-align:center' onclick='review("+i+")'>"+i+"</a>"
+										
+									
+								}
+
+									
+									
+								$("#sub1").html(dex);
+								$("#sub").html(tag);
+
+							});
+
+		}
+	</script>
+
+	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

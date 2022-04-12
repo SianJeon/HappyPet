@@ -24,12 +24,15 @@
   	</select>
   
   	<insert id="insertBoard" parameterType="fileBoardVo">
+  	
+  		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+  			SELECT AR_SEQ.NEXTVAL AS NO FROM DUAL
+  		</selectKey>
+  		
+  		INSERT INTO ADOPT_REVIEW VALUES(#{no},#{title},#{content},SYSDATE,#{writer})
+  	
+  	</insert>
 		
-		INSERT INTO ADOPT_REVIEW(no,title,content,writedate,writer)
-		VALUES(AR_SEQ.NEXTVAL, #{title},#{content},SYSDATE,#{writer})
-		
-		
-	</insert>
 		
 		<insert id="insertData">
 		INSERT INTO FILEDATA VALUES(FILEDATA_SEQ.NEXTVAL,#{name},#{path},#{type},#{len},#{owner})
