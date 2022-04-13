@@ -14,6 +14,7 @@ public class FreeboardVo {
 	int hit;
 	String pw;
 	
+	
 	public String getPw() {
 		return pw;
 	}

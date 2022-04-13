@@ -42,6 +42,16 @@
 		DELETE FROM FREEBOARD WHERE PW = #{pw} AND NO = #{no}
 	</delete>
 	
+	<!-- 게시글 수정 페이지 입력값 불러오기 -->
+	<!-- 
+	<select id="modifyTb" resultType="freeboard" parameterType="freeboard">
+		SELECT * FROM FREEBOARD WHERE NO = #{no} AND PW= #{pw}
+	</select>
+		 -->
+	<!-- 게시글 수정 -->
+	<update id="modifyBoard" parameterType="freeboard">
+		UPDATE FREEBOARD SET TITLE=#{title},WRITER=#{writer},CONTENT=#{content}  WHERE NO = #{no} 
+	</update>
 	
 	
 </mapper>

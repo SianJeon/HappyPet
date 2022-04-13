@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 
-@ControllerAdvice
+// @ControllerAdvice
 public class CommonController{
 		
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
@@ -20,4 +20,5 @@ public class CommonController{
 		
 		return "error/exception";
 	}
+	
 }

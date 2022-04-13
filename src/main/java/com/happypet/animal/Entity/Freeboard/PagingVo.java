@@ -2,15 +2,16 @@ package com.happypet.animal.Entity.Freeboard;
 
 public class PagingVo {
 	// 현재페이지, 시작페이지, 끝페이지, 게시글 총 갯수, 페이지당 글 갯수, 마지막페이지, SQL쿼리에 쓸 start, end
-	int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
-	int cntPage = 5;
+	int nowPage, startPage, endPage, totals, cntPerPages, lastPages, starts, ends;
+	int cntPages = 5;
+	
 	
 	
 	@Override
 	public String toString() {
-		return "PagingVo [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total=" + total
-				+ ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
-				+ ", cntPage=" + cntPage + "]";
+		return "PagingVo [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", totals="
+				+ totals + ", cntPerPages=" + cntPerPages + ", lastPages=" + lastPages + ", starts=" + starts
+				+ ", ends=" + ends + ", cntPages=" + cntPages + "]";
 	}
 
 	public PagingVo(){
@@ -19,23 +20,23 @@ public class PagingVo {
 	
 	public PagingVo(int total, int nowPage, int cntPerPage) {
 		setNowPage(nowPage);
-		setCntPerPage(cntPerPage);
-		setTotal(total);
-		calcLastPage(getTotal(), getCntPerPage());
-		calcStartEndPage(getNowPage(), cntPage);
-		calcStartEnd(getNowPage(), getCntPerPage());
+		setCntPerPages(cntPerPage);
+		setTotals(total);
+		calcLastPage(getTotals(), getCntPerPages());
+		calcStartEndPage(getNowPage(), cntPages);
+		calcStartEnd(getNowPage(), getCntPerPages());
 	}
 	
 	//제일 마지막 페이지 계산
 	public void calcLastPage(int total, int cntPerPage) {
-		setLastPage((int)Math.ceil((double)total/(double)cntPerPage));
+		setLastPages((int)Math.ceil((double)total/(double)cntPerPage));
 	}
 	
 	//시작, 끝 페이지 계산
 	public void calcStartEndPage(int nowPage, int cntPage) {
 		setEndPage((int)Math.ceil((double)nowPage / (double)cntPage));
-		if(getLastPage() < getEndPage()) {
-			setEndPage(getLastPage());
+		if(getLastPages() < getEndPage()) {
+			setEndPage(getLastPages());
 		}
 		setStartPage(getEndPage()- cntPage + 1);
 		if(getStartPage() <1) {
@@ -45,66 +46,82 @@ public class PagingVo {
 	
 	//DB 쿼리에서 사용할 start, end값 계산
 	public void calcStartEnd(int nowPage, int cntPerPage) {
-		setEnd(nowPage * cntPerPage);
-		setStart(getEnd()- cntPerPage + 1);
+		setEnds(nowPage * cntPerPage);
+		setStarts(getEnds()- cntPerPage + 1);
 	}
-	
-	
-	
+
 	public int getNowPage() {
 		return nowPage;
 	}
+
 	public void setNowPage(int nowPage) {
 		this.nowPage = nowPage;
 	}
+
 	public int getStartPage() {
 		return startPage;
 	}
+
 	public void setStartPage(int startPage) {
 		this.startPage = startPage;
 	}
+
 	public int getEndPage() {
 		return endPage;
 	}
+
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	public int getTotal() {
-		return total;
+
+	public int getTotals() {
+		return totals;
 	}
-	public void setTotal(int total) {
-		this.total = total;
+
+	public void setTotals(int totals) {
+		this.totals = totals;
 	}
-	public int getCntPerPage() {
-		return cntPerPage;
+
+	public int getCntPerPages() {
+		return cntPerPages;
 	}
-	public void setCntPerPage(int cntPerPage) {
-		this.cntPerPage = cntPerPage;
+
+	public void setCntPerPages(int cntPerPages) {
+		this.cntPerPages = cntPerPages;
 	}
-	public int getLastPage() {
-		return lastPage;
+
+	public int getLastPages() {
+		return lastPages;
 	}
-	public void setLastPage(int lastPage) {
-		this.lastPage = lastPage;
+
+	public void setLastPages(int lastPages) {
+		this.lastPages = lastPages;
 	}
-	public int getStart() {
-		return start;
+
+	public int getStarts() {
+		return starts;
 	}
-	public void setStart(int start) {
-		this.start = start;
+
+	public void setStarts(int starts) {
+		this.starts = starts;
 	}
-	public int getEnd() {
-		return end;
+
+	public int getEnds() {
+		return ends;
 	}
-	public void setEnd(int end) {
-		this.end = end;
+
+	public void setEnds(int ends) {
+		this.ends = ends;
 	}
-	public int getCntPage() {
-		return cntPage;
+
+	public int getCntPages() {
+		return cntPages;
 	}
-	public void setCntPage(int cntPage) {
-		this.cntPage = cntPage;
+
+	public void setCntPages(int cntPages) {
+		this.cntPages = cntPages;
 	}
+	
 	
 	
 }

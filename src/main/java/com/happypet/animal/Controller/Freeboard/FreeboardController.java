@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.happypet.animal.Entity.Freeboard.CommentVo;
 import com.happypet.animal.Entity.Freeboard.FreeboardVo;
 import com.happypet.animal.Entity.Freeboard.PagingVo;
+import com.happypet.animal.Service.Freeboard.CommentService;
+import com.happypet.animal.Service.Freeboard.DetailService;
 import com.happypet.animal.Service.Freeboard.FreeboardService;
 import com.happypet.animal.Service.Freeboard.PagingService;
 
@@ -26,6 +28,11 @@ public class FreeboardController {
 	@Autowired
 	PagingService pagingService;
 
+	@Autowired
+	DetailService detailService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping("/list")
 	public String listHandler() {
@@ -76,6 +83,7 @@ public class FreeboardController {
 		}
 		model.addAttribute("one", vo);
 		
+		model.addAttribute("all", commentService.listAll(no));
 		return "freeboard/view";
 	}
 	
@@ -101,40 +109,67 @@ public class FreeboardController {
 	}
 	
 	
-	@RequestMapping("/detail/delete")
+	@GetMapping("/detail/delete")
 	public String delPageHandle(@RequestParam int no, Model model) {
 		
-		FreeboardVo vo = freeboardService.getOneByNo(no);
-		
-		model.addAttribute("user", vo);
+		model.addAttribute("no", no);
 		
 		return "freeboard/detail/delete";
 	}
 	
 	
-	@RequestMapping("/detail/modify")
-	public String modPageHandle() {
+	@PostMapping("/detail/delete")
+	public String delPostHandle(@ModelAttribute FreeboardVo vo, Model model) {
+		
+		// vo 에는 no 하고 pw값이 넘어와야 함,
+		
+		boolean r= detailService.deleteOne(vo);
+		
+		System.out.println(r);
+		// rttr.addFlashAttribute("result","delete success");
+		if(r)
+			return "redirect:/freeboard/list";
+		else 
+			return "freeboard/detail/fail";
+	}
+	
+
+	@GetMapping("/detail/modify")
+	public String modGetHandle(@RequestParam int no, Model model) {
+		
+		model.addAttribute("no",no);
 		
 		return "freeboard/detail/modify";
 	}
-	
-	@PostMapping("/detail/delete")
-	public String delPostHandle(String pw, RedirectAttributes rttr) {
 
-		freeboardService.delete(pw);
+	@PostMapping("/detail/modifyTable")
+	public String modTbHandle(@ModelAttribute FreeboardVo vo, Model model) {
+		// ModelAttribute 를 받으면 이 안에는 pw 랑 no가 들어있을거임.
+		// 이 데이터를 가지고 와야되는데..
 		
-		rttr.addFlashAttribute("result","delete success");
 		
-		return "redirect/freeboard/view";
+		FreeboardVo dbVo =freeboardService.getOneByNo(vo.getNo());
+		
+		if(dbVo.getPw().equals(vo.getPw()) ){
+			model.addAttribute("dbVo", dbVo);
+			return "freeboard/detail/modifyTable";			
+		} else {			
+			return "redirect:/freeboard/detail/modify?no="+vo.getNo();
+		}
+		
 	}
 	
-	@PostMapping("/detail/modify")
-	public String modPostHandle(String pw, RedirectAttributes rttr) {
-
-		freeboardService.delete(pw);
+	@PostMapping("/detail/update")
+	public String updatePostHandle(@ModelAttribute FreeboardVo vo, Model model) {
+		System.out.println(vo);
 		
-		rttr.addFlashAttribute("result","delete success");
-		
-		return "redirect/freeboard/view";
+		boolean r = freeboardService.modifyOne(vo);
+		if(r)
+			return "redirect:/freeboard/list";
+		else
+			return "freeboard/modifyTable?no="+vo.getNo();
 	}
+	
+	
+
 }

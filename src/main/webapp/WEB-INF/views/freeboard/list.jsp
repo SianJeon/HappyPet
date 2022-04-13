@@ -31,7 +31,7 @@ thead th {
 	background:linear-gradient(to bottom, #debc9b 10%, #B78D65 100%);
 	background-color:#B78D65;
 	border-radius:6px;
-	border:1px solid #c99667;
+	border: 1px solid #cecdce;
 	display:inline-block;
 	cursor:pointer;
 	color:#FFFFFF;
@@ -53,6 +53,7 @@ thead th {
 .btnboxR{margin-top:10px; }
 
 .btn-small{
+	border: 1px solid #cecdce;
 	border-radius:5px;
 	background-color:#B78D65;
 	color:#FFFFFF;
@@ -134,10 +135,14 @@ justify-content: center;
 					</c:forEach>
 				</tbody>
 				</table>
-				</form>
 				<div class="btnboxR">
-					<a href="insert" class="btn_a" title="자유게시판 게시글 작성하기">글쓰기</a>
+					<button type="submit" class="btn_a" title="자유게시판 게시글 작성하기">글쓰기</button>
 				</div>
+				</form>
+				
+				<!-- <div class="btnboxR">
+					<a href="insert" class="btn_a" title="자유게시판 게시글 작성하기">글쓰기</a>
+				</div> -->
 				<div class="prev_next">
 					<c:if test="${paging.startPage != 1 }">
 					<a href="/feeboard/boardPaging?nowPage=${paging.startPage -1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>

@@ -47,7 +47,22 @@ public class FreeboardDAO {
 	}
 	
 	//게시글 삭제
-	public int deleteBoard(String pw) {
-		return sqlSession.insert("freeboard.deleteBoard", pw);
+	public int deleteBoard(FreeboardVo vo) {
+		return sqlSession.insert("freeboard.deleteBoard", vo);
+	}
+//	
+//	//게시글 불러오기
+//	public FreeboardVo modifyBoard(FreeboardVo vo) {
+//		return sqlSession.selectOne("freeboard.modifyTb", vo);
+//	}
+//	
+	
+	public FreeboardVo selectAll(FreeboardVo vo) {
+		return sqlSession.selectOne("freeboard.selectOne",vo);
+	}
+	
+	//게시글 업데이트
+	public int updateBoard(FreeboardVo vo) {
+		return sqlSession.update("freeboard.modifyBoard",vo);
 	}
 }

@@ -35,9 +35,16 @@ public class FreeboardService {
 		return vo;
 	}
 	
-	public int delete(String pw) {
+	public boolean modifyOne(FreeboardVo vo) {
+		int r = freeboardDao.updateBoard(vo);
 		
-		return freeboardDao.deleteBoard(pw);
+		return r==1;
 	}
-			
+	
+	public FreeboardVo getOneAll(FreeboardVo vo){
+		
+		freeboardDao.selectAll(vo);
+		
+		return vo;
+	}
 }
