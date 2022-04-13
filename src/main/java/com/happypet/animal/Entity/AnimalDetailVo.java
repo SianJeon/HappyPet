@@ -7,8 +7,20 @@ public class AnimalDetailVo {
 	String content;
 	String writer;
 	String writedate;
+	String owner;
 	
 	
+	@Override
+	public String toString() {
+		return "AnimalDetailVo [no=" + no + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", writedate=" + writedate + ", owner=" + owner + "]";
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 	public String getWriter() {
 		return writer;
 	}

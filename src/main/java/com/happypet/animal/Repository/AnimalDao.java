@@ -73,6 +73,24 @@ public class AnimalDao {
 		
 	}
 	
+	public int animalCommentdeleteByowner(String no ) {
+		
+		return sqlSession.delete("animalreview.decomendelete", no);
+		
+	}
+	
+	public int animaldetaildeleteByno(String no) {
+		
+		return sqlSession.delete("animalreview.detaildelete", no);
+		
+	}
+	
+	
+	public int animaldetailupdate(AnimalDetailVo vo) {
+		
+		return sqlSession.update("animalreview.detailupdate",vo);
+		
+	}
 	
 }
 

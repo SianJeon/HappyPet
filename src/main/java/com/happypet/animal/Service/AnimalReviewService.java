@@ -15,6 +15,7 @@ import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Entity.PagingVo;
 import com.happypet.animal.Repository.AnimalDao;
 import com.happypet.animal.Repository.FileDao;
+import com.happypet.animal.Repository.FileDataDao;
 import com.happypet.animal.Repository.PagingDao;
 
 @Service
@@ -28,6 +29,9 @@ public class AnimalReviewService {
 
 	@Autowired
 	PagingDao pagingDao;
+	
+	@Autowired
+	FileDataDao fileDataDao;
 
 	public Map<String, Object> animalreview(PagingVo vo) {
 
@@ -95,4 +99,23 @@ public class AnimalReviewService {
 		return animalDao.animalCommentselectbyupdate(no);
 
 	}
+	
+	public int animalCommentdetailDelete(String no) {
+		
+		
+		animalDao.animaldetaildeleteByno(no);
+		animalDao.animalCommentdeleteByowner(no);
+		fileDao.photodelete(no);
+		
+		return 1;
+		
+	}
+	
+	public int animalDetailupdate(AnimalDetailVo vo) {
+		
+		animalDao.animaldetailupdate(vo);
+		
+		return 1;
+	}
+	
 }
