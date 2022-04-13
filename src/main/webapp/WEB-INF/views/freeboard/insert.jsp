@@ -33,20 +33,6 @@ a:link {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-.sidebar{
-    display: flex;
-  	align-items: center; /* Vertical */
-  	justify-content: left; /* Horizontal */
-  	background: #f8f8f8;
-    border: 1px solid #fff;
-    padding: 0 0 0 7px;
-    height: 28px;
-}
-ul li {list-style:none; float:left; margin-left:10px;}
-.sidebar_left{
-	padding-left:0px;
-	margin-bottom:0px;
-}
 </style>
 <meta charset="UTF-8">
 <div class="container">
@@ -67,23 +53,14 @@ ul li {list-style:none; float:left; margin-left:10px;}
 					placeholder="제목을 입력해 주세요" style="width: 80%; height:30px;" required />
 			</div>
 			
-			<!-- 지금 짜고 있는 코드 사이드바 메뉴(사진첨부/파일첨부 등등..) -->
+			
 			<div style="margin-top: 10px;">
-			<div class="sidebar" style="border: 1px solid">
-				<ul class="sidebar_left">
-					<li>
-						<div unselectable="on" id="tx_file">
-						<a href="#" title="파일" class="tx-text">파일</a>
-						</div>
-					</li>
-					<li>하세요</li>
-					<li>!!</li>
-					<li>?!!</li>
-					<li>wow</li>
-				</ul>
-			</div>
 				<textarea rows="10" name="content" placeholder="글내용"
 					style="width: 100%; resize: none;" required></textarea>
+			</div>
+			<!-- 지금 짜고 있는 코드 사이드바 메뉴(사진첨부/파일첨부 등등..) -->
+			<div style="margin-top: 10px;">
+				<input type="file" class="file_border" name="upfile" multiple="multiple">			
 			</div>
 			<div style="margin-top: 10px; text-align: right;">
 				<button class="btn_add" type="submit">등록</button>
