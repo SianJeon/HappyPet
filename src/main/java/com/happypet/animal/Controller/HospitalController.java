@@ -96,9 +96,10 @@ public class HospitalController {
 	
 	@ResponseBody
 	@RequestMapping("/hospital/reviewList")
-	public Map reviewListHandle(@RequestParam("no") int no, Model model){
+	public Map reviewListHandle(@RequestParam("no") int no, @RequestParam("page") int page){
 		
 		PagingVo vo = new PagingVo();
+		vo.setPage(page);
 		
 		Map m = new HashMap();
 		

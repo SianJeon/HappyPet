@@ -66,7 +66,7 @@ function hospitalReview(page){
 	var no = ${data.no};
 	$.ajax({
 		url : "/hospital/reviewList",
-		data: { no: no},
+		data: { no: no, page:page},
 		success:function(obj){
 			var _html = "";
 			for(var i = 0 ; i <obj.list.length ; i++){
