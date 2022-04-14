@@ -3,10 +3,16 @@ package com.happypet.animal.Entity;
 import java.sql.Date;
 
 public class HospitalReviewVo {
-	int no;
-	String content, writer, pass, title;
-	Date wriedate;
+	int no, owner, rownum;
+	String content, writer, title;
+	Date writedate;
 	
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -25,24 +31,25 @@ public class HospitalReviewVo {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getWriedate() {
-		return wriedate;
+	public Date getWritedate() {
+		return writedate;
 	}
-	public void setWriedate(Date wriedate) {
-		this.wriedate = wriedate;
+	public void setWritedate(Date writedate) {
+		this.writedate = writedate;
 	}
+	public int getOwner() {
+		return owner;
+	}
+	public void setOwner(int owner) {
+		this.owner = owner;
+	}
+	
 	
 	
 }

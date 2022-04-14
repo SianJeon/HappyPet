@@ -35,47 +35,63 @@
 
 <div class="container">
 <h5>리뷰</h5>	
-    <table class="table table-striped hospital" >
+<form action="/hospital/writeReview" method="post"> 
+	<input type="hidden" name="no" value="${data.no }"> 
+	<input type="submit" value="후기작성" class="btn btn-primary">
+</form>
+    <table class="table table-striped reviewList" >
 	    <thead>
 		      <tr>
 		        <th style="width:10%">no</th>
 		        <th>제목</th>
-		        <th style="width:10%">조회</th>
+		        <th>작성자</th>
+		        <th style="width:10%">작성일</th>
 		      </tr>
 		</thead>
 		<tbody id="hospital_review_list">
 		</tbody>
 	  </table>
+		<div class='bteSet'>
+			<div class='page-list container'></div>
+		</div>
 	  </div>
 <script>
 
 $(function(){
 	 initMap();
-	 hospitalReview();
+  	 hospitalReview(1);
 });
 
-function hospitalReview(){
+function hospitalReview(page){
+	var no = ${data.no};
 	$.ajax({
 		url : "/hospital/reviewList",
-		data: {},
-		success:function(list){
+		data: { no: no, page:page},
+		success:function(obj){
 			var _html = "";
-			for(var i = 0 ; i <li.length ; i++){
-				_html += "<tr><td><a href='hospital/detail?no=" + list[i].no + "'>" + list[i].bsn_nm + "</a></td><td>"+ list[i].road_nm_addr +"</td><td>"+ list[i].tel_no + "</td></tr>"
+			for(var i = 0 ; i <obj.list.length ; i++){
+				_html += "<tr><td>"+ obj.list[i].rownum + "</td><td><a href='/hospital/reviewDetail?no="+ obj.list[i].no +"'>"+ obj.list[i].title +"</a></td><td>"
+				+ obj.list[i].writer +"</td><td>"+ obj.list[i].writedate + "</td></tr>"
 			}
 			
 			$("#hospital_review_list").html(_html);
 			
-			makePage(li.length, page, pageList, 5);
+			makePage(obj.paging.totalCount, page, 10, 10);
+			
 		},error:function(){
 			alert("에러");
 		}
 	});
 }
 
+$(document).on('click', '.page-list a', function(){
+	if( $('.reviewList').length > 0 )
+		hospitalReview( $(this).data('page') );
+	
+});
+
 //Initialize and add the map
 function initMap() {
-	
   // The location of Uluru
   const uluru = { lat: ${data.lat}, lng: ${data.lot} };
   // The map, centered at Uluru

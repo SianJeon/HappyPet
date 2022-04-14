@@ -17,6 +17,10 @@
 
 #fo {
 	
+.category{
+	text-align: right;
+	padding-right: 80px;
+
 }
 </style>
 <script

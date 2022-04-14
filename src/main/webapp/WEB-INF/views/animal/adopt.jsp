@@ -9,6 +9,12 @@
 	text-align: right;
 	padding-right: 100px;
 }
+
+.col-lg-3{
+	 margin-left: 100px;
+	 margin-right: 20px;
+}
+
 </style>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <meta charset="UTF-8">

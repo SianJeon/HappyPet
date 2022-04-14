@@ -22,17 +22,9 @@
 		<tbody id="hospital_list">
 		</tbody>
 	  </table>
-	<nav aria-label="Page navigation example">
-		<ul class="pagination page-list">
-			<li class="page-item"><a class="page-link" datapage='1'>Start</a></li>
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			<li class="page-item"><a class="page-link" href="#">End</a></li>
-		</ul>
-	</nav>
+		<div class='bteSet'>
+			<div class='page-list container'></div>
+		</div>
 </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
@@ -41,21 +33,19 @@
 			hospital_list(1);
 		});
 		
-		var pageList = 10;
-		
 		function hospital_list(page){
 			$.ajax({
 				url : "/hospital/list",
-				data: {page: page, rows: pageList},
-				success:function(li){
+				data: {page: page},
+				success:function(obj){
 					var _html = "";
-					for(var i = 0 ; i <li.length ; i++){
-						_html += "<tr><td><a href='hospital/detail?no=" + li[i].no + "'>" + li[i].bsn_nm + "</a></td><td>"+ li[i].road_nm_addr +"</td><td>"+ li[i].tel_no + "</td></tr>"
+					for(var i = 0 ; i <obj.item.length ; i++){
+						_html += "<tr><td><a href='hospital/detail?no=" + obj.item[i].no + "'>" + obj.item[i].bsn_nm + "</a></td><td>"+ obj.item[i].road_nm_addr +"</td><td>"+ obj.item[i].tel_no + "</td></tr>"
 					}
 					
 					$("#hospital_list").html(_html);
 					
-					makePage(li.length, page, pageList, 5);
+					makePage(obj.total, page, 10, 5);
 				},error:function(){
 					alert("에러");
 				}
@@ -63,43 +53,10 @@
 		}
 		
 		
-		function makePage(totalList, curPage, pageList, blockPage){
-	
-			var totalPage = Math.floor(totalList/pageList);
-			var totalBlock = Math.ceil(totalList/blockPage);
-			var curBlock = Math.ceil(curPage/blockPage);
-			var endPage = curBlock * blockPage;
-			var beginPage = endPage - (blockPage-1);
-			if( endPage > totalPage ) endPage = totalPage;
-			
-			var tag = '';
-			if(curBlock > 1){
-				tag = "<li class='page-item'><a class='page-link' datapage='1'>Start</a></li>"
-				+"<a title='이전' data-page='"+ (beginPage-blockPage) +"'><i class='fas fa-angle-left'></i></a>";
-			}
-			
-			for(var no = beginPage; no <= endPage; no++){
-				if( no == curPage){
-					tag += "<span class='page-on'>" + no + "</span>";
-				}else{
-					tag += "<a data-page='" + no + "'>" + no + "</a>";
-				}
-			}
-			
-			if( curBlock < totalBlock){
-				tag += "<a title='다음' data-page="+(endPage+1)+"><i class='fas fa-angle-right'></i></a>"
-				+ "<a title='마지막' data-page="+totalPage+"><i class='fas fa-angle-double-right'></i></a>";
-			}
-			$('.page-list').html(tag);
-		}
-		
 		$(document).on('click', '.page-list a', function(){
 			if( $('.hospital').length > 0 )
 				hospital_list( $(this).data('page') );
 			
-		}).on('change', '#pageList', function(){
-			pageList = $(this).val();
-
-		})
+		});
 	</script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

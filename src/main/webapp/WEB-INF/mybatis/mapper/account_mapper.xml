@@ -8,7 +8,7 @@
 			(#{userId}, #{userPass}, #{userName}, #{email}, #{zipcode}, #{address})
 	</insert>
 	
-	<select id="selectOneById" resultType="account">
+	<select id="selectOneById" resultType="accountVo">
 		SELECT * FROM ACCOUNT WHERE USER_ID=#{id}
 	</select>
 	
