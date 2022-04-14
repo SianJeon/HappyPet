@@ -7,6 +7,18 @@ public class MarketCart {
     int productNo;
     int buyAmount;
 
+    String mainPath;
+    String productName;
+    int prodcutPrice;
+    
+    public String getMainPath() {
+        return this.mainPath;
+    }
+
+    public void setMainPath(String mainPath) {
+        this.mainPath = mainPath;
+    }
+
     public int getCartNo() {
         return this.cartNo;
     }

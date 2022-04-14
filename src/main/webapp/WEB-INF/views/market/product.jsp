@@ -265,7 +265,6 @@
             </div>
         </div>
     </div>
-    
 
     <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
         <div class = "d-flex justify-content-between" >
@@ -401,11 +400,8 @@
 
     function addCart()
     {
-        if($("[name=accountId]").val() == '' || $("[name=accountId]").val() == null)
-        {
+        if($("[name=accountId]").val() == '' || $("[name=accountId]").val() == null) return;
 
-            return ;
-        }
         var vo = 
         {
             accountNo : $("[name=accountId]").val(),

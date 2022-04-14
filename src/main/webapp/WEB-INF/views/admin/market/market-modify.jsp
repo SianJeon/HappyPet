@@ -133,6 +133,7 @@ input[type=number] {
             stock : "rownum_stock_" + number,
             discount : "rownum_discount_" + number
         }
+        
         $("." + obj.name).attr("name", "productName");
         $("." + obj.category).attr("name", "category");
         $("." + obj.company).attr("name", "company");

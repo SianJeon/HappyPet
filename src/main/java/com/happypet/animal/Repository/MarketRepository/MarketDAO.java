@@ -3,7 +3,10 @@ package com.happypet.animal.Repository.MarketRepository;
 import java.util.List;
 
 import com.happypet.animal.Entity.MarketEntity.ConbineMarket;
+import com.happypet.animal.Entity.MarketEntity.Market;
 import com.happypet.animal.Entity.MarketEntity.MarketCart;
+import com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo;
+import com.happypet.animal.Entity.MarketEntity.MarketCartView;
 import com.happypet.animal.Entity.MarketEntity.MarketFileVo;
 import com.happypet.animal.Entity.MarketEntity.MarketVo;
 
@@ -79,6 +82,11 @@ public class MarketDAO {
     {
         return sqlSession.update("market.update-marketCartAmountAdd", cart);
     }
+    
+    public int updateMarketCartMinus(MarketCart cart)
+    {
+        return sqlSession.update("market.update-marketCartAmountMinus", cart);
+    }
 
     public ConbineMarket selectOrderlist(int no)
     {
@@ -87,13 +95,32 @@ public class MarketDAO {
 
     public List<MarketCart> selectOrderAmount(MarketCart cart)
     {
-        return sqlSession.selectList("select-cartOrder", cart);
+        return sqlSession.selectList("market.select-cartOrder", cart);
     }
 
     // 구매버튼시 카트 담은거 가져오기
     public MarketCart selectBuyBtn(int no)
     {
-        return sqlSession.selectOne("marke.buyBtn", no);
+        return sqlSession.selectOne("market.buyBtn", no);
     }
+
+    // 장바구니 전부 보여주기
+    public List<MarketCartView> selectAllCart(String account_id)
+    {
+        return sqlSession.selectList("market.select-allMarketCart", account_id);
+    }
+    
+    // 장바구니 제거
+    public int deleteMarketCart(MarketCart cart)
+    {
+        return sqlSession.delete("market.delete-marketCart", cart);
+    }
+
+    // 장바구니 상품 주문리스트 가져오기
+    public List<MarketCartOrderVo> selectOrderCartList(String accountId)
+    {
+        return sqlSession.selectList("market.select-cartListOrder", accountId);
+    }
+
 
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+    <insert id="insert-paymentInfo">
+        insert into pay
+        values (#{success}, #{error_code}, #{error_msg}, #{imp_uid}, #{merchant_uid}, 
+        #{pay_method}, #{paid_amount}, #{status}, #{name}, #{pg_provider}, #{emb_pg_provider},
+        #{pg_tid}, #{buyer_name}, #{buyer_email}, #{buyer_tel}, #{buyer_addr}, #{buyer_postcode},
+        #{custom_data}, #{paid_at}, #{receipte_url}, #{apply_num}, #{vbank_num}, #{vbank_name},
+        #{vbank_holder}, #{vbank_data})
+    </insert>
+</mapper>   

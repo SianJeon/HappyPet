@@ -10,6 +10,8 @@ import javax.servlet.ServletContext;
 import com.happypet.animal.Entity.MarketEntity.ConbineMarket;
 import com.happypet.animal.Entity.MarketEntity.Market;
 import com.happypet.animal.Entity.MarketEntity.MarketCart;
+import com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo;
+import com.happypet.animal.Entity.MarketEntity.MarketCartView;
 import com.happypet.animal.Entity.MarketEntity.MarketFileVo;
 import com.happypet.animal.Entity.MarketEntity.MarketVo;
 import com.happypet.animal.Repository.MarketRepository.MarketDAO;
@@ -31,9 +33,10 @@ public class MarketService {
     public ConbineMarket orderList(int no)
     {
         ConbineMarket conbineMarket = marketDAO.selectOrderlist(no);
-          // 할인율을 할인할 가격으로 변환해 변수값 변경
-          int discountMoney =  conbineMarket.getProductPrice() * conbineMarket.getDiscount() / 100;
-          conbineMarket.setDiscount((int)Math.ceil(discountMoney / 1000 ) * 1000);
+        
+        // 할인율을 할인할 가격으로 변환해 변수값 변경
+        int discountMoney =  conbineMarket.getProductPrice() * (int)((conbineMarket.getDiscount() * 0.01) * 100) / 100;
+        conbineMarket.setDiscount((int)Math.round((conbineMarket.getProductPrice() - discountMoney) / 100.0) * 100);
 
         return conbineMarket;
     }
@@ -61,8 +64,9 @@ public class MarketService {
 
         // 할인율을 할인할 가격으로 변환해 변수값 변경
         int discountMoney =  conbineMarket.getProductPrice() * conbineMarket.getDiscount() / 100;
-        conbineMarket.setDiscount((int)Math.ceil(discountMoney / 1000 ) * 1000);
-        
+        System.out.println(discountMoney);
+        conbineMarket.setDiscount((int)Math.round(discountMoney / 100.0) * 100);
+        // (int)Math.round((conbineMarket.getProductPrice() - discountMoney) / 100.0) * 100
         return conbineMarket;
     }
 
@@ -170,5 +174,53 @@ public class MarketService {
         
         // bool 1 == marketDAO.insertMarketCart(cart);
         return result;
+    }
+
+    // 장바구니 
+
+    // 장바구니에 담은 물건 전부 가져오기
+    public List<MarketCartView> selectAllCart(String account_id)
+    {
+        List<MarketCartView> marketCart = marketDAO.selectAllCart(account_id);
+
+        // 할인율을 할인할 가격으로 변환해 변수값 변경
+        for (MarketCartView mc : marketCart) {
+            int discountMoney =  mc.getProductPrice() * (int)((mc.getDiscount() * 0.01) * 100) / 100;
+            
+            mc.setProductPrice((int)Math.round((mc.getProductPrice() - discountMoney) / 100.0) * 100);
+        }
+        return marketCart;
+    }
+
+    public int minusMarketCart(MarketCart cart)
+    {
+        return marketDAO.updateMarketCartMinus(cart);
+    }
+
+    public int plusMarketCart(MarketCart cart)
+    {
+        
+        return marketDAO.updateMartketCartAmount(cart);
+    }
+
+    // 카트 삭제
+    public int deleteMarketCart(MarketCart cart)
+    {
+        int result = marketDAO.deleteMarketCart(cart);
+        return result;
+    }
+
+    // 장바구니 상품 리스트 주문 화면으로 출력
+    public List<MarketCartOrderVo> cartListOrder(String accountId)
+    {
+        List<MarketCartOrderVo> list = marketDAO.selectOrderCartList(accountId);
+
+        for (MarketCartOrderVo vo : list) {
+            System.out.println(vo.getBuyAmount());
+            int discount = vo.getProductPrice() *  (int)((vo.getDiscount() * 0.01) * 100) / 100;
+            vo.setDiscountPrice((int)Math.round((vo.getProductPrice() - discount) / 100.0) * 100);
+        }
+
+        return list;
     }
 }

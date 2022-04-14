@@ -52,50 +52,56 @@ table tr td {padding-left: 30px;}
     <div><h3>주문결제</h3></div>
     <div>02.주문결제</div>
 </div>
-<div class = "" style = "border: 1px solid rgb(172, 172, 172); margin-left: 50px; margin-right: 50px;">
-    <div class = "container ml-4 mr-4">
+<div style = "border: 1px solid rgb(172, 172, 172); margin-left: 50px; margin-right: 50px;">
+    <div class = "container ml-4 mr-4 row" style = "margin-left : 60px;">
         <div style="border-bottom: 2px solid; margin-top : 40px;"><h3>배송정보</h3></div>
-        <div>
+        <div class="col-6">
             <div class="mt-5 express-container">
                 <div class = "d-flex flex-row mt-3">
                     <span class="input-text">받는사람</span>
-                    <span><input type="text" class="form-control buy-input" placeholder="받는 사람"
+                    <span><input type="text" class="form-control buy-input buyer-name" placeholder="받는 사람"
                             style="margin-left: 31px;" value="${loginUser.userName}"></span>
                 </div>
                 <div class = "d-flex flex-row mt-3">
                     <span class="input-text">휴대전화</span>
-                    <span><input type="text" class="form-control buy-input" placeholder="전화번호"
+                    <span><input type="text" class="form-control buy-input buyer-phone" placeholder="전화번호"
                             style="margin-left: 31px;"></span>
                 </div>
                 <div class = "d-flex flex-row mt-3">
                     <span class="input-text" style="padding-top : 30px;">배송지 주소</span>
                     <span class = "">
                         <div class = "d-flex flex-row">
-                            <input type="text" class="form-control buy-input" placeholder="우편번호"
+                            <input type="text" class="form-control buy-input buyer-zipcode" placeholder="우편번호" id ="zipcode"
                                 style="margin-left: 12.5px; width: 128px;" value="${loginUser.zipcode}">
-                            <button type = "submit" class="btn-adress">우편번호검색</button>
+                            <button type = "button" onclick ="DaumPostcode()"  class="btn-adress">우편번호검색</button>
                         </div>
                     </span>
                 </div>
                 <div class = "d-flex flex-column">
                     <div class = "col-4 mt-3">
-                        <div><input type="text" class="form-control buy-input" 
-                            style="margin-left: 168px; width: 257px;" placeholder="상세주소를 입력하세요"
+                        <div><input type="text" class="form-control buy-input buyer-addr" id = "address"
+                            style="margin-left: 168px; width: 257px;" placeholder="주소를 입력하세요"
                             value="${loginUser.address}"></div>
                     </div>
                     <div class="mt-3">
-                        <div><input type="text" class="form-control buy-input" 
-                            style="margin-left: 168px; width: 257px;" placeholder="주소를 입력하세요"
-                            ></div>
+                        <div><input type="text" class="form-control buy-input buyer-detailAddr" 
+                            style="margin-left: 168px; width: 257px;" placeholder="상세 주소를 입력하세요">
+                        </div>
                     </div>
                 </div>
                 <div class = "d-flex flex-row mt-3">
                     <span class="input-text">배송 요청사항</span>
-                    <span><input type="text" class="form-control buy-input" placeholder="요청사항"></span>
+                    <span><input type="text" class="form-control buy-input" placeholder="요청사항"
+                            style="width: 257px;"></span>
                 </div>
             </div>
         </div>
+        <div class="col-6" style="padding-left: 50px;">
+            <div class="mt-5 text-center" style="width: 400px;"><h2>${order.productName}</h2></div>
+            <img src="${order.mainPath}" alt="" style="width : 400px;">
+        </div>
     </div>
+    
     <div class="container mt-5">
         <div><h3>주문상품</h3></div>
         <div class="top-line" style="background-color: rgb(223, 223, 223);
@@ -111,7 +117,44 @@ table tr td {padding-left: 30px;}
             </div>
         </div>
     </div>
-    <div class="container d-flex flex-row mt-2">
+    <c:choose>
+        <c:when test="${!empty vo}">
+        <div class="container d-flex flex-column mt-2">
+            <c:forEach items="${vo}" var="vo">
+            <div class = "d-flex flex-row">
+            <div>
+                <img src="${vo.mainPath}" alt="" style = "width : 120px">
+            </div>
+            <div class = "container row">
+                <div class="col-10 d-flex flex-column mr-3 mt-3">
+                     <div class="m-2" style="font-size: 22px;">
+                        ${vo.productName}
+                    </div>
+                    <div class = "m-2 d-flex flex-row">
+                        <div>수량 : </div>
+                        <div style = "padding-left 10px;">${vo.buyAmount} 개</div>
+                    </div>
+                </div>                
+            </div>
+                <div class = "col-2 text-center pt-3 mt-3">
+                    <div class = "d-flex flex-row">
+                        <span>정가 : </span>
+                        <h4 style="padding-left: 10px;"><fmt:formatNumber value="${vo.productPrice}" pattern="#,###" /></h4>
+                    </div> 
+                    <c:if test="${vo.discount != 0}" >
+                    <div class="d-flex flex-row">
+                        <span>할인가 :</span>
+                        <h4 style="color: tomato; padding-left: 10px;"><fmt:formatNumber value="${vo.discountPrice}" pattern="#,###" /></h4>
+                    </div>
+                    </c:if>
+                </div>
+            </div>
+            </c:forEach>
+        </div>
+        </c:when>
+        
+        <c:otherwise>
+        <div class="container d-flex flex-row mt-2">
         <div>
             <img src="${order.mainPath}" alt="" style="width: 120px;">
         </div>
@@ -130,14 +173,18 @@ table tr td {padding-left: 30px;}
                     <span>정가 :</span>
                     <h4 style="padding-left: 10px;"><fmt:formatNumber value="${order.productPrice}" pattern="#,###" /></h4>
                 </div>
+                <c:if test="${order.discount != 0}" >
                 <div class="d-flex flex-row">
                     <span>할인가 :</span>
                      <h4 style="color: tomato; padding-left: 10px;">
                         <fmt:formatNumber value="${order.productPrice - order.discount}" pattern="#,###" />
                     </h4>
                 </div>
+                </c:if>
             </div>
         </div>
+        </c:otherwise>
+    </c:choose>
     </div>
     <div class="container mt-5">
         <div><h3>최종결제 금액</h3></div>
@@ -195,18 +242,22 @@ table tr td {padding-left: 30px;}
             <div class="d-flex flex-column">
                 <div class="m-2">
                     <input type="radio" name="pay" id="kakaopay" value="kakaopay">
+                    <img src="/img/icons/kakaopayCI.png" alt="" style="width: 60px;">
                     <label for="kakaopay">kakaoPay</label>    
                 </div>
                 <div class="m-2">
                     <input type="radio" name="pay" id="naver" value="naver">
+                    <img src="/img/icons/naverpayCI.png" alt="" style="width: 60px;">
                     <label for="naver">네이버페이</label>
                 </div>
                 <div class="m-2">
                     <input type="radio" name="pay" id="card" value="card">
+                    <img src="/img/icons/card.png" alt="" style="width: 40px;">
                     <label for="card">신용카드</label>
                 </div>
                 <div class="m-2">
                     <input type="radio" name="pay" id="trans" value="trans">
+                    <img src="/img/icons/vbank.png" alt="" style="width: 40px;">
                     <label for="trans">계좌이체</label>
                 </div>
             </div>      
@@ -216,13 +267,17 @@ table tr td {padding-left: 30px;}
 </div>
 <div class="d-flex justify-content-center flex-column mt-5 text-center" style="margin: 0px 400px;">
     <div>위 주문 내용을 확인하였으며 결제에 동의합니다.</div>
-    <button class="buy-btn mt-3" onclick = "requestPay()"  style="width: 40%; margin-left: 160px;">결제하기</button>
+    <button class="buy-btn mt-3" onclick = "requestPay()"  style="width: 40%; margin-left: 180px;">결제하기</button>
+    <button class="buy-btn mt-3" onclick = "()"  style="width: 40%; margin-left: 180px;">결제하기</button>
 </div>
 
 <input type = "hidden" id = "productName" value = "${order.productName}">
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<%-- daum 우편번호찾기 --%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+    var response;
     var IMP = window.IMP; // 생략 가능
     IMP.init("imp79379003");
 
@@ -238,30 +293,92 @@ table tr td {padding-left: 30px;}
         {
             alert("결제방법을 선택해 주세요");
             return;
-        } 
-        
+        }
+        var buyerEmail = "<c:out value ='${loginUser.email}' />";
         IMP.request_pay({ // param
             pg: "html5_inicis",
             pay_method: checked_pay,
-            merchant_uid: "ORD20180131-0000011",
+            merchant_uid: "mexrchant_" + new Date().getTime(),
             name: productName,
-            amount: productPrice,
-            buyer_email: "animal1234@naver.com",
-            buyer_name: "Animal & Pet",
-            buyer_tel: "1588-9868",
-            buyer_addr: "광주 광역시 북구 중흥 1동 경양로 170",
-            buyer_postcode: "01181"
+            amount: 100,
+            buyer_email: buyerEmail,
+            buyer_name: $(".buyer-name").val(),
+            buyer_tel: "010-5056-1757",
+            buyer_addr: $(".buyer-addr").val() + " " + $(".buyer-detailAddr").val(),
+            buyer_postcode: $(".buyer-zipcode").val()
         }, 
         function (rsp) { 
+            $.ajax({
+                type: "post",
+                url: "/market/Checkedvaild/" + rsp.imp_uid,
+                data: rsp,
+                success: function (response) {
+                    console.log('response :>> ', response);                    
+                }
+            });
+            console.log('rsp :>> ', rsp);
             // callback
-            if (rsp.success) {
-                // 결제 성공 시 로직,
-                console.log('rsp.success :>> ', rsp.success);
+            // if (rsp.success) {
+                
+            //     console.log('rsp.status :>> ', rsp.status);
+            //     // 결제 성공 시 로직,
+            //      $.ajax({
+            //         type: "post",
+            //         url: "/market/orderSuccess",
+            //         data: rsp,
+            //         success: function (response) {
+            //             console.log('response :>> ', response);
+            //         }
+            //     });
+            //     // response = rsp;
 
-            } else {
-                // 결제 실패 시 로직,
-            }
+            // } else {
+            //     // 결제 실패 시 로직,
+            // }
       });
+    }
+
+    function DaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("address").value = roadAddr;
+            }
+        }).open();
+	}
+
+    function test(){
+         $.ajax({
+            type: "post",
+            url: "/market/orderSuccess",
+            data: rsp,
+            success: function (response) {
+                
+            }
+        });
+
     }
 </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

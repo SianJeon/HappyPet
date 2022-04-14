@@ -27,6 +27,8 @@
 		<typeAlias
 			type="com.happypet.animal.Entity.MarketEntity.MarketCart"
 			alias="marketCartVo" />
+		<typeAlias type="com.happypet.animal.Entity.MarketEntity.MarketCartView" alias="marketCartViewVo" />
+		<typeAlias type="com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo" alias="marketCartOrderVo" />
 		<!--  -->
 
 
