@@ -13,6 +13,8 @@
 			alias="animalVo" />
 		<typeAlias type="com.happypet.animal.Entity.AnimalReviewVo"
 			alias="AnimalReviewVo" />
+		<typeAlias type="com.happypet.animal.Entity.AnimalDetailVo"
+			alias="animalDetailVo" />
 		<typeAlias
 			type="com.happypet.animal.Entity.MarketEntity.MarketVo"
 			alias="marketVo" />

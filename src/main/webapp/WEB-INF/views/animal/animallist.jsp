@@ -22,6 +22,7 @@
 	padding-right: 80px;
 
 }
+
 </style>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -44,7 +45,7 @@
 
 
 
-	<div class="container">
+	<div class="container co">
 		<div class="row" id="anView"></div>
 	</div>
 
@@ -88,15 +89,9 @@
 							tag += "</div>"
 						}
 					}
+					
+					makePage(rst.paging.totalCount,no,10,10)
 				
-					for (var i = rst.paging.beginBlock; i <= rst.paging.endBlock; i++) {
-
-						dex += "<a href='#' onclick='anList(" + i
-								+ ")'>" + i + "</a>"
-
-					}
-
-					$("#fo").html(dex);
 					
 					$("#anView").html(tag);
 				});
@@ -107,14 +102,18 @@
 		$(document).on("change", "#category", function() {
 			anList(1);
 		})
+		
+		$(document).on('click', '.page-list a', function(){
+	if( $('#anView').length > 0 )
+		anList( $(this).data('page') );
+	
+});
 	</script>
 
 	<div class="container">
 		<div class="row">
 			<div class="col"></div>
-			<div class="col text-center" id=fo>
-
-
+			<div class='page-list container' style="text-align: center;">
 			</div>
 			<div class="col"></div>
 		</div>

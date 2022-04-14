@@ -21,9 +21,9 @@ function makePage(totalList, curPage, pageList, blockPage){
 			
 			for(var no = beginPage; no <= endPage; no++){
 				if( no == curPage){
-					tag += "<span class='page-on'>" + no + "</span>";
+					tag += "<span class='page-on' style='padding: 0px 10px'>" + no + "</span>";
 				}else{
-					tag += "<a data-page='" + no + "'>" + no + "</a>";
+					tag += "<a data-page='" + no + "' style='padding : 0px 10px'>" + no + "</a>";
 				}
 			}
 			
