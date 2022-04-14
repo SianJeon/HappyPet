@@ -52,7 +52,7 @@
 		</tbody>
 	  </table>
 		<div class='bteSet'>
-			<div class='page-list container'></div>
+			<div class='page-list container' style="text-align: center;"></div>
 		</div>
 	  </div>
 <script>
