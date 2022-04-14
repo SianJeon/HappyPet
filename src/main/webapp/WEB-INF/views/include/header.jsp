@@ -33,6 +33,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="/js/common.js?<%=new java.util.Date().getTime()%>"></script>
 </head>
 <style>
 .stop-dragging
@@ -42,7 +43,11 @@
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-}</style>
+}
+.ck-editor__editable_inline {
+    min-height: 400px;
+}
+</style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">

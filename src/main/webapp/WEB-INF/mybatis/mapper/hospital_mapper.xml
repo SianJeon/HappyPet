@@ -4,7 +4,7 @@
 	<insert id="insertOne">
 		INSERT INTO	hospital_list
 		VALUES
-			(HOSPITAL_SEQ.NEXTVAL, #{bsn_nm}, #{road_nm_addr}, #{rep_person}, #{tel_no}, #{lat}, #{lot})
+			(#{no}, #{bsn_nm}, #{road_nm_addr}, #{rep_person}, #{tel_no}, #{lat}, #{lot})
 	</insert>
 	
 	<select id="findDataByNo" resultType="hospitalVo">
@@ -16,6 +16,10 @@
 		VALUES
 			(HOSPITAL_REVIEW_SEQ.NEXTVAL, #{title},#{content}, #{writer},#{owner}, SYSDATE)
 	</insert>
+	
+	<select id="getReviewCountByOwner" resultType="int">
+		SELECT COUNT(*) count FROM HOSPITAL_REVIEW H WHERE OWNER = #{owner}
+	</select>
 	
 	<select id="findReviewByOwner" resultType="hospitalReviewVo">
 		SELECT ROWNUM, H.* FROM HOSPITAL_REVIEW H WHERE OWNER = #{owner} ORDER BY ROWNUM DESC
@@ -48,7 +52,8 @@
 	</insert>
 	
 	<select id="findCommentByOwner" resultType="hospitalReviewCommentVo">
-		SELECT ROWNUM, H.* FROM HOSPITAL_REVIEW_COMMENT H WHERE OWNER = #{owner} ORDER BY ROWNUM
+		SELECT  ROWNUM, H.* FROM HOSPITAL_REVIEW_COMMENT H WHERE OWNER = #{owner} ORDER BY ROWNUM
+		offset #{offset} rows fetch next 10 rows only
 	</select>
 	
 	<update id="deleteCommentByNo">

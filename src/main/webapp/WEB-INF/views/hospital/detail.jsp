@@ -39,7 +39,7 @@
 	<input type="hidden" name="no" value="${data.no }"> 
 	<input type="submit" value="후기작성" class="btn btn-primary">
 </form>
-    <table class="table table-striped hospital" >
+    <table class="table table-striped reviewList" >
 	    <thead>
 		      <tr>
 		        <th style="width:10%">no</th>
@@ -51,33 +51,44 @@
 		<tbody id="hospital_review_list">
 		</tbody>
 	  </table>
+		<div class='bteSet'>
+			<div class='page-list container'></div>
+		</div>
 	  </div>
 <script>
 
 $(function(){
 	 initMap();
-  	 hospitalReview();
+  	 hospitalReview(1);
 });
 
-function hospitalReview(){
+function hospitalReview(page){
 	var no = ${data.no};
 	$.ajax({
 		url : "/hospital/reviewList",
 		data: { no: no},
-		success:function(list){
+		success:function(obj){
 			var _html = "";
-			for(var i = 0 ; i <list.length ; i++){
-				_html += "<tr><td>"+ list[i].rownum + "</td><td><a href='/hospital/reviewDetail?no="+ list[i].no +"'>"+ list[i].title +"</a></td><td>"
-				+ list[i].writer +"</td><td>"+ list[i].writedate + "</td></tr>"
+			for(var i = 0 ; i <obj.list.length ; i++){
+				_html += "<tr><td>"+ obj.list[i].rownum + "</td><td><a href='/hospital/reviewDetail?no="+ obj.list[i].no +"'>"+ obj.list[i].title +"</a></td><td>"
+				+ obj.list[i].writer +"</td><td>"+ obj.list[i].writedate + "</td></tr>"
 			}
 			
 			$("#hospital_review_list").html(_html);
+			
+			makePage(obj.count, page, 10, 10);
 			
 		},error:function(){
 			alert("에러");
 		}
 	});
 }
+
+$(document).on('click', '.page-list a', function(){
+	if( $('.reviewList').length > 0 )
+		hospitalReview( $(this).data('page') );
+	
+});
 
 //Initialize and add the map
 function initMap() {

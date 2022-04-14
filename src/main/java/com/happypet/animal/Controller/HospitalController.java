@@ -1,6 +1,7 @@
 package com.happypet.animal.Controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -43,9 +44,9 @@ public class HospitalController {
 	
 	@ResponseBody
 	@RequestMapping("/hospital/list")
-	public List<Map> hospitalListHandle(@RequestParam("page") int page, @RequestParam("rows") int rows) {
+	public Map hospitalListHandle(@RequestParam("page") int page) {
 		
-		List<Map> li = hs.hospitalList(page, rows);
+		Map li = hs.hospitalList(page);
 		
 		
 		return li;
@@ -94,12 +95,18 @@ public class HospitalController {
 	
 	@ResponseBody
 	@RequestMapping("/hospital/reviewList")
-	public List<HospitalReviewVo> reviewListHandle(@RequestParam("no") int no){
+	public Map reviewListHandle(@RequestParam("no") int no, Model model){
 		
+		Map m = new HashMap();
 		
 		List<HospitalReviewVo> list = hs.findReviewByOwner(no);
 		
-		return list;
+		int count = hs.getReviewCountByOwner(no);
+		
+		m.put("count", count);
+		m.put("list", list);
+		
+		return m;
 		
 	}
 	

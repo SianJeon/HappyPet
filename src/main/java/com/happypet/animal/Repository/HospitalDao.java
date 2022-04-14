@@ -34,6 +34,9 @@ public class HospitalDao {
 		
 		return rv;
 	}
+	public int getReviewCountByOwner(int owner) {
+		return ss.selectOne("hospital.getReviewCountByOwner", owner);
+	}
 	
 	public HospitalReviewVo findReviewByNo(int no) {
 		return ss.selectOne("hospital.findReviewByNo", no);
@@ -67,9 +70,5 @@ public class HospitalDao {
 	
 	public int modifyCommentByNo(HospitalReviewCommentVo vo) {
 		return ss.update("hospital.modifyCommentByNo", vo);
-	}
-	
-	public int insertFile(FileDataVo vo) {
-		return ss.insert("hospital.insertFile", vo);
 	}
 }

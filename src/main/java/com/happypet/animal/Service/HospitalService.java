@@ -1,6 +1,7 @@
 package com.happypet.animal.Service;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,23 +23,26 @@ public class HospitalService {
 	@Autowired
 	HospitalDao dao;
 	
-	public List hospitalList(int page, int rows) {
+	public Map hospitalList(int page) {
+		
+		Map d=new HashMap() ;
 		RestTemplate rest = new RestTemplate();
 		
 		URI uri = UriComponentsBuilder
 				.fromHttpUrl("http://apis.data.go.kr/3510500/veterinary_hospital/getList")
 				.queryParam("serviceKey","ehRy5h1wKLTcUJJfXjxJPGCFeeDfp1LTLecUXYOoEsu1hJCmjz0hoGsQ69VP3sGTPP9T%2BOPfqBkG7adchz0Z%2BA%3D%3D")
 				.queryParam("pageNo", page)
-				.queryParam("numOfRows",rows)
+				.queryParam("numOfRows",10)
 				.queryParam("type", "json").build(true).toUri();
 		
 		
 		Map rst = rest.getForObject(uri, Map.class);
 		rst = (Map)rst.get("response");
+		d.put("total", rst.get("totalCount"));
 		rst = (Map)rst.get("body");
 		rst = (Map)rst.get("items");
 		List<Map> req = (List<Map>)rst.get("item");
-		
+		d.put("item", req);
 //		for(Map m : req) {
 //			HospitalVo vo = new HospitalVo();
 //			
@@ -52,8 +56,8 @@ public class HospitalService {
 //			
 //			dao.insertData(vo);
 //		}
-//		
-		return req;
+		
+		return d;
 		
 	}
 	
@@ -70,6 +74,10 @@ public class HospitalService {
 	
 	public List<HospitalReviewVo> findReviewByOwner(int owner){
 		return dao.findReviewByOwner(owner);
+	}
+	
+	public int getReviewCountByOwner(int owner) {
+		return dao.getReviewCountByOwner(owner);
 	}
 	
 	public HospitalReviewVo findReviewByNo(int no) {
@@ -117,15 +125,5 @@ public class HospitalService {
 		if (r == 1){
 			return true;			
 		}else return false;
-	}
-	
-	public boolean insertFile(FileDataVo vo, MultipartFile[] upload) {
-		
-		int r = dao.insertFile(vo);
-		
-		
-		if(r == 1)
-		return true;
-		else return false;
 	}
 }
