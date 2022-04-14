@@ -42,7 +42,7 @@ a:link {
 		</div>
 	</div>
 	<div style="margin-left: 20px;">
-		<form method="post">
+		<form method="post" enctype="multipart/form-data">
 			<div style="margin-top: 10px;">
 				<input type="text" name="writer" placeholder="작성자"
 					style="width: 25%; height:30px " required /> &nbsp&nbsp&nbsp<input type="text" name="pw"
@@ -60,7 +60,7 @@ a:link {
 			</div>
 			<!-- 지금 짜고 있는 코드 사이드바 메뉴(사진첨부/파일첨부 등등..) -->
 			<div style="margin-top: 10px;">
-				<input type="file" class="file_border" name="upfile" multiple="multiple">			
+				<input type="file" class="file_border" name="file" multiple="multiple">			
 			</div>
 			<div style="margin-top: 10px; text-align: right;">
 				<button class="btn_add" type="submit">등록</button>

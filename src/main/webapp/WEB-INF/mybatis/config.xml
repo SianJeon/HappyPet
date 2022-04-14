@@ -10,8 +10,9 @@
 
 	<!-- Vo클래스 별칭지정 -->
 	 <typeAliases>
-		<typeAlias type="com.happypet.animal.Entity.Freeboard.FreeboardVo" alias="freeboard"/>
-		<typeAlias type="com.happypet.animal.Entity.Freeboard.CommentVo" alias="comment"/>
+		<typeAlias type="com.happypet.animal.Entity.Freeboard.FreeboardVo" alias="freeboard" />
+		<typeAlias type="com.happypet.animal.Entity.Freeboard.CommentVo" alias="comment" />
+		<typeAlias type="com.happypet.animal.Entity.Freeboard.FileVo" alias="file" />
 	</typeAliases> 
 	
 </configuration> 

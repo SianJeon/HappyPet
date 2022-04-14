@@ -41,7 +41,7 @@
 	
 	<!-- 파일 업로드 디렉토리 설정 -->
 	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="[프로젝트 내 폴더, 절대경로로 설정]"/>
+		<constructor-arg value="/Users/leemyeonghan/Documents/upload"/>
 	</bean>
 	
 	<!-- interceptor 설정시 주석 해제 하고 path, bean 클래스 설정 바람 -->

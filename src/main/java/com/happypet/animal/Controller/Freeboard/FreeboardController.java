@@ -1,10 +1,13 @@
 package com.happypet.animal.Controller.Freeboard;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.happypet.animal.Entity.Freeboard.CommentVo;
 import com.happypet.animal.Entity.Freeboard.FreeboardVo;
 import com.happypet.animal.Entity.Freeboard.PagingVo;
 import com.happypet.animal.Service.Freeboard.CommentService;
 import com.happypet.animal.Service.Freeboard.DetailService;
+import com.happypet.animal.Service.Freeboard.FileService;
 import com.happypet.animal.Service.Freeboard.FreeboardService;
 import com.happypet.animal.Service.Freeboard.PagingService;
 
@@ -35,6 +40,9 @@ public class FreeboardController {
 	
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	FileService fileService;
 	
 	@RequestMapping("/list")
 	public String listHandler() {
@@ -63,8 +71,15 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping(path="/insert", method= RequestMethod.POST)
-	public String insertPostHandler(@ModelAttribute FreeboardVo vo,Model model) {
+	public String insertPostHandler(@ModelAttribute FreeboardVo vo,Model model,@RequestParam(required = false) MultipartFile[] file) {
 		System.out.println(vo);
+		
+		
+		String path = "/Users/leemyeonghan/Documents/upload";
+		
+
+
+		
 		boolean rst = freeboardService.addNewOne(vo);
 		if(!rst) {
 		return "freeboard/insert";

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<insert id="insertFile" parameterType="file">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+			SELECT EMP_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FREEBOARD_FILE(FILENO,PATH,SIZE,TYPE,NO,NAME) 
+		VALUES (#{file_no},#{path},#{size},#{type},#{no},#{name})
+	</insert>
+
+</mapper>
