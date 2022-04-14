@@ -24,7 +24,10 @@ public class PagingVo {
 		
 		beginBlock = ((page - 1) / 10) * 10 + 1;
 		endBlock = (page + 9) / 10 * 10;
+		
 		endBlock = endBlock > lastPage ? lastPage : endBlock; 
+		
+		
 		
 	}
 

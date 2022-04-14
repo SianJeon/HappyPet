@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.happypet.animal.Entity.AnimalDetailVo;
 import com.happypet.animal.Entity.AnimalReviewVo;
 import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Repository.FileDao;
@@ -88,6 +89,66 @@ public boolean registerOne(AnimalReviewVo vo, MultipartFile[] attach) {
 		return true;
 		
 	}
+
+	
+public boolean update(AnimalDetailVo vo, MultipartFile[] attach) {
+	
+	
+	if(attach == null) {
+		throw new RuntimeException();
+		
+	}
+	
+	
+	
+	File base = new File("/Users/upload");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	File savedir = new File(base,sdf.format(System.currentTimeMillis()));
+	
+	
+	
+	if( !savedir.exists())
+		savedir.mkdirs();
+	
+	for(MultipartFile file : attach) {
+		if(file ==null || file.isEmpty())
+			continue;
+		
+		
+		File dest = new File(savedir, UUID.randomUUID().toString());
+		
+		
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		FileDataVo fdv = new FileDataVo();
+		fdv.setName(file.getOriginalFilename());
+		fdv.setLen(file.getSize());
+		fdv.setType(file.getContentType());
+		fdv.setOwner(Integer.parseInt(vo.getNo()));
+		fdv.setPath(dest.getAbsolutePath());
+		
+		System.out.println(fdv);
+		
+		fileDataDao.fileupdate(fdv);
+	}
+	
+	
+	
+	
+	return true;
+	
+}
+
+
 
 	public FileDataVo filedownload(int no){
 		

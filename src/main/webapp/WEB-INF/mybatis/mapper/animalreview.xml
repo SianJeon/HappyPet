@@ -3,9 +3,9 @@
 <mapper namespace="animalreview">
 	
 
-	<select id="selectAll" resultType="fileBoardVO">
+	<select id="selectAll" resultType="AnimalReviewVo">
 	
-		SELECT f.no,e.title, e.content, f.path 
+		SELECT e.no,e.title, e.content, f.path 
 		FROM ADOPT_REVIEW e, FILEDATA f
 		where e.no = f.owner
 		offset #{offset} rows fetch next 10 rows only
@@ -14,15 +14,15 @@
 	
 	<select id="selectByno" resultType="fileDataVo">
 	
-		SELECT * FROM FILEDATA WHERE no = #{no}
+		SELECT * FROM FILEDATA WHERE owner = #{no}
 	
 	</select>
 	
 	<select id="detail" resultType="animalDetailVo">
 	
-		SELECT f.no, e.title, e.content, e.writedate, e.writer
+		SELECT f.owner, e.title, e.content, e.writedate, e.writer
 		FROM ADOPT_REVIEW e, FILEDATA f
-		where e.no = f.owner and f.no = #{no}
+		where e.no = f.owner and e.no = ${no}
 		
 		
 	</select>
@@ -68,6 +68,66 @@
 		SELECT * FROM REVIEW_COMMENT where no = #{no}
 	
 	</select>
+	
+	<delete id="decomendelete">
+	
+		DELETE FROM REVIEW_COMMENT where owner = #{no}
+		
+	
+	</delete>
+	
+	<delete id="detaildelete">
+		delete from adopt_review where no = #{no}
+	
+	</delete>
+	
+	<delete id="photodelete">
+		delete from FILEDATA where owner =#{no}
+	
+	</delete>
+	
+	<update id="detailupdate">
+	
+		UPDATE ADOPT_REVIEW
+		<set>
+			
+			<if test="title != null">
+				title = #{title},
+			</if>
+		
+			<if test="content != null">
+				content = #{content},
+			</if>
+		
+		
+		</set>
+		where no =#{no}
+	</update>
+	
+	<update id="fileupdate">
+	
+		UPDATE FILEDATA
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+		
+			<if test="path != null">
+				path = #{path},
+			</if>
+		
+			<if test="type != null">
+				type = #{type},
+			</if>
+		
+			<if test="len != null">
+				len = #{len},
+			</if>
+			
+		
+		</set>
+		where owner =#{owner}
+	</update>
 	
 	
 	

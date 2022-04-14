@@ -100,7 +100,7 @@
 									
 									
 										
-										dex += "<a href='#' style='text-align:center' onclick='review("+i+")'>"+i+"</a>"
+										dex += "<a href='#' onclick='review("+i+")' style='text-align:center;'>"+i+"</a>"
 										
 									
 								}
@@ -114,7 +114,7 @@
 
 		}
 	</script>
-
+	
 	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

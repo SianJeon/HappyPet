@@ -23,7 +23,7 @@
   	
   	</select>
   
-  	<insert id="insertBoard" parameterType="fileBoardVo">
+  	<insert id="insertBoard" parameterType="AnimalReviewVo">
   	
   		<selectKey resultType="int" keyProperty="no" order="BEFORE">
   			SELECT AR_SEQ.NEXTVAL AS NO FROM DUAL

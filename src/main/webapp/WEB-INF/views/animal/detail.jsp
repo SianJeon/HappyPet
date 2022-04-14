@@ -46,7 +46,11 @@ table tr td:#sub {
 </head>
 <body>
 
-
+		<div>
+			<a href="/animal/decomdelete?no=${detail.owner }">삭제</a>
+			<a href="/animal/deupdate?no=${detail.owner }">수정</a>	
+		</div>
+		
 
 
 
@@ -74,7 +78,7 @@ table tr td:#sub {
 				</tbody>
 			</table>
 			<div class="text-center" style="white-space: pre;">${detail.content }</div>
-			<img src="/download?no=${detail.no}"
+			<img src="/download?no=${detail.owner}"
 				class="rounded mx-auto d-block mt-2" alt="...">
 
 			<div id="comment"></div>
@@ -101,7 +105,7 @@ table tr td:#sub {
 					<textarea class="form-control" id="exampleFormControlTextarea1"
 						rows="3" name="content">
 				</textarea>
-					<input type="hidden" name="no" value="${detail.no }">
+					<input type="hidden" name="no" value="${detail.owner}">
 				</div>
 				
 
@@ -196,6 +200,7 @@ table tr td:#sub {
 
 						});
 
+		
 		$(document).on("click", "#ud", function() {
 
 			var no = $("#no").val();

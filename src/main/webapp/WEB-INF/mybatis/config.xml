@@ -12,8 +12,8 @@
 		<typeAlias type="com.happypet.animal.Entity.AnimalVo"
 			alias="animalVo" />
 		<typeAlias type="com.happypet.animal.Entity.AnimalReviewVo"
-			alias="fileBoardVo" />
-			<typeAlias type="com.happypet.animal.Entity.AnimalDetailVo"
+			alias="AnimalReviewVo" />
+		<typeAlias type="com.happypet.animal.Entity.AnimalDetailVo"
 			alias="animalDetailVo" />
 		<typeAlias
 			type="com.happypet.animal.Entity.MarketEntity.MarketVo"

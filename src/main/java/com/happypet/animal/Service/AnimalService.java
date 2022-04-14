@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.happypet.animal.Entity.AnimalVo;
+import com.happypet.animal.Entity.PagingVo;
 import com.happypet.animal.Repository.AnimalDao;
 
 
@@ -31,7 +34,7 @@ public class AnimalService {
 	@Autowired
 	AnimalDao animalDao;
 	
-	public List animalList(String pageNo) {
+	public Map<String,Object> animalListcho(String upkind, int pageNo) {
 		
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -44,37 +47,54 @@ public class AnimalService {
 		
 		System.out.println("bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D");
 		String key = "bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D";
-		URI url =  UriComponentsBuilder.fromHttpUrl("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
-				 .queryParam("serviceKey", key)
-				 .queryParam("pageNo", pageNo)
-				 .queryParam("numOfRows", 20)
-				 .queryParam("_type", "json").build(true).toUri();
-	
+		UriComponentsBuilder urlBuilder =  UriComponentsBuilder.fromHttpUrl("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
+				.queryParam("serviceKey", key)
+				.queryParam("pageNo", pageNo)
+				.queryParam("numOfRows", 20)
+				.queryParam("_type", "json");
 		
-		System.out.println(url);
-			
+		if(!upkind.equals("-")) {
+			urlBuilder.queryParam("upkind", upkind);
+		}
+		
+		System.out.println(urlBuilder.build(true).toUri());
 		
 		
-			Map rest = restTemplate.getForObject(url, Map.class);			
-				
-			rest = (Map)rest.get("response");
-			rest = (Map)rest.get("body");
-			rest = (Map)rest.get("items");
-			List<Map> rests = (List<Map>)rest.get("item");
-			
-			
 		
+		Map rest = restTemplate.getForObject(urlBuilder.build(true).toUri(), Map.class);			
+		
+		Map res =(Map)rest.get("response");
+			res = (Map)res.get("body");
 			
-			System.out.println("rest.get = "+rest.get("item"));
-			
-			
-			
-			
-			System.out.println(rests);
-			
-			
+		int cnt = ((Double)res.get("totalCount")).intValue();
+		
 
-		return rests;
+		PagingVo vo = new PagingVo();
+		
+		vo.setTotalCount(cnt);
+		vo.setPage(pageNo);
+		vo.update();
+		
+		rest = (Map)rest.get("response");
+		rest = (Map)rest.get("body");
+		rest = (Map)rest.get("items");
+		List<Map> rests = (List<Map>)rest.get("item");
+		
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("paging", vo);
+		map.put("rests", rests);
+			
+		System.out.println("rest.get = "+rest.get("item"));
+		
+		
+		
+		
+		System.out.println(rests);
+		
+		
+		
+		return map;
 	}
 	
 	public List animalcho(String upkind) {

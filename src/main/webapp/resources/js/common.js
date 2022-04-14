@@ -23,7 +23,11 @@ function makePage(totalList, curPage, pageList, blockPage){
 				if( no == curPage){
 					tag += "<span class='page-on' style='padding: 0px 10px'>" + no + "</span>";
 				}else{
+<<<<<<< HEAD
 					tag += "<a data-page='" + no + "' style='padding: 0px 10px'>" + no + "</a>";
+=======
+					tag += "<a data-page='" + no + "' style='padding : 0px 10px'>" + no + "</a>";
+>>>>>>> refs/heads/master
 				}
 			}
 			

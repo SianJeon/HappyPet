@@ -17,13 +17,12 @@
 
 #fo {
 	
-}
-
 .category{
 	text-align: right;
 	padding-right: 80px;
 
 }
+
 </style>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -31,24 +30,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	
-	<div class="col category">
-		<select id="category" name="category">
-			<option value=417000>강아지</option>
-			<option value=422400>고양이</option>
-			<option value=429900>기타</option>
 
+
+	<div id="cho">
+		<select name="category" id="category">
+			<option value="-">전체</option>
+			<option value="417000">강아지</option>
+			<option value="422400">고양이</option>
+			<option value="429900">기타</option>
 
 		</select>
 
 	</div>
 
 
-	<div class="container">
-		<div class="row" id="anView">
-		
-		</div>
+
+	<div class="container co">
+		<div class="row" id="anView"></div>
 	</div>
 
 
@@ -56,122 +54,68 @@
 
 	<script type="text/javascript">
 		function anList(no) {
+			var ctg = $("#category").val();
 			var tag = "";
+			var dex ="";
 
-			$
-					.ajax({
-						url : "/animal/list",
+			$.ajax({
+					url : "/animal/list",
+					data : {
+						"upkind" : ctg,
+						"pageNo" : no
+					}
+				})
+				.done(function(rst) {
+					console.log(rst);
+					for (var i = 0; i < rst.rests.length; i++) {
+						if (rst.rests[i].processState == "보호중") {
 
-						data : {
-
-							"pageNo" : no
+							tag += "<div class='col-lg-3 p-3'>"
+							tag += "<div class='card '>"
+							tag += "<a href='/animal/detail?desertionNo="
+									+ rst.rests[i].desertionNo
+									+ "'><img class='card-img-top img-fluid' src="+rst.rests[i].popfile+"><a>"
+							tag += "<div class='card-body'>"
+							tag += "<h5 class='card-title' >"
+									+ rst.rests[i].kindCd + "</h4>"
+							tag += "<h5 class='card-title' >"
+									+ rst.rests[i].age + "</h4>"
+							tag += "<h5 class='card-title' >"
+									+ rst.rests[i].weight + "</h4>"
+							tag += "<p class='card-text' >"
+									+ rst.rests[i].specialMark + "</p>"
+							tag += "</div>"
+							tag += "</div>"
+							tag += "</div>"
 						}
-
-					})
-					.done(
-							function(rst) {
-
-								for (var i = 0; i < rst.length; i++) {
-
-									if (rst[i].processState == "보호중") {
-
-										tag += "<div class='col-lg-3 p-3'>"
-										tag += "<div class='card '>"
-										tag += "<a href='/animal/detail?desertionNo="
-												+ rst[i].desertionNo
-												+ "'><img class='card-img-top img-fluid' src="+rst[i].popfile+"><a>"
-										tag += "<div class='card-body'>"
-										tag += "<h5 class='card-title' >"
-												+ rst[i].kindCd + "</h4>"
-										tag += "<h5 class='card-title' >"
-												+ rst[i].age + "</h4>"
-										tag += "<h5 class='card-title' >"
-												+ rst[i].weight + "</h4>"
-										tag += "<p class='card-text' >"
-												+ rst[i].specialMark + "</p>"
-										tag += "</div>"
-										tag += "</div>"
-										tag += "</div>"
-
-									}
-								}
-
-								$("#anView").html(tag);
-							})
-
+					}
+					
+					makePage(rst.paging.totalCount,no,10,10)
+				
+					
+					$("#anView").html(tag);
+				});
 		}
 
 		anList(1);
-		
-		
-		$(document).on('change','#category',function(){
-			
-			$('#col-lg-3').remove();
-			var upkind = $("#category").val();
-					
-			
-			$.ajax({
-				
-				url: "/animal/cho",
-				
-				data:{
-					"upkind" : upkind
-					
-				}
-				
-				
-				
-			}).done(function(rst){
-				
-				var tag="";
-				
-				for (var i = 0; i < rst.length; i++) {
 
-					if (rst[i].processState == "보호중") {
-				
-						tag += "<div class='col-lg-3 p-3'>"
-						tag += "<div class='card '>"
-						tag += "<a href='/animal/detail?desertionNo="
-								+ rst[i].desertionNo
-								+ "'><img class='card-img-top img-fluid' src="+rst[i].popfile+"><a>"
-						tag += "<div class='card-body'>"
-						tag += "<h5 class='card-title' >"
-								+ rst[i].kindCd + "</h4>"
-						tag += "<h5 class='card-title' >"
-								+ rst[i].age + "</h4>"
-						tag += "<h5 class='card-title' >"
-								+ rst[i].weight + "</h4>"
-						tag += "<p class='card-text' >"
-								+ rst[i].specialMark + "</p>"
-						tag += "</div>"
-						tag += "</div>"
-						tag += "</div>"
-
-
-					}
-				}
-				
-				$("#anView").html(tag);
-				
-			})
-			
-			
-		});
+		$(document).on("change", "#category", function() {
+			anList(1);
+		})
 		
+		$(document).on('click', '.page-list a', function(){
+	if( $('#anView').length > 0 )
+		anList( $(this).data('page') );
+	
+});
 	</script>
-
 
 	<div class="container">
 		<div class="row">
-			<div class="col text-center" id=fo>
-				<c:forEach var="i" begin="1" end="10">
-					<a id="ths" href="javascript:anList(${i})">${i}</a>
-				</c:forEach>
-
+			<div class="col"></div>
+			<div class='page-list container' style="text-align: center;">
 			</div>
-
-
-
+			<div class="col"></div>
 		</div>
 
 	</div>

@@ -9,14 +9,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.happypet.animal.Entity.AnimalCommentVo;
+import com.happypet.animal.Entity.AnimalDetailVo;
 import com.happypet.animal.Entity.AnimalVo;
+import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Entity.AnimalReviewVo;
 import com.happypet.animal.Entity.PagingVo;
 import com.happypet.animal.Service.AnimalReviewService;
+import com.happypet.animal.Service.FileService;
 
 @Controller
 public class AnimalAdoptReviewController {
@@ -24,7 +29,8 @@ public class AnimalAdoptReviewController {
 	@Autowired
 	AnimalReviewService animalReviewService;
 	
-	
+	@Autowired
+	FileService fileService;
 	
 	@ResponseBody
 	@RequestMapping("animal/review")
@@ -118,6 +124,36 @@ public class AnimalAdoptReviewController {
 		
 			
 		
+	}
+	@RequestMapping("animal/decomdelete")
+	public String animlaCommentdetailDelete(@RequestParam String no) {
+		
+		animalReviewService.animalCommentdetailDelete(no);
+		
+		return "redirect:/adopt";
+	}
+	
+	@RequestMapping("animal/deupdate")
+	public String deupdate(@RequestParam String no,Model model) {
+		
+			model.addAttribute("list", animalReviewService.animalDetail(no));
+		
+		
+		return "/animal/update";
+	}
+	
+	@RequestMapping(path = "animal/update",method = RequestMethod.POST)
+	public String update(@RequestParam String no,@RequestParam String content ,@RequestParam String title,@RequestParam MultipartFile[] attach ) {
+			AnimalDetailVo vo = new AnimalDetailVo();
+		
+			vo.setNo(no);
+			vo.setContent(content);
+			vo.setTitle(title);
+		
+		animalReviewService.animalDetailupdate(vo);
+		fileService.update(vo, attach);
+		
+		return "redirect:/animal/reviewdetail?no="+vo.getNo();
 	}
 	
 }

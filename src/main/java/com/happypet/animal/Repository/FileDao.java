@@ -35,4 +35,10 @@ public class FileDao {
 		return sqlSession.selectList("animalreview.selectByowner", owner);
 	}
 	
+	public int photodelete(String no) {
+		
+		return sqlSession.delete("animalreview.photodelete", no);
+		
+	}
+	
 }
