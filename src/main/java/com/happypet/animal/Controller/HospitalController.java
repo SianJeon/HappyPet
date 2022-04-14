@@ -24,6 +24,7 @@ import com.happypet.animal.Entity.AccountVo;
 import com.happypet.animal.Entity.HospitalReviewCommentVo;
 import com.happypet.animal.Entity.HospitalReviewVo;
 import com.happypet.animal.Entity.HospitalVo;
+import com.happypet.animal.Entity.PagingVo;
 import com.happypet.animal.Service.HospitalService;
 
 @SessionAttributes("loginUser")
@@ -97,14 +98,11 @@ public class HospitalController {
 	@RequestMapping("/hospital/reviewList")
 	public Map reviewListHandle(@RequestParam("no") int no, Model model){
 		
+		PagingVo vo = new PagingVo();
+		
 		Map m = new HashMap();
 		
-		List<HospitalReviewVo> list = hs.findReviewByOwner(no);
-		
-		int count = hs.getReviewCountByOwner(no);
-		
-		m.put("count", count);
-		m.put("list", list);
+		m = hs.findReviewByOwner(no, vo);
 		
 		return m;
 		

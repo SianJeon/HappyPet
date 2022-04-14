@@ -15,6 +15,7 @@ import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Entity.HospitalReviewCommentVo;
 import com.happypet.animal.Entity.HospitalReviewVo;
 import com.happypet.animal.Entity.HospitalVo;
+import com.happypet.animal.Entity.PagingVo;
 import com.happypet.animal.Repository.HospitalDao;
 
 @Service
@@ -72,8 +73,22 @@ public class HospitalService {
 		return r==1 ? true : false;
 	}
 	
-	public List<HospitalReviewVo> findReviewByOwner(int owner){
-		return dao.findReviewByOwner(owner);
+	public Map<String, Object> findReviewByOwner(int owner, PagingVo vo){
+		
+		vo.setTotalCount(dao.getReviewCountByOwner(owner));
+		vo.update();
+		
+		Map<String, Object> parameters = new HashMap();
+		
+		parameters.put("owner", owner);
+		parameters.put("offset", vo.getOffset());
+		
+		Map<String, Object> oo = new HashMap();
+		
+		oo.put("paging", vo);
+		oo.put("list", dao.findReviewByOwner(parameters));
+		
+		return oo;
 	}
 	
 	public int getReviewCountByOwner(int owner) {

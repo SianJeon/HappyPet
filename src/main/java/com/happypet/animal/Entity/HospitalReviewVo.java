@@ -7,8 +7,6 @@ public class HospitalReviewVo {
 	String content, writer, title;
 	Date writedate;
 	
-	
-	
 	public int getRownum() {
 		return rownum;
 	}

@@ -23,6 +23,7 @@
 	
 	<select id="findReviewByOwner" resultType="hospitalReviewVo">
 		SELECT ROWNUM, H.* FROM HOSPITAL_REVIEW H WHERE OWNER = #{owner} ORDER BY ROWNUM DESC
+		offset #{offset} rows fetch next 10 rows only
 	</select>
 	
 	<select id="findReviewByNo" resultType="hospitalReviewVo">

@@ -76,7 +76,7 @@ function hospitalReview(page){
 			
 			$("#hospital_review_list").html(_html);
 			
-			makePage(obj.count, page, 10, 10);
+			makePage(obj.paging.totalCount, page, 10, 10);
 			
 		},error:function(){
 			alert("에러");

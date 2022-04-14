@@ -1,15 +1,17 @@
 package com.happypet.animal.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happypet.animal.Entity.FileDataVo;
 import com.happypet.animal.Entity.HospitalReviewCommentVo;
 import com.happypet.animal.Entity.HospitalReviewVo;
 import com.happypet.animal.Entity.HospitalVo;
+import com.happypet.animal.Entity.PagingVo;
 
 
 @Repository
@@ -29,8 +31,8 @@ public class HospitalDao {
 		return ss.insert("hospital.insertReview", vo);
 	}
 	
-	public List<HospitalReviewVo> findReviewByOwner(int owner){
-		List<HospitalReviewVo> rv = ss.selectList("hospital.findReviewByOwner", owner);
+	public List<HospitalReviewVo> findReviewByOwner(Map<String, Object> parameters){
+		List<HospitalReviewVo> rv = ss.selectList("hospital.findReviewByOwner", parameters);
 		
 		return rv;
 	}
@@ -47,6 +49,7 @@ public class HospitalDao {
 	}
 	
 	public int updateReviewByNo(HospitalReviewVo vo) {
+		
 		return ss.update("hospital.updateReviewByNo", vo);
 	}
 	
