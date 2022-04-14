@@ -33,9 +33,9 @@ public class AnimalController {
 
 	@ResponseBody
 	@RequestMapping("/animal/list")
-	public List<Map> animal(@RequestParam String pageNo) {
+	public Map<String,Object> animal(@RequestParam int pageNo,@RequestParam String upkind) {
 
-		List<Map> rst = animalService.animalList(pageNo);
+		Map<String,Object> rst = animalService.animalListcho(upkind, pageNo);
 
 		return rst;
 	}
@@ -72,4 +72,5 @@ public class AnimalController {
 		return "/animal/write";
 	}
 
+	
 }

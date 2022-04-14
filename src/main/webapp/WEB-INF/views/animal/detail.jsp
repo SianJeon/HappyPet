@@ -200,6 +200,7 @@ table tr td:#sub {
 
 						});
 
+		
 		$(document).on("click", "#ud", function() {
 
 			var no = $("#no").val();

@@ -63,7 +63,7 @@
 	 <bean id = "simpleTask" class="com.happypet.animal.Service.AnimalService"/>
 	<task:scheduler id="findScheduler" pool-size="10"/>
 	<task:scheduled-tasks scheduler="findScheduler">
-		<task:scheduled ref="animalService" method="animalinsertDay" cron="0 0 10 * * *"/>
+		<task:scheduled ref="simpleTask" method="animalinsertDay" cron="0 0 10 * * *"/>
 	</task:scheduled-tasks> 
 	<task:annotation-driven />
 
