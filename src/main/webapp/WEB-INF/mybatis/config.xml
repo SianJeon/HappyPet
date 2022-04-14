@@ -29,10 +29,20 @@
 		<typeAlias type="com.happypet.animal.Entity.HospitalVo"
 			alias="hospitalVo" />
 		<typeAlias
-			type="com.happypet.animal.Entity.HospitalReviewVo" alias="hospitalReviewVo" />
+			type="com.happypet.animal.Entity.HospitalReviewVo"
+			alias="hospitalReviewVo" />
 		<typeAlias
-			type="com.happypet.animal.Entity.HospitalReviewCommentVo" alias="hospitalReviewCommentVo" />
+			type="com.happypet.animal.Entity.HospitalReviewCommentVo"
+			alias="hospitalReviewCommentVo" />
+		<typeAlias type="com.happypet.animal.Entity.FileDataVo"
+			alias="fileDataVo" />
 		<typeAlias
-			type="com.happypet.animal.Entity.FileDataVo" alias="fileDataVo" />
+			type="com.happypet.animal.Entity.Freeboard.FreeboardVo"
+			alias="freeboard" />
+		<typeAlias
+			type="com.happypet.animal.Entity.Freeboard.CommentVo" alias="comment" />
+		<typeAlias
+			type="com.happypet.animal.Entity.Freeboard.FileVo" alias="file" />
 	</typeAliases>
+
 </configuration> 

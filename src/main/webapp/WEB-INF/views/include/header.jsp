@@ -96,7 +96,7 @@
                         <a href="/adopt" class="dropdown-item">입양후기</a>
                     </div>
                 </div>    
-                <a href="" class="nav-item nav-link">자유게시판</a>
+                <a href="/freeboard/list" class="nav-item nav-link">자유게시판</a>
                 <a href="/hospital" class="nav-item nav-link">주변병원</a>
                 <a href="/market" class="nav-item nav-link">마켓</a>
             </div>
