@@ -73,11 +73,11 @@ public class FreeboardController {
 	@RequestMapping(path="/insert", method= RequestMethod.POST)
 	public String insertPostHandler(@ModelAttribute FreeboardVo vo,Model model,@RequestParam(required = false) MultipartFile[] file) {
 		System.out.println(vo);
-		
-		
-		String path = "/Users/leemyeonghan/Documents/upload";
-		
-
+//		
+//		List<MultipartFile> file = 
+//		String path = "/Users/leemyeonghan/Documents/upload";
+//		
+//
 
 		
 		boolean rst = freeboardService.addNewOne(vo);
