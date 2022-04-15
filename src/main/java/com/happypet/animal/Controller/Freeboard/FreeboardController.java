@@ -2,7 +2,6 @@ package com.happypet.animal.Controller.Freeboard;
 
 import java.io.File;
 
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,12 +47,7 @@ public class FreeboardController {
 	public String listHandler() {
 		return "freeboard/list";
 	}
-	
-	//properties에 있는 uploadPath값 가져오기
-    @Resource(name="uploadPath")
-    String uploadPath;
-	
-	
+
 	@RequestMapping(path="/list", method= RequestMethod.GET)
 	public String listGetHandler(Model model) {
 		

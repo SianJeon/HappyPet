@@ -13,9 +13,9 @@ function makePage(totalList, curPage, pageList, blockPage){
 			var tag = '';
 			
 			if(curBlock > 1){
-				tag = "<a title='처음' data-page='1'>"
+				tag = "<a title='처음' data-page='1' style='padding: 0px 10px'>"
 				+"<i class='fas fa-angle-double-left'></i>"
-				+"<a title='이전' data-page='"+ (beginPage-blockPage) +"'><i class='fas fa-angle-left'></i></a>";
+				+"<a title='이전' style='padding: 0px 10px' data-page='"+ (beginPage-blockPage) +"'><i class='fas fa-angle-left'></i></a>";
 			}
 			
 			
@@ -28,8 +28,8 @@ function makePage(totalList, curPage, pageList, blockPage){
 			}
 			
 			if( curBlock < totalBlock){
-				tag += "<a title='다음' data-page="+(endPage+1)+"><i class='fas fa-angle-right'></i></a>"
-				+ "<a title='마지막' data-page="+totalPage+"><i class='fas fa-angle-double-right'></i></a>";
+				tag += "<a title='다음' data-page="+(endPage+1)+" style='padding: 0px 10px' ><i class='fas fa-angle-right'></i></a>"
+				+ "<a title='마지막' data-page="+totalPage+" style='padding: 0px 10px' ><i class='fas fa-angle-double-right'></i></a>";
 			}
 			
 			

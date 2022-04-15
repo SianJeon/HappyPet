@@ -42,9 +42,9 @@
 <script type="text/javascript">
 
 $(function(){
-	   comment_list();
+	   comment_list(1);
 	});
-
+	
 //댓글저장
 function comment_regist(){
 	if( JSON.parse('${empty loginUser}') ){
@@ -73,9 +73,12 @@ function comment_regist(){
 	});
 	
 }
-	function comment_list(){
+	function comment_list(page){
+		
+		var owner = ${data.no};
 		   $.ajax({
-		      url:'/hospital/reviewComment/list?owner=' + ${data.no} ,
+		      url:'/hospital/reviewComment/list?owner=' + owner ,
+		    	data: {page: page},
 		      success: function(response){
 		    	  console.log(response);
 		         $('#comment_list').html(response);
@@ -85,6 +88,13 @@ function comment_regist(){
 		      }
 		   });
 		}
+	
+
+$(document).on('click', '.page-list a', function(){
+	if( $('.comments').length > 0 )
+		comment_list( $(this).data('page') );
+		
+});
 	
 
 </script>

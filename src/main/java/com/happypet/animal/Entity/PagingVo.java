@@ -80,4 +80,12 @@ public class PagingVo {
 		this.endBlock = endBlock;
 	}
 
+	@Override
+	public String toString() {
+		return "PagingVo [totalCount=" + totalCount + ", lastPage=" + lastPage + ", page=" + page + ", offset=" + offset
+				+ ", beginBlock=" + beginBlock + ", endBlock=" + endBlock + "]";
+	}
+	
+	
+
 }

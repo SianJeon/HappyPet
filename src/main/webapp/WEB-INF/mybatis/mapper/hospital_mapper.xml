@@ -53,8 +53,11 @@
 	</insert>
 	
 	<select id="findCommentByOwner" resultType="hospitalReviewCommentVo">
-		SELECT  ROWNUM, H.* FROM HOSPITAL_REVIEW_COMMENT H WHERE OWNER = #{owner} ORDER BY ROWNUM
+		SELECT  ROWNUM, H.* FROM HOSPITAL_REVIEW_COMMENT H WHERE OWNER = #{owner} ORDER BY ROWNUM DESC
 		offset #{offset} rows fetch next 10 rows only
+	</select>
+	<select id="getCommentCountByOwner" resultType="int">
+		SELECT COUNT(*) count FROM HOSPITAL_REVIEW_COMMENT WHERE OWNER = #{owner}
 	</select>
 	
 	<update id="deleteCommentByNo">
