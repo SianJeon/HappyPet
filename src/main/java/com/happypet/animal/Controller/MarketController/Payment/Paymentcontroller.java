@@ -1,15 +1,12 @@
 package com.happypet.animal.Controller.MarketController.Payment;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import javax.servlet.http.HttpSession;
 
+import com.happypet.animal.Entity.AccountVo;
 import com.happypet.animal.Entity.MarketEntity.Payment.PaymentVo;
 import com.happypet.animal.Service.MarketService.Payment.PaymentService;
-import com.siot.IamportRestClient.IamportClient;
-import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
-import com.siot.IamportRestClient.response.PaymentBalance;
+import com.siot.IamportRestClient.response.Payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,40 +20,39 @@ public class Paymentcontroller {
     
     @Autowired
     PaymentService paymentService;
-
-    IamportClient iampoart;
-
+    
     @RequestMapping("/market/Checkedvaild/{imp_uid}")
-    public IamportResponse<PaymentBalance> vaildCheckHandle(@PathVariable(value = "imp_uid") String imp_uid)
+    @ResponseBody
+    public IamportResponse<Payment> vaildCheckHandle(@PathVariable(value = "imp_uid") String imp_uid)
     {
-        iampoart = new IamportClient("6281239092289273",
-                             "d6638fd458050bf0a0fab3e144012c2e278d7a3903345d781c342115114a1f29914158ce5c5d30e2");
-        try
-        {
-            return iampoart.paymentBalanceByImpUid(imp_uid);
-        } 
-        catch (IamportResponseException | IOException e) 
-        {
-            e.printStackTrace();
-        }
-        return null;
+        System.out.println(imp_uid);
+        return paymentService.vaildCheck(imp_uid);
     }
     
     @ResponseBody
     @RequestMapping("/market/orderSuccess")
-    public String paymentHandle(@ModelAttribute PaymentVo vo)
+    public String paymentHandle(@ModelAttribute PaymentVo vo, HttpSession session)
     {
-        boolean success =  paymentService.insertPaymentInfo(vo);
+        // AccountVo acVo = (AccountVo)session.getAttribute("loginUser");
+        System.out.println(vo);
+        // boolean success =  paymentService.insertPaymentInfo(vo, acVo.getUserId());
+        boolean success =  paymentService.insertPaymentInfo(vo, "qwer");
         if(success)
         {
-            System.out.println("dd?");
+            System.out.println("저장 성공");
             return "저장 성공";
         }
         else
         {
-            System.out.println("faild");
+            System.out.println("저장 실패");
             return "저장 실패";
         }
         
+    }
+
+    @RequestMapping("/market/buyList")
+    public String listHandle(){
+        System.out.println( paymentService.selectList());
+        return "";
     }
 }

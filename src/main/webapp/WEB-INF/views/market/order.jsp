@@ -132,7 +132,7 @@ table tr td {padding-left: 30px;}
                     </div>
                     <div class = "m-2 d-flex flex-row">
                         <div>수량 : </div>
-                        <div style = "padding-left 10px;">${vo.buyAmount} 개</div>
+                        <div style = "padding-left : 10px;">${vo.buyAmount} 개</div>
                     </div>
                 </div>                
             </div>
@@ -256,7 +256,7 @@ table tr td {padding-left: 30px;}
                     <label for="card">신용카드</label>
                 </div>
                 <div class="m-2">
-                    <input type="radio" name="pay" id="trans" value="trans">
+                    <i`put type="radio" name="pay" id="trans" value="trans">
                     <img src="/img/icons/vbank.png" alt="" style="width: 40px;">
                     <label for="trans">계좌이체</label>
                 </div>
@@ -268,7 +268,7 @@ table tr td {padding-left: 30px;}
 <div class="d-flex justify-content-center flex-column mt-5 text-center" style="margin: 0px 400px;">
     <div>위 주문 내용을 확인하였으며 결제에 동의합니다.</div>
     <button class="buy-btn mt-3" onclick = "requestPay()"  style="width: 40%; margin-left: 180px;">결제하기</button>
-    <button class="buy-btn mt-3" onclick = "()"  style="width: 40%; margin-left: 180px;">결제하기</button>
+    <!-- <button class="buy-btn mt-3" onclick = "()"  style="width: 40%; margin-left: 180px;">결제하기</button> -->
 </div>
 
 <input type = "hidden" id = "productName" value = "${order.productName}">
@@ -305,36 +305,49 @@ table tr td {padding-left: 30px;}
             buyer_name: $(".buyer-name").val(),
             buyer_tel: "010-5056-1757",
             buyer_addr: $(".buyer-addr").val() + " " + $(".buyer-detailAddr").val(),
-            buyer_postcode: $(".buyer-zipcode").val()
+            buyer_postcode: $(".buyer-zipcode").val(),
+            custom_data : test()
         }, 
         function (rsp) { 
             $.ajax({
                 type: "post",
                 url: "/market/Checkedvaild/" + rsp.imp_uid,
-                data: rsp,
-                success: function (response) {
-                    console.log('response :>> ', response);                    
+                success: function (data) {
+                    console.log('data :>> ', data);
+                    
+                    if(rsp.paid_amount == data.response.amount)
+                    {
+                        alert("결제 및 결제검증 완료");
+                    }
+                    else
+                    {
+                        alert("결제 실패");
+                    }
+                },
+                error : function(req, text)
+                {
+                    console.log(req + " : " + text);
                 }
             });
             console.log('rsp :>> ', rsp);
             // callback
-            // if (rsp.success) {
+            if (rsp.success) {
                 
-            //     console.log('rsp.status :>> ', rsp.status);
-            //     // 결제 성공 시 로직,
-            //      $.ajax({
-            //         type: "post",
-            //         url: "/market/orderSuccess",
-            //         data: rsp,
-            //         success: function (response) {
-            //             console.log('response :>> ', response);
-            //         }
-            //     });
-            //     // response = rsp;
+                console.log('rsp.status :>> ', rsp.status);
+                // 결제 성공 시 로직,
+                 $.ajax({
+                    type: "post",
+                    url: "/market/orderSuccess",
+                    data: rsp,
+                    success: function (response) {
+                        console.log('response :>> ', response);
+                    }
+                });
 
-            // } else {
-            //     // 결제 실패 시 로직,
-            // }
+            } else {
+                // 결제 실패 시 로직,
+                console.log('fail :>> 결제 실패 ');
+            }
       });
     }
 
@@ -369,16 +382,18 @@ table tr td {padding-left: 30px;}
         }).open();
 	}
 
-    function test(){
-         $.ajax({
-            type: "post",
-            url: "/market/orderSuccess",
-            data: rsp,
-            success: function (response) {
-                
-            }
-        });
+    function SetCustom_data(){
+        var temp =  new Array();
+        for (let i = 0; i < 10; i++) {
+            var data =  new Object();
 
+            data.no = i;
+            data.name = ("애견패드" + i);
+
+            temp.push(data);
+        }
+        var json = JSON.stringify(temp);
+        return json;
     }
 </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

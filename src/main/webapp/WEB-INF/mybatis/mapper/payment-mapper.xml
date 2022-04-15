@@ -9,4 +9,19 @@
         #{custom_data}, #{paid_at}, #{receipte_url}, #{apply_num}, #{vbank_num}, #{vbank_name},
         #{vbank_holder}, #{vbank_data})
     </insert>
+
+    <insert id="insert-patmentAccountInfo">
+        insert into account_buyinfo
+        values (#{accountNo}, #{imp_uid}, #{merchant_uid}, #{paid_amount})
+    </insert>
+
+    <select id="select-paymentVaildChekc">
+        select m.product_name, m.product_price, m.discount, mc.buy_amount
+        from market m left outer join market_cart mc on (m.no = mc.product_no)
+        where mc.account_no = #{accountNo};
+    </select>
+
+    <select id="select-pamentBuyList" resultType="paymentVo">
+        select custom_data from pay
+    </select>
 </mapper>   

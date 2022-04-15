@@ -4,38 +4,36 @@ public class PaymentVo {
 
     String success;
 
-   
-    String error_code;
-    String error_msg;
-    String imp_uid;
-    String merchant_uid;
-    String pay_method;
+    String errorCode;
+    String errorMsg;
+    String impUid;
+    String merchantUid;
+    String payMethod;
 
-    int paid_amount;
+    int paidAmount;
 
     String status;
     String name;
-    String pg_provider;
-    String emb_pg_provider;
-    String pg_tid;
-    String buyer_name;
+    String pgProvider;
+    String embPgProvider;
+    String pgTid;
+    String buyerName;
 
-    String buyer_email;
-    String buyer_tel;
-    String buyer_addr;
-    String buyer_postcode;
-    String custom_data;
+    String buyerEmail;
+    String buyerTel;
+    String buyerAddr;
+    String buyerPostcode;
+    String customData;
 
-    int paid_at;
+    int paidAt;
 
-    String receipte_url;
-    String apply_num;
-    String vbank_num;
-    String vbank_name;
-    String vbank_holder;
+    String receipteUrl;
+    String applyNum;
+    String vbankNum;
+    String vbankName;
+    String vbankHolder;
 
-    int vbank_data;
-
+    int vbankData;
 
     public String getSuccess() {
         return this.success;
@@ -45,52 +43,52 @@ public class PaymentVo {
         this.success = success;
     }
 
-    public String getError_code() {
-        return this.error_code;
+    public String getErrorCode() {
+        return this.errorCode;
     }
 
-    public void setError_code(String error_code) {
-        this.error_code = error_code;
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public String getError_msg() {
-        return this.error_msg;
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
-    public void setError_msg(String error_msg) {
-        this.error_msg = error_msg;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
-    public String getImp_uid() {
-        return this.imp_uid;
+    public String getImpUid() {
+        return this.impUid;
     }
 
-    public void setImp_uid(String imp_uid) {
-        this.imp_uid = imp_uid;
+    public void setImpUid(String impUid) {
+        this.impUid = impUid;
     }
 
-    public String getMerchant_uid() {
-        return this.merchant_uid;
+    public String getMerchantUid() {
+        return this.merchantUid;
     }
 
-    public void setMerchant_uid(String merchant_uid) {
-        this.merchant_uid = merchant_uid;
+    public void setMerchantUid(String merchantUid) {
+        this.merchantUid = merchantUid;
     }
 
-    public String getPay_method() {
-        return this.pay_method;
+    public String getPayMethod() {
+        return this.payMethod;
     }
 
-    public void setPay_method(String pay_method) {
-        this.pay_method = pay_method;
+    public void setPayMethod(String payMethod) {
+        this.payMethod = payMethod;
     }
 
-    public int getPaid_amount() {
-        return this.paid_amount;
+    public int getPaidAmount() {
+        return this.paidAmount;
     }
 
-    public void setPaid_amount(int paid_amount) {
-        this.paid_amount = paid_amount;
+    public void setPaidAmount(int paidAmount) {
+        this.paidAmount = paidAmount;
     }
 
     public String getStatus() {
@@ -109,132 +107,133 @@ public class PaymentVo {
         this.name = name;
     }
 
-    public String getPg_provider() {
-        return this.pg_provider;
+    public String getPgProvider() {
+        return this.pgProvider;
     }
 
-    public void setPg_provider(String pg_provider) {
-        this.pg_provider = pg_provider;
+    public void setPgProvider(String pgProvider) {
+        this.pgProvider = pgProvider;
     }
 
-    public String getEmb_pg_provider() {
-        return this.emb_pg_provider;
+    public String getEmbPgProvider() {
+        return this.embPgProvider;
     }
 
-    public void setEmb_pg_provider(String emb_pg_provider) {
-        this.emb_pg_provider = emb_pg_provider;
+    public void setEmbPgProvider(String embPgProvider) {
+        this.embPgProvider = embPgProvider;
     }
 
-    public String getPg_tid() {
-        return this.pg_tid;
+    public String getPgTid() {
+        return this.pgTid;
     }
 
-    public void setPg_tid(String pg_tid) {
-        this.pg_tid = pg_tid;
+    public void setPgTid(String pgTid) {
+        this.pgTid = pgTid;
     }
 
-    public String getBuyer_name() {
-        return this.buyer_name;
+    public String getBuyerName() {
+        return this.buyerName;
     }
 
-    public void setBuyer_name(String buyer_name) {
-        this.buyer_name = buyer_name;
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
-    public String getBuyer_email() {
-        return this.buyer_email;
+    public String getBuyerEmail() {
+        return this.buyerEmail;
     }
 
-    public void setBuyer_email(String buyer_email) {
-        this.buyer_email = buyer_email;
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
     }
 
-    public String getBuyer_tel() {
-        return this.buyer_tel;
+    public String getBuyerTel() {
+        return this.buyerTel;
     }
 
-    public void setBuyer_tel(String buyer_tel) {
-        this.buyer_tel = buyer_tel;
+    public void setBuyerTel(String buyerTel) {
+        this.buyerTel = buyerTel;
     }
 
-    public String getBuyer_addr() {
-        return this.buyer_addr;
+    public String getBuyerAddr() {
+        return this.buyerAddr;
     }
 
-    public void setBuyer_addr(String buyer_addr) {
-        this.buyer_addr = buyer_addr;
+    public void setBuyerAddr(String buyerAddr) {
+        this.buyerAddr = buyerAddr;
     }
 
-    public String getBuyer_postcode() {
-        return this.buyer_postcode;
+    public String getBuyerPostcode() {
+        return this.buyerPostcode;
     }
 
-    public void setBuyer_postcode(String buyer_postcode) {
-        this.buyer_postcode = buyer_postcode;
+    public void setBuyerPostcode(String buyerPostcode) {
+        this.buyerPostcode = buyerPostcode;
     }
 
-    public String getCustom_data() {
-        return this.custom_data;
+    public String getCustomData() {
+        return this.customData;
     }
 
-    public void setCustom_data(String custom_data) {
-        this.custom_data = custom_data;
+    public void setCustomData(String customData) {
+        this.customData = customData;
     }
 
-    public int getPaid_at() {
-        return this.paid_at;
+    public int getPaidAt() {
+        return this.paidAt;
     }
 
-    public void setPaid_at(int paid_at) {
-        this.paid_at = paid_at;
+    public void setPaidAt(int paidAt) {
+        this.paidAt = paidAt;
     }
 
-    public String getReceipte_url() {
-        return this.receipte_url;
+    public String getReceipteUrl() {
+        return this.receipteUrl;
     }
 
-    public void setReceipte_url(String receipte_url) {
-        this.receipte_url = receipte_url;
+    public void setReceipteUrl(String receipteUrl) {
+        this.receipteUrl = receipteUrl;
     }
 
-    public String getApply_num() {
-        return this.apply_num;
+    public String getApplyNum() {
+        return this.applyNum;
     }
 
-    public void setApply_num(String apply_num) {
-        this.apply_num = apply_num;
+    public void setApplyNum(String applyNum) {
+        this.applyNum = applyNum;
     }
 
-    public String getVbank_num() {
-        return this.vbank_num;
+    public String getVbankNum() {
+        return this.vbankNum;
     }
 
-    public void setVbank_num(String vbank_num) {
-        this.vbank_num = vbank_num;
+    public void setVbankNum(String vbankNum) {
+        this.vbankNum = vbankNum;
     }
 
-    public String getVbank_name() {
-        return this.vbank_name;
+    public String getVbankName() {
+        return this.vbankName;
     }
 
-    public void setVbank_name(String vbank_name) {
-        this.vbank_name = vbank_name;
+    public void setVbankName(String vbankName) {
+        this.vbankName = vbankName;
     }
 
-    public String getVbank_holder() {
-        return this.vbank_holder;
+    public String getVbankHolder() {
+        return this.vbankHolder;
     }
 
-    public void setVbank_holder(String vbank_holder) {
-        this.vbank_holder = vbank_holder;
+    public void setVbankHolder(String vbankHolder) {
+        this.vbankHolder = vbankHolder;
     }
 
-    public int getVbank_data() {
-        return this.vbank_data;
+    public int getVbankData() {
+        return this.vbankData;
     }
 
-    public void setVbank_data(int vbank_data) {
-        this.vbank_data = vbank_data;
+    public void setVbankData(int vbankData) {
+        this.vbankData = vbankData;
     }
+
 
 }

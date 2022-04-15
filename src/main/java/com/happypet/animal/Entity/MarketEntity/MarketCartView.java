@@ -8,8 +8,6 @@ public class MarketCartView extends MarketCart {
 
 	int discount;
 
-
-
 	public String getMainPath() {
 		return this.mainPath;
 	}
