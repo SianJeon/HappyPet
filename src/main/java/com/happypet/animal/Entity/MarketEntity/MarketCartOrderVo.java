@@ -2,7 +2,7 @@ package com.happypet.animal.Entity.MarketEntity;
 
 public class MarketCartOrderVo {
     
-    int productNo;
+    int no;
     int productPrice;
     int buyAmount;
     int discount;
@@ -17,6 +17,7 @@ public class MarketCartOrderVo {
 
     int discountPrice;
 
+
     public int getDiscountPrice() {
         return this.discountPrice;
     }
@@ -26,11 +27,11 @@ public class MarketCartOrderVo {
     }
 
     public int getProductNo() {
-        return this.productNo;
+        return this.no;
     }
 
-    public void setProductNo(int productNo) {
-        this.productNo = productNo;
+    public void setProductNo(int no) {
+        this.no = no;
     }
 
     public int getProductPrice() {

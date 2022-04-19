@@ -8,7 +8,10 @@ import com.happypet.animal.Entity.MarketEntity.MarketCart;
 import com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo;
 import com.happypet.animal.Entity.MarketEntity.MarketCartView;
 import com.happypet.animal.Entity.MarketEntity.MarketFileVo;
+import com.happypet.animal.Entity.MarketEntity.MarketPageVo;
 import com.happypet.animal.Entity.MarketEntity.MarketVo;
+import com.happypet.animal.Entity.MarketEntity.Payment.PaymentVo;
+import com.siot.IamportRestClient.response.Payment;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,11 +91,11 @@ public class MarketDAO {
         return sqlSession.update("market.update-marketCartAmountMinus", cart);
     }
 
-    public ConbineMarket selectOrderlist(int no)
+    public MarketCartOrderVo selectWaitingOrderlist(int no)
     {
         return sqlSession.selectOne("market.select-productOrder", no);
     }
-
+    
     public List<MarketCart> selectOrderAmount(MarketCart cart)
     {
         return sqlSession.selectList("market.select-cartOrder", cart);
@@ -122,5 +125,40 @@ public class MarketDAO {
         return sqlSession.selectList("market.select-cartListOrder", accountId);
     }
 
+    // 구매 완료시 장바구니 물건 삭제
+    public int deleteBuyItem(String accountId)
+    {
+        return sqlSession.delete("market.delete-buyItemClear", accountId);
+    }
+    
+    // 가격 검증을 위한 db저장 상품 가격 가져오기
+    public Object selectCheckedPrice()
+    {
+        return sqlSession.selectOne("market.paymentVaildChecked");
+    }
 
+    // 구매 목록 확인
+    public PaymentVo selectOrderList(String accountId)
+    {
+        return sqlSession.selectOne("market.select-orderList", accountId);
+    }
+
+    // 구매 목록 이름, 사진
+    public ConbineMarket selectOrderNameList(int productNo)
+    {
+        return sqlSession.selectOne("market.select-orderListNameImage", productNo);
+    }
+
+    // 페이징
+    public List<ConbineMarket> selectPaging(MarketPageVo vo)
+    {
+        return sqlSession.selectList("market.select-paging", vo);
+    }
+
+    // 총 상품 수
+    public int selectProductCount()
+    {
+        return sqlSession.selectOne("market.select-totalProduct");
+    }
+    
 }

@@ -12,13 +12,21 @@
 
     <insert id="insert-patmentAccountInfo">
         insert into account_buyinfo
-        values (#{accountNo}, #{imp_uid}, #{merchant_uid}, #{paid_amount})
+        values (#{accountNo}, #{impUid}, #{merchantUid}, #{paidAmount})
     </insert>
 
-    <select id="select-paymentVaildChekc">
-        select m.product_name, m.product_price, m.discount, mc.buy_amount
+    <select id="select-paymentVaildChecked">
+        select m.product_name, m.product_price, m.discount, mc.buy_amount, p.imp_uid
         from market m left outer join market_cart mc on (m.no = mc.product_no)
-        where mc.account_no = #{accountNo};
+                left outer join account_buyinfo ac on(ac.account_no = mc.account_no)
+                left outer join pay p on(p.imp_uid = ac.imp_uid)
+        where mc.account_no = #{accountNo} and ac.imp_uid = #{imp_uid};
+    </select>
+
+    <select id="">
+        selec ac.imp_uid, p.*
+        from account_buyinfo ac right outer join pay p on(ac.imp_uid = p.imp_uid)
+        where account_no = #{accountNo}
     </select>
 
     <select id="select-pamentBuyList" resultType="paymentVo">

@@ -15,7 +15,8 @@
     <div><h3>장바구니</h3></div>
     <div>01.장바구니</div>
 </div>
-<form action = "/market/cartorder" method = "">
+<form action = "/market/order" method = "">
+
 <div class="cart-container">
     <div class="cart-box">장바구니 상품</div>
     <c:choose>
@@ -94,6 +95,7 @@
         </div>
     </div>
     </c:if>
+    <input type = "hidden" name = "buyAmount" value = '0'>
     </form>
 </div>
 

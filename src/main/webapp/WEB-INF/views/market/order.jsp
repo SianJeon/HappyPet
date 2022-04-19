@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <style>
 .buy-btn
@@ -10,7 +11,7 @@
     border : 1px solid salmon;  
     outline: 0; background-color: crimson;
     width: 30%;
-    color: white;
+    color: white;   
 }
 .express-container
 {
@@ -91,15 +92,13 @@ table tr td {padding-left: 30px;}
                 </div>
                 <div class = "d-flex flex-row mt-3">
                     <span class="input-text">배송 요청사항</span>
-                    <span><input type="text" class="form-control buy-input" placeholder="요청사항"
-                            style="width: 257px;"></span>
+                    <span><input type="text" class="form-control buy-input" placeholder="요청사항"style="width: 257px;"></span>
                 </div>
             </div>
         </div>
-        <div class="col-6" style="padding-left: 50px;">
-            <div class="mt-5 text-center" style="width: 400px;"><h2>${order.productName}</h2></div>
-            <img src="${order.mainPath}" alt="" style="width : 400px;">
-        </div>
+        <%-- <div class="col-6" style="padding-left: 50px;"> --%>
+            <%-- <div class="mt-5 text-center" style="width: 400px;"><h2>${order.productName}</h2></div> --%>
+        <%-- </div> --%>
     </div>
     
     <div class="container mt-5">
@@ -117,97 +116,56 @@ table tr td {padding-left: 30px;}
             </div>
         </div>
     </div>
-    <c:choose>
-        <c:when test="${!empty vo}">
+    <input type="hidden" value = "${fn:length(vo)}" id = "length">
         <div class="container d-flex flex-column mt-2">
-            <c:forEach items="${vo}" var="vo">
+            <c:forEach items="${vo}" var="vo" varStatus = "i">
+            <input type="hidden" value="${vo.discount}" id = "discount_${i.index}">
             <div class = "d-flex flex-row">
             <div>
                 <img src="${vo.mainPath}" alt="" style = "width : 120px">
             </div>
             <div class = "container row">
                 <div class="col-10 d-flex flex-column mr-3 mt-3">
-                     <div class="m-2" style="font-size: 22px;">
+                     <div class="m-2" style="font-size: 22px;" id ="productName_${i.index}">
                         ${vo.productName}
                     </div>
                     <div class = "m-2 d-flex flex-row">
                         <div>수량 : </div>
-                        <div style = "padding-left : 10px;">${vo.buyAmount} 개</div>
+                        <div style = "padding-left : 10px;" id = "buyAmount_${i.index}">${vo.buyAmount}</div>개
                     </div>
                 </div>                
             </div>
                 <div class = "col-2 text-center pt-3 mt-3">
                     <div class = "d-flex flex-row">
                         <span>정가 : </span>
+                        <input type="hidden" value="${vo.productPrice}" id = "productPrice_${i.index}">
                         <h4 style="padding-left: 10px;"><fmt:formatNumber value="${vo.productPrice}" pattern="#,###" /></h4>
-                    </div> 
+                    </div>
+                    <%-- <input type="hidden" value="${vo.discount}" id = "discount_${i.index}"> --%>
                     <c:if test="${vo.discount != 0}" >
                     <div class="d-flex flex-row">
                         <span>할인가 :</span>
+                        <input type="hidden" value="${vo.discountPrice}" id = "discountPrice_${i.index}">
                         <h4 style="color: tomato; padding-left: 10px;"><fmt:formatNumber value="${vo.discountPrice}" pattern="#,###" /></h4>
                     </div>
                     </c:if>
                 </div>
             </div>
+            <input type = "hidden" id = "productNo_${i.index}"  value = "${vo.productNo}">
             </c:forEach>
         </div>
-        </c:when>
-        
-        <c:otherwise>
-        <div class="container d-flex flex-row mt-2">
-        <div>
-            <img src="${order.mainPath}" alt="" style="width: 120px;">
-        </div>
-        <div class="container row">
-            <div class="col-10 d-flex flex-column mr-3 mt-3">
-                <div class="m-2" style="font-size: 22px;">
-                    ${order.productName}
-                </div>
-                <div class="m-2 d-flex flex-row">
-                    <div>수량  : </div>
-                    <div style="padding-left: 10px;">${buyAmount} 개</div>
-                </div>
-            </div>
-            <div class="col-2 text-center pt-3 mt-3">
-                <div class="d-flex flex-row">
-                    <span>정가 :</span>
-                    <h4 style="padding-left: 10px;"><fmt:formatNumber value="${order.productPrice}" pattern="#,###" /></h4>
-                </div>
-                <c:if test="${order.discount != 0}" >
-                <div class="d-flex flex-row">
-                    <span>할인가 :</span>
-                     <h4 style="color: tomato; padding-left: 10px;">
-                        <fmt:formatNumber value="${order.productPrice - order.discount}" pattern="#,###" />
-                    </h4>
-                </div>
-                </c:if>
-            </div>
-        </div>
-        </c:otherwise>
-    </c:choose>
     </div>
     <div class="container mt-5">
         <div><h3>최종결제 금액</h3></div>
         <table class="container mr-0" style="margin-left: 0; border-top: 2px solid black;">
             <tr class="mt-3">
                 <th style="width: 3%;">총 상품 금액</th>
-                <td style="width: 17%;">
-                    <fmt:formatNumber value="${order.productPrice - order.discount}" pattern="#,###" /> 원
+                <td style="width: 17%;" class = "allItemPrice">
                 </td>
             </tr>
             <tr class="mt-3">
                 <th>배송비</th>
-                <td>
-                    <c:choose>
-                        <c:when test="${order.productPrice - order.discount >= 30000}">
-                        무료배송
-                        <input type="hidden" name="deliveryMoney" value="0">
-                       </c:when>
-                       <c:otherwise>
-                       3000 원
-                       <input type="hidden" name="deliveryMoney" value="3000">
-                       </c:otherwise>
-                    </c:choose>
+                <td class = "expressPrice">
                 </td>
             </tr>
             <tr>
@@ -225,13 +183,7 @@ table tr td {padding-left: 30px;}
             <tr>
                 <th>총 결제 금액</th>
                 <td>
-                    <input type="hidden" name="productPrice" 
-                        value="${(order.productPrice - order.discount) *  buyAmount}">
-                    <h5 style="margin-top: 6px; margin-bottom: 0;"><script type="text/javascript">
-                        var money = Number($("[name=productPrice]").val()) + Number($("[name=deliveryMoney]").val());
-                        document.write(Number(money).toLocaleString() + " 원");
-                    </script></h5>
-                    <!-- <fmt:formatNumber value="${order.productPrice - order.discount}" pattern="#,###" /> -->
+                    <h5 style="margin-top: 6px; margin-bottom: 0; font-size: 26px;" id = "totalPaymentAmount"></h5>
                 </td>
             </tr>
         </table>
@@ -256,14 +208,14 @@ table tr td {padding-left: 30px;}
                     <label for="card">신용카드</label>
                 </div>
                 <div class="m-2">
-                    <i`put type="radio" name="pay" id="trans" value="trans">
+                    <input type="radio" name="pay" id="trans" value="trans">
                     <img src="/img/icons/vbank.png" alt="" style="width: 40px;">
                     <label for="trans">계좌이체</label>
                 </div>
             </div>      
         </div>
     </div>
-    <input type="hidden">
+    
 </div>
 <div class="d-flex justify-content-center flex-column mt-5 text-center" style="margin: 0px 400px;">
     <div>위 주문 내용을 확인하였으며 결제에 동의합니다.</div>
@@ -271,7 +223,8 @@ table tr td {padding-left: 30px;}
     <!-- <button class="buy-btn mt-3" onclick = "()"  style="width: 40%; margin-left: 180px;">결제하기</button> -->
 </div>
 
-<input type = "hidden" id = "productName" value = "${order.productName}">
+<input type = "hidden" id = "vo" value = "${vo}">
+
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <%-- daum 우편번호찾기 --%>
@@ -281,14 +234,17 @@ table tr td {padding-left: 30px;}
     var IMP = window.IMP; // 생략 가능
     IMP.init("imp79379003");
 
-    function requestPay() {
+    function requestPay(order) {
+
         // IMP.request_pay(param, callback) 결제창 호출
         var productName = $("#productName").val(); // 제품이름
-        var productPrice = $("[name=productPrice]").val(); // 제품가격
+        var productPrice = $("#productPrice").val(); // 제품가격
         var pay_method = $('input[name=pay]:checked').val(); // 결제방식 체크 확인
         
         var checked_pay = $("input[name='pay']:checked").val();
-        console.log('checked_pay :>> ', checked_pay);
+
+
+
         if(pay_method === undefined)
         {
             alert("결제방법을 선택해 주세요");
@@ -306,23 +262,17 @@ table tr td {padding-left: 30px;}
             buyer_tel: "010-5056-1757",
             buyer_addr: $(".buyer-addr").val() + " " + $(".buyer-detailAddr").val(),
             buyer_postcode: $(".buyer-zipcode").val(),
-            custom_data : test()
+            custom_data : SetCustom_data()
         }, 
         function (rsp) { 
             $.ajax({
                 type: "post",
                 url: "/market/Checkedvaild/" + rsp.imp_uid,
                 success: function (data) {
-                    console.log('data :>> ', data);
-                    
                     if(rsp.paid_amount == data.response.amount)
-                    {
                         alert("결제 및 결제검증 완료");
-                    }
                     else
-                    {
-                        alert("결제 실패");
-                    }
+                        alert("결제 실패 ");
                 },
                 error : function(req, text)
                 {
@@ -332,18 +282,19 @@ table tr td {padding-left: 30px;}
             console.log('rsp :>> ', rsp);
             // callback
             if (rsp.success) {
-                
+                console.log("/market/orderSuccess?vo=" + JSON.stringify(rsp));
                 console.log('rsp.status :>> ', rsp.status);
                 // 결제 성공 시 로직,
                  $.ajax({
                     type: "post",
                     url: "/market/orderSuccess",
-                    data: rsp,
+                    data: JSON.stringify(rsp),
+                    dataType : "json",
+                    contentType : "application/json;charset=UTF-8",
                     success: function (response) {
-                        console.log('response :>> ', response);
+                        
                     }
                 });
-
             } else {
                 // 결제 실패 시 로직,
                 console.log('fail :>> 결제 실패 ');
@@ -383,17 +334,47 @@ table tr td {padding-left: 30px;}
 	}
 
     function SetCustom_data(){
-        var temp =  new Array();
-        for (let i = 0; i < 10; i++) {
+        var list =  new Array();
+        var len = $("#length").val();
+        console.log('len :>> ', len);
+        for (let i = 0; i < len; i++) {
             var data =  new Object();
 
-            data.no = i;
-            data.name = ("애견패드" + i);
+            data.no = $("#productNo_" + i).val();
 
-            temp.push(data);
+            if($("#discountPrice_" + i).length != 0)            
+                data.price = Number($("#discountPrice_" + i).val());
+            else 
+                data.price = Number($("#productPrice_" + i).val()); 
+            
+            data.discount = $("#discount_" + i).val();
+            data.buyAmount = $("#buyAmount_" + i).text();
+
+            list.push(data);
+            console.log('list[i] :>> ', list[i]);
         }
-        var json = JSON.stringify(temp);
+        var json = JSON.stringify(list);
         return json;
     }
+    $(function () {
+        var len = $("#length").val();
+        var price = 0;
+
+        for (let i = 0; i < len; i++) {
+            if($("#discountPrice_" + i).length != 0)            
+            {
+                price += Number($("#discountPrice_" + i).val());
+            }
+            else 
+            {
+                price += Number($("#productPrice_" + i).val()); 
+            }
+        }
+        price.toLocaleString();
+        $(".allItemPrice").text(price.toLocaleString() + " 원");
+        var expressPrice = price > 30000 ? 0 : 3000;
+        $(".expressPrice").text(expressPrice == 0 ? "무료" : expressPrice.toLocaleString() + " 원");
+        $("#totalPaymentAmount").text((price - expressPrice).toLocaleString()+ " 원");
+    });
 </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

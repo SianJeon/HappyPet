@@ -1,5 +1,6 @@
 package com.happypet.animal.Controller.MarketController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,9 +30,16 @@ public class MarketController {
     public String marketHomeHandle(Model model)
     {
         List<ConbineMarket> vo = marketService.marketHomeList();
-        
+        for (ConbineMarket ma : vo) {
+            System.out.println(ma.getCompany());
+            System.out.println(ma.getMainPath());
+            System.out.println(ma.getProductPrice());
+            System.out.println(ma.getProductName());
+        }
         model.addAttribute("vo", vo);
 
+        model.addAttribute("pageCount", 12131);
+        
     	return "market/market";
     }
 
@@ -49,19 +57,24 @@ public class MarketController {
     }
 
     @RequestMapping("/market/order")
-    public String productOrderHandle(@RequestParam int buyAmount, @RequestParam int no, Model model)
-    {
-        model.addAttribute("order", marketService.orderList(no));
-        model.addAttribute("buyAmount", buyAmount);
-        return "market/order";
-    }
-
-    @RequestMapping("/market/cartorder")
-    public String cartOrderHandle(Model model, HttpSession session)
+    public String cartOrderHandle(@ModelAttribute MarketCartOrderVo vo, 
+                                @RequestParam(value = "buyAmount", required = false) int buyAmount,
+                                Model model, HttpSession session)
     {
         AccountVo acVo = (AccountVo)session.getAttribute("loginUser");
         // model.addAttribute("vo", marketService.cartListOrder(acVo.getUserId()));
-        model.addAttribute("vo", marketService.cartListOrder("qwer"));
+        List<MarketCartOrderVo> orderList = new ArrayList<MarketCartOrderVo>();
+        
+        if(vo.getProductNo() == 0)
+            orderList = marketService.cartListOrder("qwer");
+        else 
+            orderList.add(marketService.waitingOrderList(vo.getProductNo(), buyAmount));
+
+        for (MarketCartOrderVo marketCartOrderVo : orderList) {
+            System.out.println("discount : " + marketCartOrderVo.getDiscountPrice());
+            System.out.println("price : " + marketCartOrderVo.getProductPrice());
+        }
+        model.addAttribute("vo", orderList);
         return "market/order";
     }
     
@@ -69,7 +82,6 @@ public class MarketController {
     @RequestMapping("/market/addCart")
     public boolean addCartHandle(@ModelAttribute MarketCart cart)
     {
-        System.out.println(cart);
     	return marketService.insertMarketCart(cart);
     }
 
@@ -109,5 +121,14 @@ public class MarketController {
         return "/market/cart";
     }
 
+    @RequestMapping("/market/orderList")
+    public String orderList(Model model, HttpSession session)
+    {
+        AccountVo vo = (AccountVo)session.getAttribute("loginUser");
+
+        model.addAttribute("vo", marketService.orderList("qwer"));
+        // model.addAttribute("vo", marketService.orderList(vo.getUserId()));
+        return "market/orderList";
+    }
 }
 

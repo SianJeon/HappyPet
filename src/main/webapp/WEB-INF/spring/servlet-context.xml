@@ -66,5 +66,5 @@
 		<task:scheduled ref="animalService" method="animalinsertDay" cron="0 0 10 * * *"/>
 	</task:scheduled-tasks> 
 	<task:annotation-driven />
-
+	
 </beans>

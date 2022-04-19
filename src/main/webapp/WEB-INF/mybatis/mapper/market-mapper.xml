@@ -21,6 +21,9 @@
         where main_path like '%' || '_01'
     </select>
 
+    <select id="select-countMarketList">
+        select count(*) from market
+    </select>
 
     <!-- 상품 확인을 위해 클릭시 상품 상세정보 표시 -->
     <select id="select-marketDetail" parameterType="int" resultType="ConbineMarketVo">
@@ -67,6 +70,23 @@
                 #{comment_path}, systdate, 0, #{productScore})
     </insert>
 
+    <select id="select-paging" resultType="ConbineMarketVo">
+    <![CDATA[
+        select b.rnum, b.no, b.product_name, b.product_price, b.company, b.main_path
+        from 
+            (select rownum as rnum, a.no, a.product_name, a.product_price, a.company, a.main_path
+                from (select m.no, m.product_name, m.product_price, m.company, mf.main_path
+                        from market m left outer join marketfile mf on(m.no = mf.product_no)
+                        where mf.main_path like '%'||'_01'
+                        order by m.no desc) a
+            where rownum <= #{pageRows} * #{curPage}) b
+        where b.rnum >= ((#{curPage} * #{pageRows} + 1) - #{pageRows})
+    ]]>
+    </select>
+
+    <select id="select-totalProduct" resultType="int">
+        select distinct count(*) from market
+    </select>
     <!-- 장바구니 담기 -->
     <insert id="insert-marketCart">
         insert into market_cart
@@ -109,11 +129,11 @@
     <select id="select-buyBtn">
         select *
         from market_cart
-        where product_no = #{productNo}e
+        where product_no = #{productNo}
     </select>
 
     <!-- order -->
-    <select id="select-productOrder" resultType="ConbineMarketVo">
+    <select id="select-productOrder" resultType="MarketCartOrderVo">
         select m.no, mf.main_path, m.product_name, m.product_Price, m.discount
         from market m left join marketfile mf on(m.no = mf.product_no)
         where m.no = #{no} and main_path like '%' || '_01'
@@ -127,7 +147,7 @@
     <select id="select-cartListOrder" resultType="marketCartOrderVo">
         select m.no, m.product_name, m.discount, m.product_price,
                 mf.main_path,
-                mc.buy_amount,
+                mc.buy_amount, 
                 ac.user_id, ac.user_name, ac.zipcode, ac.address
         from market m
                 left outer join marketfile mf 
@@ -139,5 +159,19 @@
         where mf.main_path like '%'||'_01' and ac.user_id = #{accountNo}
     </select>
 
+    <delete id="delete-buyItemClear">
+        delete from market_cart where account_no = #{accountNo}
+    </delete>
 
+    <select id="select-orderList" resultType="paymentVo">
+        select to_char(to_date('19700101090000', 'YYYYMMDDHH24MISS') + (p.paid_at / 86400), 'MM/DD HH24:MI:SS') as paid_at, 
+                p.paid_amount, p.custom_data
+        from pay p left outer join account_buyinfo ac on(p.imp_uid = ac.imp_uid)
+        where ac.account_no = #{accountNo}
+    </select>
+    <select id="select-orderListNameImage" resultType="conbineMarketVo">
+        select m.product_name, mf.main_path
+        from market m left outer join marketfile mf on(m.no = mf.product_no)
+        where m.no = #{no} and mf.main_path like '%'||'_01'
+    </select>
 </mapper>   

@@ -25,7 +25,7 @@ public class PaymentVo {
     String buyerPostcode;
     String customData;
 
-    int paidAt;
+    String paidAt;
 
     String receipteUrl;
     String applyNum;
@@ -179,11 +179,11 @@ public class PaymentVo {
         this.customData = customData;
     }
 
-    public int getPaidAt() {
+    public String getPaidAt() {
         return this.paidAt;
     }
 
-    public void setPaidAt(int paidAt) {
+    public void setPaidAt(String paidAt) {
         this.paidAt = paidAt;
     }
 
@@ -234,6 +234,4 @@ public class PaymentVo {
     public void setVbankData(int vbankData) {
         this.vbankData = vbankData;
     }
-
-
 }

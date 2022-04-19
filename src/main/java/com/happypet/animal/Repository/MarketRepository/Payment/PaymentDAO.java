@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo;
 import com.happypet.animal.Entity.MarketEntity.Payment.PaymentAccountInfo;
+import com.happypet.animal.Entity.MarketEntity.Payment.PaymentInsertVo;
 import com.happypet.animal.Entity.MarketEntity.Payment.PaymentVo;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,7 +18,7 @@ public class PaymentDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public int insertPaymentInfo(PaymentVo vo)
+    public int insertPaymentInfo(PaymentInsertVo vo)
     {
         return sqlSession.insert("payment.insert-paymentInfo", vo);
     }

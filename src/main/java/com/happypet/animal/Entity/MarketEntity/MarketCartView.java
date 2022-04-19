@@ -8,6 +8,16 @@ public class MarketCartView extends MarketCart {
 
 	int discount;
 
+	int product_no;
+
+	public int getProduct_no() {
+		return this.product_no;
+	}
+
+	public void setProduct_no(int product_no) {
+		this.product_no = product_no;
+	}
+
 	public String getMainPath() {
 		return this.mainPath;
 	}

@@ -3,9 +3,9 @@ package com.happypet.animal.Entity.MarketEntity.Payment;
 public class PaymentAccountInfo {
     
     String accountNo;
-    String impuid;
-    String merchantuid;
-    int paidamount;
+    String impUid;
+    String merchantUid;
+    int paidAmount;
 
     public String getAccountNo() {
         return this.accountNo;
@@ -15,28 +15,28 @@ public class PaymentAccountInfo {
         this.accountNo = accountNo;
     }
 
-    public String getImpuid() {
-        return this.impuid;
+    public String getImpUid() {
+        return this.impUid;
     }
 
-    public void setImpuid(String impuid) {
-        this.impuid = impuid;
+    public void setImpUid(String impUid) {
+        this.impUid = impUid;
     }
 
-    public String getMerchantuid() {
-        return this.merchantuid;
+    public String getMerchantUid() {
+        return this.merchantUid;
     }
 
-    public void setMerchantuid(String merchantuid) {
-        this.merchantuid = merchantuid;
+    public void setMerchantUid(String merchantuid) {
+        this.merchantUid = merchantuid;
     }
 
-    public int getPaidamount() {
-        return this.paidamount;
+    public int getPaidAmount() {
+        return this.paidAmount;
     }
 
     public void setPaidamount(int paidamount) {
-        this.paidamount = paidamount;
+        this.paidAmount = paidamount;
     }
 
     
