@@ -1,5 +1,7 @@
 package com.happypet.animal.Repository;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,5 +37,15 @@ public class AccountDao {
 	
 	public void deleteId(String id) {
 		ss.update("account.deleteOne", id);
+	}
+	
+	public String getIdByNameandEmail(Map<String, Object> parameters) {
+		
+		return ss.selectOne("account.getIdByNameandEmail", parameters);
+	}
+	
+	public AccountVo getDataByParameters(Map<String, Object> parameters) {
+		
+		return ss.selectOne("account.getDataByParameters", parameters);
 	}
 }

@@ -24,7 +24,7 @@ public class MailService {
 		String authKey = uuids[4];
 		
 		SimpleMailMessage mail = new SimpleMailMessage();
-		String title = "edupoll-인증메일입니다.";
+		String title = "happypet-인증메일입니다.";
 		String mailContent = "[이메일 인증]인증번호입니다."
                  + authKey +  "인증번호는 일시적인 것으로 로그아웃후 사용이 불가합니다.";
 		
