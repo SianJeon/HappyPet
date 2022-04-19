@@ -62,7 +62,7 @@ function comment_regist(){
 			if( JSON.parse(response) ){
 				alert('댓글이 저장되었습니다');
 				$('#comment').val('');
-				comment_list();
+				comment_list(1);
 			}else{
 				alert('댓글 등록 실패!');
 			}

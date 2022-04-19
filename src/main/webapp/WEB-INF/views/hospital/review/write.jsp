@@ -11,9 +11,9 @@
     </div>
 	    
     <div class="container">
-	    <form action="/hospital/write">	    
+	    <form action="/hospital/write" onsubmit="return valid_form();">	    
 			<input type="hidden" name="no" value="${data.no }"> 
-			<label>제목 : &nbsp; </label><input type="text" name="title" class="w-50">
+			<label>제목 : &nbsp; </label><input type="text" name="title" class="w-50" id="title">
 			
 			<textarea class="form-control" id="p_content" name="content"></textarea>
 	    	<br>
@@ -38,6 +38,18 @@
     .catch(error => {
         console.error(error);
     });
+	
+	function valid_form() {
+		if($("#title").val() == ""){
+			$("#title").addClass("is-valid"); 
+		}
+		
+		if($("#p_content").val()==""){
+			$("#p_content").addClass("is-valid"); 
+			$("#pwd_confirm").focus();
+			return false;
+		}
+	}
 	</script>
 
 

@@ -123,9 +123,6 @@ public class HospitalController {
 	@RequestMapping("/hospital/deleteReview")
 	public String deleteReviewHandle(@RequestParam("no") int no) {
 		
-		System.out.println(no);
-		
-		
 		HospitalReviewVo vo = hs.findReviewByNo(no);
 
 		hs.deleteReview(no);
