@@ -14,8 +14,6 @@
   		FROM ANIMAL_LIST
   		WHERE desertionNo = #{desertionNo}
   	</select>
-<<<<<<< HEAD
-  
   	<insert id="insertBoard" parameterType="AnimalReviewVo">
   	
   		<selectKey resultType="int" keyProperty="no" order="BEFORE">
@@ -23,13 +21,7 @@
   		</selectKey>
   		
   		INSERT INTO ADOPT_REVIEW VALUES(#{no},#{title},#{content},SYSDATE,#{writer})
-  	
   	</insert>
-=======
-	  
-  	<insert id="insertBoard" parameterType="fileBoardVo">
->>>>>>> refs/heads/sian_Market&Admin
-		
 		
 	<insert id="insertData">
 		INSERT INTO FILEDATA VALUES(FILEDATA_SEQ.NEXTVAL,#{name},#{path},#{type},#{len},#{owner})
