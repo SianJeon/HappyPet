@@ -72,7 +72,7 @@ input[type=number] {
                 
         </div>
     
-        <form action = "/admin/market/market-modifySubmit" method = "">
+        <form action = "" method = "">
         <div class="container-fluid wrapper">
                 <div class="text-center"><h1>상품 수정</h1></div>
                 <div class="tableBox">
@@ -91,22 +91,24 @@ input[type=number] {
                         </thead>
                         <tbody>
                             <c:forEach items="${vo}" var="vo" varStatus = "status">
-                            <tr>
+                            <tr><input type = "hidden" name = "no" value = "${vo.no}" >
                                 <td><input class = "rownum_name_${status.count}" type = "text" value = "${vo.productName}" style = "width : 100%"></td>
                                 <td>
                                     <select class="form-select rownum_category_${status.count}" >
-                                        <option value="feed">사료</option>
-                                        <option value="snack">간식</option>
-                                        <option value="hygiene">위생</option>
-                                        <option value="clothing">의류 / 악세서리</option>
+                                        <option value="feed" ${vo.category eq 'feed' ? 'selected' :''}>사료</option>
+                                        <option value="snack" ${vo.category eq 'snack' ? 'selected' :''}>간식</option>
+                                        <option value="hygiene" ${vo.category eq 'hygiene' ? 'selected' :''}>위생</option>
+                                        <option value="clothing" ${vo.category eq 'clothing' ? 'selected' :''}>의류 / 악세서리</option>
                                     </select>
                                 </td>
                                 <td><input class = "rownum_company_${status.count}" type = "text" value = "${vo.company}"></td>
                                 <td><input class = "rownum_price_${status.count}" type = "number" value = "${vo.productPrice}"></td>
                                 <td><input class = "rownum_stock_${status.count}" type = "number" value = "${vo.productStock}" ></td>
                                 <td><input class = "rownum_discount_${status.count}" type = "number" value = "${vo.discount}"></td>
-                                <td><input class = "rownum_${status.count}" type = "button" onclick="modify('${status.count}')" class = "modify" value="수정"></td>
-                                <td><input class = "rownum_${status.count}" type = "button" onclick="del()" class = "delete" value="삭제"></td>
+                                <td><input class = "rownum_${status.count}" type = "button"
+                                    onclick="_submit('${status.count}', 'modify')" class = "modify" value="수정"></td>
+                                <td><input class = "rownum_${status.count}" type = "button"
+                                    onclick="_submit('${status.count}', 'delete')" class = "delete" value="삭제"></td>
                             </tr>
                             </c:forEach>
                         </tbody>
@@ -116,10 +118,12 @@ input[type=number] {
         </form>
     </div>        
 <script>
-    // var data = $("#tabledata").find("td:eq(1)").children().val();
-    
-    function modify(number)
+
+    function _submit(number, btn)
     {
+        var url;
+        if(btn == 'modify') url = "/admin/market/market-modifySubmit";
+        else if(btn == "delete") url = "/admin/market/market-deleteSubmit";
         var obj = 
         {
             name : "rownum_name_" + number,
@@ -129,15 +133,16 @@ input[type=number] {
             stock : "rownum_stock_" + number,
             discount : "rownum_discount_" + number
         }
+        
         $("." + obj.name).attr("name", "productName");
         $("." + obj.category).attr("name", "category");
         $("." + obj.company).attr("name", "company");
+        $("." + obj.price).attr("name", "productPrice");
         $("." + obj.stock).attr("name", "productStock");
         $("." + obj.discount).attr("name", "discount");
-        $("form").submit();
+        $("form").attr("action", url).submit();
     }
 
-    
 </script>
 <jsp:include page="/WEB-INF/views/admin/include/footer.jsp" />
 </body>

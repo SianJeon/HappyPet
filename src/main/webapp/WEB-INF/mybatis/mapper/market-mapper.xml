@@ -1,62 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="market">
+
+    <!-- 상품등록 -->
     <insert id="insert-Market">
         insert into market
         values(seq_market_no.nextval, #{category}, #{company}, 
               #{productName}, #{productPrice}, #{productStock}, #{detailImgPath}, #{discount})
     </insert>
+    <!-- 상품등록시 메인화면 이미지 등록 -->
     <insert id="insert-MarketFile">
         insert into marketFile
         values(seq_marketFile_no.nextval, seq_market_no.currval, #{mainPath})
     </insert>
     
+    <!-- 마켓 홈화면 뿌릴 이미지 리스트  -->
     <select id="select-MarketHomeList" resultType="ConbineMarketVo">
         select mf.main_path, m.*
         from market m left outer join marketFile mf on (m.no = mf.product_no)
         where main_path like '%' || '_01'
     </select>
 
+    <select id="select-countMarketList">
+        select count(*) from market
+    </select>
+
+    <!-- 상품 확인을 위해 클릭시 상품 상세정보 표시 -->
     <select id="select-marketDetail" parameterType="int" resultType="ConbineMarketVo">
         select *
         from market
         where no = #{no}
     </select>
 
+    <!-- 상품 확인을 위해 클릭시 상품 이미지들 표시 -->
     <select id="select-marketFileDetailList" parameterType="int" resultType="String">
         select main_path
         from marketFile
         where product_no = #{no}
     </select>
 
+    <!-- 마켓 수정을 위한 상품들 호출 -->
     <select id="select-marketModifyList" resultType="marketVo">
         select * from market
     </select>
 
-    <update id="update-marketList" >
+    <!-- 마켓상품업데이트 -->
+    <update id="update-marketProduct" >
         update market
-        <set>
-            <if test="">
-                product_name = #{productName},
-            </if>
-            <if test="">
-                product_price = #{productPrice},
-            </if>
-            <if test="">
-                product_stock = #{productStock},
-            </if>
-            <if test="">
-                category = #{category},
-            </if>
-            <if test="">
-                company = #{company},
-            </if>
-            <if test="">
-                discount = #{discount},
-            </if>
-        </set>
-        <where>
+        set
+            product_name = #{productName},
+            company = #{company},
+            category = #{category},
+            product_price = #{productPrice},
+            product_stock = #{productStock},
+            discount = #{discount}
+        where
             no = #{no}
-        </where>
     </update>
+    <!-- 마켓 상품 제거 -->
+    <delete id="delete-marketProduct">
+        delete market
+        where no = #{no}
+    </delete>
+
+    <!-- 상품 코멘트 작성 -->
+    <insert id="insert-comment">
+        insert into market_comment
+        valuse (seq_market_comment.nextval, #{accountNo}, #{marketNo}, #{title}, #{content},
+                #{comment_path}, systdate, 0, #{productScore})
+    </insert>
+
+    <select id="select-paging" resultType="ConbineMarketVo">
+    <![CDATA[
+        select b.rnum, b.no, b.product_name, b.product_price, b.company, b.main_path
+        from 
+            (select rownum as rnum, a.no, a.product_name, a.product_price, a.company, a.main_path
+                from (select m.no, m.product_name, m.product_price, m.company, mf.main_path
+                        from market m left outer join marketfile mf on(m.no = mf.product_no)
+                        where mf.main_path like '%'||'_01'
+                        order by m.no desc) a
+            where rownum <= #{pageRows} * #{curPage}) b
+        where b.rnum >= ((#{curPage} * #{pageRows} + 1) - #{pageRows})
+    ]]>
+    </select>
+
+    <select id="select-totalProduct" resultType="int">
+        select distinct count(*) from market
+    </select>
+    <!-- 장바구니 담기 -->
+    <insert id="insert-marketCart">
+        insert into market_cart
+        values (seq_market_cart_no.nextval, #{accountNo}, #{productNo}, #{buyAmount})
+    </insert>
+
+    <!-- 장바구니에 이미 담겨있는지 확인 -->
+    <select id="select-marketCart" resultType="marketCartVo">
+        select *
+        from market_cart
+        where account_no = #{accountNo} and product_no = #{productNo}
+    </select>
+
+    <!-- 계정의 장바구니 전체 물건 가져오기 -->
+    <select id="select-allMarketCart" resultType = "marketCartViewVo">
+        select mc.*, mf.main_path as mainpath, m.product_name as productname, m.product_price, m.discount
+        from market_cart mc left join marketfile mf on(mc.product_no = mf.product_no)
+        left join market m on(mf.product_no = m.no)
+        where mc.account_no = #{accountNo} and mf.main_path like '%'||'_01'
+    </select>
+
+    <!-- 장바구니에 이미 있으면 amount 숫자만 증가 -->
+    <update id="update-marketCartAmountAdd">
+        update market_cart
+        set buy_amount = buy_amount + 1
+        where account_no = #{accountNo} and product_no = #{productNo}
+    </update>
+
+    <update id="update-marketCartAmountMinus">
+        update market_cart
+        set buy_amount = buy_amount - 1
+        where account_no = #{accountNo} and product_no = #{productNo}
+    </update>
+
+    <delete id="delete-marketCart">
+        delete from market_cart where account_no = #{accountNo} and product_no = #{productNo}
+    </delete>
+
+    <!-- buyBtn -->
+    <select id="select-buyBtn">
+        select *
+        from market_cart
+        where product_no = #{productNo}
+    </select>
+
+    <!-- order -->
+    <select id="select-productOrder" resultType="MarketCartOrderVo">
+        select m.no, mf.main_path, m.product_name, m.product_Price, m.discount
+        from market m left join marketfile mf on(m.no = mf.product_no)
+        where m.no = #{no} and main_path like '%' || '_01'
+    </select>
+    <select id="select-cartOrder" resultType="marketCartVo">
+        select buy_amount
+        from market_cart
+        where product_no = #{productNo} and account_no = #{accountNo}
+    </select>
+
+    <select id="select-cartListOrder" resultType="marketCartOrderVo">
+        select m.no, m.product_name, m.discount, m.product_price,
+                mf.main_path,
+                mc.buy_amount, 
+                ac.user_id, ac.user_name, ac.zipcode, ac.address
+        from market m
+                left outer join marketfile mf 
+                    on(m.no = mf.product_no)
+                left outer join market_cart mc
+                    on(m.no = mc.product_no)
+                left outer join account ac
+                    on(mc.account_no = ac.user_id)
+        where mf.main_path like '%'||'_01' and ac.user_id = #{accountNo}
+    </select>
+
+    <delete id="delete-buyItemClear">
+        delete from market_cart where account_no = #{accountNo}
+    </delete>
+
+    <select id="select-orderList" resultType="paymentVo">
+        select to_char(to_date('19700101090000', 'YYYYMMDDHH24MISS') + (p.paid_at / 86400), 'MM/DD HH24:MI:SS') as paid_at, 
+                p.paid_amount, p.custom_data
+        from pay p left outer join account_buyinfo ac on(p.imp_uid = ac.imp_uid)
+        where ac.account_no = #{accountNo}
+    </select>
+    <select id="select-orderListNameImage" resultType="conbineMarketVo">
+        select m.product_name, mf.main_path
+        from market m left outer join marketfile mf on(m.no = mf.product_no)
+        where m.no = #{no} and mf.main_path like '%'||'_01'
+    </select>
+
+    <select id="select-company">
+        select distinct company from market
+    </select>
+    <select id="select-cagegory">
+        select distinct category from market
+    </select>
 </mapper>   
