@@ -29,7 +29,6 @@ public class LogInOutController {
 	@PostMapping("/session")
 	public String sessionHandle(HttpSession session, @RequestParam String loginId, @RequestParam String loginPass, Model model) {
 		
-		
 		boolean valid = as.isValidAccount(loginId, loginPass);
 		
 		if (valid) {
@@ -42,8 +41,6 @@ public class LogInOutController {
 			model.addAttribute("err", "error");
 			return "account/login";
 		}
-		
-		
 	}
 	
 	// 로그아웃

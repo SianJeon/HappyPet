@@ -99,18 +99,15 @@ public class AnimalService {
 	
 	public List animalcho(String upkind) {
 		
-		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		HttpHeaders headers = new HttpHeaders();
 		
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
 		
-		
-		
-		System.out.println("bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D");
 		String key = "bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D";
 		URI url =  UriComponentsBuilder.fromHttpUrl("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
+<<<<<<< HEAD
 				.queryParam("serviceKey", key)
 				.queryParam("upkind", upkind)
 				.queryParam("numOfRows", 20)
@@ -120,7 +117,21 @@ public class AnimalService {
 		System.out.println(url);
 		
 		
+=======
+				 .queryParam("serviceKey", key)
+				 .queryParam("pageNo", pageNo)
+				 .queryParam("numOfRows", 20)
+				 .queryParam("_type", "json").build(true).toUri();
+	
+			Map rest = restTemplate.getForObject(url, Map.class);			
+				
+			rest = (Map)rest.get("response");
+			rest = (Map)rest.get("body");
+			rest = (Map)rest.get("items");
+			List<Map> rests = (List<Map>)rest.get("item");
+>>>>>>> refs/heads/sian_Market&Admin
 		
+<<<<<<< HEAD
 		Map rest = restTemplate.getForObject(url, Map.class);			
 		
 		rest = (Map)rest.get("response");
@@ -140,6 +151,8 @@ public class AnimalService {
 		
 		
 		
+=======
+>>>>>>> refs/heads/sian_Market&Admin
 		return rests;
 	}
 	
@@ -153,9 +166,6 @@ public class AnimalService {
 		
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
 		
-		
-		
-		System.out.println("bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D");
 		String key = "bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D";
 		URI url =  UriComponentsBuilder.fromHttpUrl("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
 				.queryParam("serviceKey", key)

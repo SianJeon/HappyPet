@@ -13,7 +13,6 @@ public class MarketVo {
     String detailImgPath;
 
     int discount;
-
     
     MultipartFile detailImg;
     

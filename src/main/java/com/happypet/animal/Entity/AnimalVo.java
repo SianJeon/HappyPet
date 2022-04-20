@@ -25,6 +25,7 @@ public class AnimalVo {
 	String orgNm;
 	String chargeNm;
 	String officetel;
+	
 	public String getDesertionNo() {
 		return desertionNo;
 	}
