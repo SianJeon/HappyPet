@@ -97,9 +97,9 @@
                 <a href="" class="nav-item nav-link">자유게시판</a>
                 <a href="" class="nav-item nav-link">주변병원</a>
                 <div class="nav-item dropdown">
-                    <a href="/market" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마켓</a>
+                    <a href="/market?page=1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마켓</a>
                     <div class="dropdown-menu border-0 m-0">
-                        <a href="/market" class="dropdown-item">상품목록</a>
+                        <a href="/market?page=1" class="dropdown-item">상품목록</a>
                         <a href="/market/cart" class="dropdown-item">장바구니</a>
                         <a href="/market/orderList" class="dropdown-item">주문목록</a>
                     </div>

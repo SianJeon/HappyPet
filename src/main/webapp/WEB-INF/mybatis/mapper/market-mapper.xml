@@ -174,4 +174,11 @@
         from market m left outer join marketfile mf on(m.no = mf.product_no)
         where m.no = #{no} and mf.main_path like '%'||'_01'
     </select>
+
+    <select id="select-company">
+        select distinct company from market
+    </select>
+    <select id="select-cagegory">
+        select distinct category from market
+    </select>
 </mapper>   

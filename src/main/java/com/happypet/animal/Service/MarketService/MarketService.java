@@ -56,11 +56,12 @@ public class MarketService {
     {
         return marketDAO.selectBuyBtn(no);
     }
-    // 마켓 홈화면 리스트
-    public List<ConbineMarket> marketHomeList()
-    {
-        MarketPageVo pageVo = new MarketPageVo(marketDAO.selectProductCount());
 
+    // 마켓 홈화면 리스트
+    public List<ConbineMarket> marketHomeList(int nextPage)
+    {
+        MarketPageVo pageVo = new MarketPageVo(marketDAO.selectProductCount(), nextPage);
+        
         return marketDAO.selectPaging(pageVo);
     }
 

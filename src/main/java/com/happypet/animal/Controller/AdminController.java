@@ -27,7 +27,7 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @RequestMapping("admin/market/insertProduct")
+    @RequestMapping("/market/insertProduct")
     public String insertHandle(@ModelAttribute Market vo)
     {
         MarketVo marketVo = vo.getMarketVo();
@@ -41,13 +41,14 @@ public class AdminController {
         {
             e.printStackTrace();
         }
-        return "redirect:/admin";
+        return "redirect:/admin/market/insert";
     } 
     
     
     @RequestMapping("/market/insert")
     public String adminMarketHometHandle() 
     {
+    	System.out.println("insert");
     	return "admin/market/market-insert";
 	}
 

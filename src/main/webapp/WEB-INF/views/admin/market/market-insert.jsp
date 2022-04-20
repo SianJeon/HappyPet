@@ -61,14 +61,10 @@ input[type=number] {
             <div class = "col-6">
             <a href="insert">상품 등록</a>
         </div>
-        <div class = "col-6">
-            <a href="modify">상품 수정</a>
-            <%-- <div class = "nav-item nav-link modi" onclick = "location.href='admin/market/modify'"> --%>
-                
-        </div>
+        <div class = "col-6"><a href="modify">상품 수정</a></div>
         <div class="p-5">
             <div class="text-center"><h1>상품 등록</h1></div>
-            <form action="admin/market/insertProduct" enctype = "multipart/form-data" method="post">
+            <form action="/admin/market/insertProduct" enctype = "multipart/form-data" method="post" onsubmit="init()">
             <div class="row">
                 <div class = "col-2" style="padding-top : 25px;">
                     <select class="form-select" style="height :33px; text-align: center;"
@@ -93,9 +89,8 @@ input[type=number] {
                                 required oninvalid="this.setCustomValidity('제품 회사를 입력해 주세요')" 
                                 oninput="setCustomValidity('')">
                 </div>
-                    <div class="col-3">
+                <div class="col-3">
                     가격    <input type="number" class="form-control" name="marketVo.productPrice"
-                                
                                 placeholder="제품 가격을 입력해주세요"
                                 required oninvalid="this.setCustomValidity('제품 가격을 입력해 주세요')" 
                                 oninput="setCustomValidity('')">
@@ -119,18 +114,23 @@ input[type=number] {
                 </div>
                 <div class="col-6">
                     상세사진 <input type="file" class="form-control" name="marketVo.detailImg"
-                                
                                 required oninvalid="this.setCustomValidity('제품 상세 사진을 입력해 주세요')" 
                                 oninput="setCustomValidity('')">
                 </div>
             </div>
-                <button class="btn btn-primary w-100 py-3 mt-5" type="submit">제품 등록</button>
+            <button class="btn btn-primary w-100 py-3 mt-5" type="submit">제품 등록</button>
             </form>
         </div>
         
     </div>
-        
-        <!--  -->
 </div>
+<script>
+    function init()
+    {
+        var value = $("[name=marketVo.discount]").val();
+        if(value == '' || value == undefined) $("[name=marketVo.discount]").val(0);
+    }
+</script>
+
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/admin/include/footer.jsp" />

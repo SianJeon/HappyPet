@@ -19,6 +19,16 @@ public class MarketPageVo {
         this.displayPage = 10;
     }
 
+    public MarketPageVo(int totalPage, int curpage)
+    {
+        this.totalPage = totalPage;
+        this.startPage = 1;
+        this.curPage = curpage;
+        this.pageRows = 8;
+        this.endPage = totalPage / 8;
+        this.displayPage = 10;
+    }
+
     public int getTotalPage() {
         return this.totalPage;
     }

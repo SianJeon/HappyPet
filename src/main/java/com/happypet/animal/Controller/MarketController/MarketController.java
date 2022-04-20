@@ -27,19 +27,15 @@ public class MarketController {
     MarketService marketService;
 
     @RequestMapping("/market")
-    public String marketHomeHandle(Model model)
+    public String marketHomeHandle(@RequestParam int page, Model model)
     {
-        List<ConbineMarket> vo = marketService.marketHomeList();
-        for (ConbineMarket ma : vo) {
-            System.out.println(ma.getCompany());
-            System.out.println(ma.getMainPath());
-            System.out.println(ma.getProductPrice());
-            System.out.println(ma.getProductName());
-        }
+        int nextPage = page;
+        List<ConbineMarket> vo = marketService.marketHomeList(nextPage);
+      
         model.addAttribute("vo", vo);
-
-        model.addAttribute("pageCount", 12131);
         
+        model.addAttribute("pageCount", marketService.countProduct() / 8);
+
     	return "market/market";
     }
 
