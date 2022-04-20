@@ -123,9 +123,6 @@ public class HospitalController {
 	@RequestMapping("/hospital/deleteReview")
 	public String deleteReviewHandle(@RequestParam("no") int no) {
 		
-		System.out.println(no);
-		
-		
 		HospitalReviewVo vo = hs.findReviewByNo(no);
 
 		hs.deleteReview(no);
@@ -179,11 +176,12 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/hospital/reviewComment/list")
-	public String commentListHandle(@RequestParam("owner") int owner, Model model){
+	public String commentListHandle(@RequestParam("owner") int owner,  @RequestParam("page") int page, Model model){
 		
-		List<HospitalReviewCommentVo> comments = hs.findCommentByOwner(owner);
+		PagingVo vo = new PagingVo();
+		vo.setPage(page);
 		
-		model.addAttribute("comments", comments);
+		model.addAttribute("obj", hs.findCommentByOwner(owner, vo));
 		
 		return "hospital/review/comment/reviewComment";
 	}
