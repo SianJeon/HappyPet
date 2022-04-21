@@ -97,7 +97,7 @@ public class AnimalService {
 		return map;
 	}
 	
-	public List animalcho(String upkind) {
+	public int animaltotal() {
 		
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -112,7 +112,6 @@ public class AnimalService {
 		String key = "bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D";
 		URI url =  UriComponentsBuilder.fromHttpUrl("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
 				.queryParam("serviceKey", key)
-				.queryParam("upkind", upkind)
 				.queryParam("numOfRows", 20)
 				.queryParam("_type", "json").build(true).toUri();
 		
@@ -123,24 +122,15 @@ public class AnimalService {
 		
 		Map rest = restTemplate.getForObject(url, Map.class);			
 		
-		rest = (Map)rest.get("response");
-		rest = (Map)rest.get("body");
-		rest = (Map)rest.get("items");
-		List<Map> rests = (List<Map>)rest.get("item");
+		Map res =(Map)rest.get("response");
+		res = (Map)res.get("body");
+		
+		int cnt = ((Double)res.get("totalCount")).intValue();
 		
 		
+		System.out.println(cnt);
 		
-		
-		System.out.println("rest.get = "+rest.get("item"));
-		
-		
-		
-		
-		System.out.println(rests);
-		
-		
-		
-		return rests;
+		return cnt;
 	}
 	
 	

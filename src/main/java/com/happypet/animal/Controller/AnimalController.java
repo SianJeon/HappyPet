@@ -48,10 +48,10 @@ public class AnimalController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/animal/cho")
-	public List<Map> animalCho(@RequestParam String upkind){
+	@RequestMapping("/animal/total")
+	public int animalCho(){
 		
-		return animalService.animalcho(upkind);
+		return animalService.animaltotal();
 		
 	}
 
