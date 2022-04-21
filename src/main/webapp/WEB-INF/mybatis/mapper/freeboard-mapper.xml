@@ -25,29 +25,28 @@
 	
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" resultType="int">
-		SELECT * FROM FREEBOARD
+		SELECT count(*) FROM FREEBOARD
 	</select>
 	
-	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="selectBoard" resultType="freeboard">
-		SELECT * FROM(
-		SELECT ROWNUM RN,A.*
-		FROM(SELECT * FROM FREEBOARD ORDER BY NO DESC)A
-		)
-		WHERE RN BETEEN #{start} AND #{end}
+	<!-- 게시물 목록(페이징) -->
+	<select id="getListPaging" resultType="freeboard">
+		<![CDATA[
+			select no,title,content,writer,writedate,hit
+			from(select /* + INDEX_DESC(freeboard pk_board */ rownum as rn,no,title,content,writer,writedate,hit
+				from freeboard
+				where rownum <= #{pageNum} * #{amount}
+				)
+			where rn > (#{pageNum} -1) * #{amount}
+			
+		]]>	
 	</select>
+	
 	
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard">
 		DELETE FROM FREEBOARD WHERE PW = #{pw} AND NO = #{no}
 	</delete>
 	
-	<!-- 게시글 수정 페이지 입력값 불러오기 -->
-	<!-- 
-	<select id="modifyTb" resultType="freeboard" parameterType="freeboard">
-		SELECT * FROM FREEBOARD WHERE NO = #{no} AND PW= #{pw}
-	</select>
-		 -->
 	<!-- 게시글 수정 -->
 	<update id="modifyBoard" parameterType="freeboard">
 		UPDATE FREEBOARD SET TITLE=#{title},WRITER=#{writer},CONTENT=#{content}  WHERE NO = #{no} 

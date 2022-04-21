@@ -36,6 +36,7 @@
 			alias="hospitalReviewCommentVo" />
 		<typeAlias type="com.happypet.animal.Entity.FileDataVo"
 			alias="fileDataVo" />
+		<!-- freeboard -->
 		<typeAlias
 			type="com.happypet.animal.Entity.Freeboard.FreeboardVo"
 			alias="freeboard" />
@@ -44,5 +45,7 @@
 		<typeAlias
 			type="com.happypet.animal.Entity.Freeboard.FileVo" alias="file" />
 	</typeAliases>
+		
+		
 
 </configuration> 

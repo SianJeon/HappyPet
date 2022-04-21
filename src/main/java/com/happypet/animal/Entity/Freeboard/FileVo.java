@@ -1,49 +1,66 @@
 package com.happypet.animal.Entity.Freeboard;
 
+import java.util.Date;
+
 public class FileVo {
-	int file_no;
-	String path;
-	int size;
+	int fileNo;
 	int no;
-	String type;
+	String filePath;
+	long fileSize;
+	String fileType;
+	String fileName;
+	Date file_update_date;
 	
 	
-	
-	@Override
-	public String toString() {
-		return "FileVo [file_no=" + file_no + ", path=" + path + ", size=" + size + ", no=" + no + ", type=" + type
-				+ "]";
+	public int getFileNo() {
+		return fileNo;
 	}
-	
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
+	}
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getFile_no() {
-		return file_no;
+	public String getFilePath() {
+		return filePath;
 	}
-	public void setFile_no(int file_no) {
-		this.file_no = file_no;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
-	public String getPath() {
-		return path;
+	public long getFileSize() {
+		return fileSize;
 	}
-	public void setPath(String path) {
-		this.path = path;
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
 	}
-	public int getSize() {
-		return size;
+	public String getFileType() {
+		return fileType;
 	}
-	public void setSize(int size) {
-		this.size = size;
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
 	}
-	public String getType() {
-		return type;
+	public String getFileName() {
+		return fileName;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
+	public Date getFile_update_date() {
+		return file_update_date;
+	}
+	public void setFile_update_date(Date file_update_date) {
+		this.file_update_date = file_update_date;
+	}
+	
+	@Override
+	public String toString() {
+		return "FileVo [fileNo=" + fileNo + ", no=" + no + ", filePath=" + filePath + ", fileSize=" + fileSize
+				+ ", fileType=" + fileType + ", fileName=" + fileName + ", file_update_date=" + file_update_date + "]";
+	}
+	
+	
 	
 }

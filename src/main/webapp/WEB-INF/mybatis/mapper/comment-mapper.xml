@@ -15,7 +15,7 @@
 	</select>
 	
 	<update id="updateCmt">
-			
+		UPDATE FREEBOARD_CMT SET 
 	</update>
 	
 	<delete id="deleteCmt">

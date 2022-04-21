@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="file">
-	<insert id="insertFile" parameterType="file">
-		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
-			SELECT EMP_SEQ.NEXTVAL FROM DUAL
-		</selectKey>
-		INSERT INTO FREEBOARD_FILE(FILENO,PATH,SIZE,TYPE,NO,NAME) 
-		VALUES (#{file_no},#{path},#{size},#{type},#{no},#{name})
+	<!-- 
+	<insert id="insertFileUploadDB" parameterType="file">
+		INSERT INTO freeboard_file(
+			FILE_SEQ,
+			FILENAME,
+			FILEPATH,
+			FILESIZE,
+			FILE_UPDATE_DATE
+		)values(
+			fileSequence.NEXTVAL,
+			#{fileName},
+			#{filePath},
+			#{fileSize},
+			sysdate
+		)
+	
 	</insert>
-
+ -->
+ 	<insert id="insertFileUploadDB" parameterType="file">
+ 		<selectKey order="BEFORE" resultType="int" keyProperty="fileNo">
+			SELECT FILESEQUENCE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO freeboard_file(
+			FILENO,
+			FILENAME,
+			FILEPATH,
+			FILESIZE,
+			FILETYPE,
+			FILE_UPDATE_DATE,
+			NO
+		)values(
+			#{fileNo},
+			#{fileName},
+			#{filePath},
+			#{fileSize},
+			#{fileType},
+			SYSDATE,
+			#{no}
+		)
+ 	</insert>
+ 	
+ 	<select id="selectFile" parameterType="int" resultType="file">
+		SELECT * FROM FREEBOARD_FILE WHERE no = #{fileNo}  	
+ 	</select>
+ 	
+ 	<select id="selectDownFile" parameterType="int" resultType="file">
+ 		SELECT * FROM FREEBOARD_FILE WHERE FILENO = #{fileNo}
+ 	</select>
 </mapper>

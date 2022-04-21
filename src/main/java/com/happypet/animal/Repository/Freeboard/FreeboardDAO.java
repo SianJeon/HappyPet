@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.happypet.animal.Entity.Freeboard.Criteria;
 import com.happypet.animal.Entity.Freeboard.FreeboardVo;
-import com.happypet.animal.Entity.Freeboard.PagingVo;
 
 
 @Repository
@@ -23,6 +23,10 @@ public class FreeboardDAO {
 	public List<FreeboardVo> selectAll(){
 		return sqlSession.selectList("freeboard.selectAll");
 	}
+	/* 게시판 목록(페이징 적용) */
+	public List<FreeboardVo> getListPaging(Criteria cri){
+		return sqlSession.selectList("freeboard.getListPaging", cri);
+	}
 	
 	public FreeboardVo selectOne(int no) {
 		return sqlSession.selectOne("freeboard.selectOne",no);
@@ -36,10 +40,6 @@ public class FreeboardDAO {
 		return sqlSession.update("freeboard.boardHit", no);
 	}
 	
-	//페이징 처리 게시글 조회
-	public List<FreeboardVo> selectBoard(PagingVo vo){
-		return sqlSession.selectList("freeboard.selectBoard", vo);
-	}
 	
 	//게시물 총 갯수
 	public int countBoard() {
