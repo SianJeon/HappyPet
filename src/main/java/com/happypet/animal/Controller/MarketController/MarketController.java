@@ -35,9 +35,10 @@ public class MarketController {
         model.addAttribute("vo", vo);
         
         model.addAttribute("pageCount", marketService.countProduct() / 8);
+        model.addAttribute("company", marketService.selectCompany());
 
     	return "market/market";
-    }
+    }   
 
     @RequestMapping("/market/product")
     public String productDetailHandle(@RequestParam int no, Model model)
@@ -118,13 +119,22 @@ public class MarketController {
     }
 
     @RequestMapping("/market/orderList")
-    public String orderList(Model model, HttpSession session)
+    public String orderListHandle(Model model, HttpSession session)
     {
         AccountVo vo = (AccountVo)session.getAttribute("loginUser");
 
         model.addAttribute("vo", marketService.orderList("qwer"));
         // model.addAttribute("vo", marketService.orderList(vo.getUserId()));
         return "market/orderList";
+    }
+
+
+    // 브랜드 선택시 ajax
+    @RequestMapping("/market/brand")
+    public String selectBrandCategoryHandle(@RequestParam String data)
+    {
+        System.out.println(data);
+        return "market/market";
     }
 }
 

@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 
 import com.google.gson.Gson;
+import com.happypet.animal.Entity.MarketEntity.CompanyCount;
 import com.happypet.animal.Entity.MarketEntity.ConbineMarket;
 import com.happypet.animal.Entity.MarketEntity.Market;
 import com.happypet.animal.Entity.MarketEntity.MarketCart;
@@ -255,5 +256,10 @@ public class MarketService {
     public int countProduct()
     {
         return marketDAO.selectProductCount();
+    }
+
+    public List<CompanyCount> selectCompany()
+    {
+        return marketDAO.selectCompany();
     }
 }

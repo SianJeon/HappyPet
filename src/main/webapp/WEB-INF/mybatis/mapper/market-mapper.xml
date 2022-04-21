@@ -175,10 +175,20 @@
         where m.no = #{no} and mf.main_path like '%'||'_01'
     </select>
 
-    <select id="select-company">
-        select distinct company from market
+    <select id="select-company" resultType="com.happypet.animal.Entity.MarketEntity.CompanyCount">
+        select company, count(company) as count
+        from market
+        group by company
+        having count(company) > 0
+        order by count(company) desc
     </select>
-    <select id="select-cagegory">
-        select distinct category from market
+                
+    <select id="">
+        select m.no, m.product_name, m.product_price, m.company, mf.main_path
+        from market m left outer joun marketfile mf on(m.no = mf.product_no)
+        where mf.main_path like '%'||'_01' and m.company in
+        <foreach collection="" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
     </select>
 </mapper>   

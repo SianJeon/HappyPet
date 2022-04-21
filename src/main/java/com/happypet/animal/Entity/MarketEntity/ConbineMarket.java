@@ -5,7 +5,6 @@ import java.util.List;
 public class ConbineMarket extends MarketVo{
 
     int no;
-
     String mainPath;
 
     List<String> arrPath;

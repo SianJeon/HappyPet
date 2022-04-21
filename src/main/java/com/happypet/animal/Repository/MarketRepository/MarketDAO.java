@@ -2,6 +2,7 @@ package com.happypet.animal.Repository.MarketRepository;
 
 import java.util.List;
 
+import com.happypet.animal.Entity.MarketEntity.CompanyCount;
 import com.happypet.animal.Entity.MarketEntity.ConbineMarket;
 import com.happypet.animal.Entity.MarketEntity.Market;
 import com.happypet.animal.Entity.MarketEntity.MarketCart;
@@ -160,5 +161,11 @@ public class MarketDAO {
     {
         return sqlSession.selectOne("market.select-totalProduct");
     }
+
+    public List<CompanyCount> selectCompany()
+    {
+        return sqlSession.selectList("market.select-company");
+    }
+    
     
 }

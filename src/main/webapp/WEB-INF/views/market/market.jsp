@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <style>
 .searchOption
@@ -10,7 +11,6 @@
     border-bottom: 1px solid rgb(168, 168, 168);
 }
 .container-paging { margin-top : 40px; }
-
 </style>
 
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -21,62 +21,55 @@
             </nav>
         </div>
     </div>
-    
+
     <%-- 메인 컨텐트 --%>
     <!-- side Bar -->
     <div class="container-fluid py-5 row">
         <div class = "col-2 d-flex flex-column">
-            <div class="container p-0 pb-2" style="border-bottom: 1px solid rgb(168, 168, 168);">
-                
+            <div class="container p-0 pb-2 pt-2" style="border-bottom: 1px solid rgb(168, 168, 168);">
                 <button type="button" class="btn bt-primary dropdown-toggle" 
                         data-toggle="collapse" data-target="#company">브랜드</button>
-                <div id="company" class="collapse ">
-                <%-- <c:forEach items="" var=""> --%>
-                    <div class="d-flex">
-                        <input type="checkbox" name="" id="test">
-                        <label for="test">브랜드 이름 ㅋㅋ</label>
+                <div id="company" class="collapse">
+                <input type="hidden" name="companylen" value = "${fn:length(company)}">
+                <c:forEach items="${company}" var="vo" varStatus = "i">
+                    <div class="d-flex mt-3">
+                    <c:choose>
+                        <c:when test="${i.index < 5}">
+                        <div class = "company_check_container_${i.index}">
+                            <input type="checkbox" name="" id="company_${i.index}" style = "margin : 5px;">
+                            <label for="company_${i.index}">${vo.company}</label>(${vo.count})
+                        </div>
+                        </c:when>
+    
+                        <c:otherwise>
+                        <div class = "company_check_container_${i.index}" style = "display : none;">
+                            <input type="checkbox" name="" id="company_${i.index}" style = "margin : 5px;">
+                            <label for="company_${i.index}">${vo.company}</label>(${vo.count})
+                        </div>
+                        </c:otherwise>
+                    </c:choose>
                     </div>
-                <%-- </c:forEach> --%>
+                </c:forEach>
+                <button type="button" class="btn bt-primary dropdown-toggle" onclick = "viewMore()">더보기</button>
                 </div>
             </div>
-            <div class="container p-0 pb-2" style="border-bottom: 1px solid rgb(175, 159, 159);">
-                <button type="button" class="btn bt-primary dropdown-toggle" 
-                    data-toggle="collapse" data-target="#feed">사료</button>
-                <div id="feed" class="collapse">
-                    <input type="checkbox" name="" id=""> 카사디안
-                    <input type="checkbox" name="" id=""> 삼성
-                    <input type="checkbox" name="" id=""> 엘지
-                </div>
+            <c:forEach begin = "0" end = "3" varStatus = "i">
+            <div class="container p-0 pb-2 pt-2" style="border-bottom: 1px solid rgb(175, 159, 159);">
+                <button type="button" class="btn category_${i.index}">
+                <script>
+                var value = "";
+                    switch (${i.index}) {
+                        case 0: value = "사료"; break;
+                        case 1: value = "간식"; break;
+                        case 2: value = "위생"; break;
+                        case 3: value = "의류 / 악세서리"; break;
+                    }    
+                    document.write(value);
+                </script>
+                </button>
             </div>
-            <div class="container p-0 pb-2" style="border-bottom: 1px solid rgb(168, 168, 168);">
-                <button type="button" class="btn bt-primary dropdown-toggle" 
-                    data-toggle="collapse" data-target="#snack">간식</button>
-                <div id="snack" class="collapse">
-                    <input type="checkbox" name="" id=""> 카사디안
-                    <input type="checkbox" name="" id=""> 삼성
-                    <input type="checkbox" name="" id=""> 엘지
-                </div>
-            </div>
-            <div class="container p-0 pb-2" style="border-bottom: 1px solid rgb(168, 168, 168);">
-                <button type="button" class="btn bt-primary dropdown-toggle" 
-                    data-toggle="collapse" data-target="#hygiene">위생</button>
-                <div id="hygiene" class="collapse">
-                    <input type="checkbox" name="" id=""> 카사디안
-                    <input type="checkbox" name="" id=""> 삼성
-                    <input type="checkbox" name="" id=""> 엘지
-                </div>
-            </div>
-            <div class="container p-0 pb-2" style="border-bottom: 1px solid rgb(168, 168, 168);">
-                <button type="button" class="btn bt-primary dropdown-toggle" 
-                    data-toggle="collapse" data-target="#closet">의류 / 악세서리</button>
-                <div id="closet" class="collapse">
-                    <input type="checkbox" name="" id=""> 카사디안
-                    <input type="checkbox" name="" id=""> 삼성
-                    <input type="checkbox" name="" id=""> 엘지
-                </div>
-            </div>
+            </c:forEach>
         </div>
-        
         <div class = "col-10">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -118,5 +111,46 @@
     
         
     </div>
-    <!-- Team End -->
+<script>
+
+    $("#category_0").click(function (e) { 
+        
+    });
+    $("#category_1").click(function (e) { 
+                        
+    });
+    $("#category_2").click(function (e) { 
+                        
+    });
+    $("#category_3").click(function (e) { 
+        
+    });
+
+    $("input:checkbox").change(function (e) { 
+
+        $.ajax({
+            url: "/market/brand",
+            data: { data :  $(this).next().text()},
+            success: function (response) {
+                
+            }
+        });
+    });
+
+    function viewMore()
+    {
+        var display = 0;
+        var len = $("[name=companylen]").val();
+        for(var i = 0; i < len; i++)
+        {
+            var brand = $(".company_check_container_" + i).css("display");
+            if(brand != "block") 
+            {
+                display++;
+                $(".company_check_container_" + i).css("display", "block");
+                if(display == 5) return;
+            }
+        }
+    }
+</script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

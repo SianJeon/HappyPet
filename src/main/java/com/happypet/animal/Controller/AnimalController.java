@@ -47,13 +47,13 @@ public class AnimalController {
 
 	}
 	
-	@ResponseBody
-	@RequestMapping("/animal/cho")
-	public List<Map> animalCho(@RequestParam String upkind){
+	// @ResponseBody
+	// @RequestMapping("/animal/cho")
+	// public List<Map> animalCho(@RequestParam String upkind){
 		
-		return animalService.animalcho(upkind);
+	// 	return animalService.animalcho(upkind);
 		
-	}
+	// }
 
 	@RequestMapping("/animal/detail")
 	public String animalDetail(@RequestParam String desertionNo, Model model) {
