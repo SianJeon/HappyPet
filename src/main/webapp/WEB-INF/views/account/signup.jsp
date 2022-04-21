@@ -74,6 +74,12 @@
 			$("#pwd_confirm").focus();
 			return false;
 		}
+		if($("#address").val() == ""){
+			$("#address").addClass("is-valid"); 
+		}
+		if($("#email").val() == ""){
+			$("#email").addClass("is-valid");
+		}
 	}
 	
 	function chkId(){

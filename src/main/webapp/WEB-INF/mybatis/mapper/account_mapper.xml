@@ -48,4 +48,12 @@
     <delete id="deleteOne">
 		DELETE FROM ACCOUNT WHERE USER_ID = #{id}
 	</delete>
+	
+	<select id="getIdByNameandEmail"  resultType="string">
+		SELECT USER_ID FROM ACCOUNT WHERE USER_NAME = #{name} and EMAIL = #{email}
+	</select>
+	
+	<select id="getDataByParameters" resultType="accountVo" >
+		SELECT * FROM ACCOUNT WHERE USER_NAME = #{name} and EMAIL = #{email} and USER_ID = #{id}
+	</select>
 </mapper>

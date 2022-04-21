@@ -6,6 +6,7 @@
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAMnt-_Z2cctrzhpar_Cfhl-G9jHfbpcY&callback=initMap"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zpbplj4zez&callback=initMap"></script>
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <h1 class="display-1 text-white animated slideInDown">${data.bsnNm }</h1>
@@ -35,7 +36,7 @@
 
 <div class="container">
 <h5>리뷰</h5>	
-<form action="/hospital/writeReview" method="post"> 
+<form action="/hospital/writeReview" method="post" onsubmit="return valid_form();"> 
 	<input type="hidden" name="no" value="${data.no }"> 
 	<input type="submit" value="후기작성" class="btn btn-primary">
 </form>
@@ -61,6 +62,14 @@ $(function(){
 	 initMap();
   	 hospitalReview(1);
 });
+
+function valid_form(){
+	let login = "${loginUser}";
+	if(login == ""){
+		alert("로그인 후 사용가능합니다.");
+		return false;
+	}
+}
 
 function hospitalReview(page){
 	var no = ${data.no};
@@ -92,20 +101,33 @@ $(document).on('click', '.page-list a', function(){
 
 //Initialize and add the map
 function initMap() {
-  // The location of Uluru
-  const uluru = { lat: ${data.lat}, lng: ${data.lot} };
-  // The map, centered at Uluru
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 16,
-    center: uluru,
-  });
-  // The marker, positioned at Uluru
-  const marker = new google.maps.Marker({
-    position: uluru,
-    map: map,
-  });
-  
+	
+//  구글 맵 api
+//   // The location of Uluru
+//   const uluru = { lat: ${data.lat}, lng: ${data.lot} };
+//   // The map, centered at Uluru
+//   const map = new google.maps.Map(document.getElementById("map"), {
+//     zoom: 16,
+//     center: uluru,
+//   });
+//   // The marker, positioned at Uluru
+//   const marker = new google.maps.Marker({
+//     position: uluru,
+//     map: map,
+//   });
+
+//  네이버 맵 api
+  var mapOptions = {
+          center: new naver.maps.LatLng(${data.lat}, ${data.lot}),
+          zoom: 18
+      };
+      var map = new naver.maps.Map('map', mapOptions); // id와 option 
+	var marker = new naver.maps.Marker({
+	    position: new naver.maps.LatLng(${data.lat}, ${data.lot}),
+	    map: map
+	});
 }
+
 </script>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
