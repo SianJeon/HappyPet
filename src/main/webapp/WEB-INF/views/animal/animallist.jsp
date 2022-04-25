@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <style>
 .img-fluid {
-	height: 15rem;
+	 height: 15rem;
 }
 
 .d-flex {
