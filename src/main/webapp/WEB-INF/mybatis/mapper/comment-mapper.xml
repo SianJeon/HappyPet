@@ -14,11 +14,27 @@
 		SELECT * FROM FREEBOARD_CMT WHERE FB_NO =#{fbNo} ORDER BY WRITEDATE DESC
 	</select>
 	
-	<update id="updateCmt">
-		UPDATE FREEBOARD_CMT SET 
-	</update>
-	
-	<delete id="deleteCmt">
-	
+	<delete id="deleteCmt"> 
+		DELETE FREEBOARD_CMT WHERE PW =#{pw} AND NO =#{no}
 	</delete>
+	
+		<!-- 총 댓글 갯수 출력 -->
+	<select id="countCmt" resultType="int">
+		SELECT count(*) FROM FREEBOARD_CMT WHERE FB_NO=#{fbNo}
+	</select>
+	
+	<!-- 댓글 목록(페이징) -->
+	<select id="getListPaging" resultType="comment">
+		<![CDATA[
+			select * from
+			(
+				select rownum as rn, a.* from 
+					
+						(select * from freeboard_cmt where fb_no=#{fbNo} order by no desc) a 
+					
+				where rownum <= #{pageNum} * #{amount}
+			)
+			where rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
 </mapper>

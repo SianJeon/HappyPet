@@ -4,6 +4,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <style>
+
+.search_area{margin-bottom:5px;}
+.search_btn{
+	color: #ffffff;
+	background:#b78d65;
+	border:2px solid #b78d65;
+}
+.search_btn:hover {
+	background-color:#c49f7c;
+	border:2px solid #c49f7c;
+}
+.search_btn:active {
+	position:relative;
+	top:1px;
+}
 th, td {
 	
 	padding: 4px;
@@ -28,11 +43,8 @@ thead th {
 }
 
 .btn_a {
-	
-	background:linear-gradient(to bottom, #debc9b 10%, #B78D65 100%);
 	background-color:#B78D65;
-	border-radius:6px;
-	border: 1px solid #cecdce;
+	border: 1px solid #B78D65;
 	display:inline-block;
 	cursor:pointer;
 	color:#FFFFFF;
@@ -40,12 +52,10 @@ thead th {
 	font-size:15px;
 	font-weight:bold;
 	padding:9px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #29190b;
 }
 .btn_a:hover {
-	background:linear-gradient(to bottom, #f59536 10%, #cf8032 100%);
-	background-color:#f59536;
+	background:linear-gradient(to bottom, #c49f7c 10%, #c49f7c 100%);
+	background-color:#c49f7c;
 }
 .btn_a:active {
 	position:relative;
@@ -106,30 +116,25 @@ tbody{background-color:#f9f9f9;}
     font-weight: 500;
   }
   .pageInfo_area{text-align:center;}
-  a:link {color:black; text-decoration: none;}
- a:visited {color:black; text-decoration: none;}
-a:hover {color:#b78d65; text-decoration: underline;}
- a:active{color:#b78d65;}"
+  
+  
+ .page-item  > a:link {color:black; text-decoration: none;}
+ .page-item > a:visited {color:black; text-decoration: none;}
+.page-item > a:hover {color:#b78d65; text-decoration: underline;}
+.current{color:#b78d65; background-color:#cdd5ec;}
 </style>
 		<div id="real_body" class="container" >
 			<div class="h3">
 			<a href="/freeboard/list">자유게시판</a>
 			</div>
 				<form id="listSearch" name="list" >
-				<div class="bod_head">
-					<fieldset class="bod_search">
-						<label for="searchType" class="hidden">검색구분 선택 :</label>
-						<select id="searchType" name="searchType" title="검색유형 선택">
-							<option value="b-title">제목</option>
-							<option value="b_write">작성자</option>
-							<option value="b_content">내용</option>
-						</select>
-						<label for="searchTxt" class="hidden">검색어 입력:</label>
-						<input id="searchTxt" name="searchTxt" title="검색어 입력" 
-							type="text" value="">
-						<input type="submit" value="검색" name="searchBt" title="검색"
-							onclick="" class="btn-small">
-					</fieldset>
+				<div class="bod_head">			
+					<div class="search_wrap">
+						<div class="search_area">
+							<input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+							<button class="search_btn">검색</button>
+						</div>
+					</div>
 				</div>
 				</form>
 				<form action="/freeboard/insert" id="list" >
@@ -163,14 +168,14 @@ a:hover {color:#b78d65; text-decoration: underline;}
 				
 	<div class="pageInfo_wrap">
 		<div class="pageInfo_area">			
-  			<ul id="pageInfo" class="pageInfo">  
+  			<ul id="pageInfo" class="pageInfo paging">  
   				<c:if test="${pageMaker.prev }">
   					<li class="page_btn previous"><a href="/freeboard/list?pageNum=${pageMaker.startPage -1 }">< Prev</a></li>
   				</c:if>
  				 <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-   					<li class="page-item"><a 
- 
- href="/freeboard/list?pageNum=${num }&amount=10">${num }</a></li>
+					
+   					<li class="page-item ${pageMaker.cri.pageNum == num ? 'current':'' }">
+   		<a href="/freeboard/list?pageNum=${num }">${num }</a></li>
    				</c:forEach> 
    				<c:if test="${pageMaker.next }">
    					<li class="page_btn next"><a class="num" href="/freeboard/list?pageNum=${pageMaker.endPage +1 }">Next ></a></li>
@@ -179,9 +184,28 @@ a:hover {color:#b78d65; text-decoration: underline;}
   		</div>
 	</div>
 
-		<form id="makeForm" method="get">
+		<form id="moveForm" method="get">
 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 				<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+				<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}"> 
 		</form>
 	</div>
+<script>
+	let moveForm = $("#moveForm");
+	$(".move").on("click", function(e){
+		e.preventDefault();
+		
+		moveForm.append("<input type='hidden' name='no' value='"+$(this).attr("href")+"'>");
+		moveForm.attr("action", '/freeboard/view');
+		moveForm.submit();
+	});
+	
+	$(".search_area button").on("click", function(e){
+		e.preventDefault();
+		let val = $("input[name='keyword']").val();
+		moveForm.find("input[name='keyword']").val(val);
+		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.submit();
+	});
+</script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

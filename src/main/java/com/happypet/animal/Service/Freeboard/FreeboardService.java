@@ -35,8 +35,8 @@ public class FreeboardService {
 	}
 	
 	/* 게시물 총 갯수 */
-	public int getTotal() {
-		int total = freeboardDao.countBoard();
+	public int getTotal(Criteria cri) {
+		int total = freeboardDao.countBoard(cri);
 		return total;
 	}
 

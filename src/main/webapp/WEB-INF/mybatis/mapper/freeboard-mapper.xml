@@ -26,13 +26,39 @@
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" resultType="int">
 		SELECT count(*) FROM FREEBOARD
+		
+		<if test="keyword != null">
+			where title like '%'||#{keyword}||'%'
+		</if>
 	</select>
 	
 	<!-- 게시물 목록(페이징) -->
 	<select id="getListPaging" resultType="freeboard">
 		<![CDATA[
+			select no,title,content,writer,writedate,hit from
+			(
+				select rownum as rn, a.* from 
+					
+						(select * from freeboard order by no desc) a 
+					
+				where rownum <= #{pageNum} * #{amount}
+		]]>		
+			<if test="keyword != null">
+			and title like '%' ||#{keyword}||'%'
+			</if>
+		<![CDATA[
+			)
+			where rn > (#{pageNum} -1) * #{amount}
+		]]>
+		
+		
+	</select>
+	
+	<!-- 정렬이 안된 코드 (hint가 안 먹힘)
+	 <select id="getListPagingOld" resultType="freeboard">
+		<![CDATA[
 			select no,title,content,writer,writedate,hit
-			from(select /* + INDEX_DESC(freeboard pk_board */ rownum as rn,no,title,content,writer,writedate,hit
+			from(select /* + INDEX_DESC(freeboard pk_board) */ rownum as rn,no,title,content,writer,writedate,hit
 				from freeboard
 				where rownum <= #{pageNum} * #{amount}
 				)
@@ -40,7 +66,7 @@
 			
 		]]>	
 	</select>
-	
+	 -->
 	
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard">

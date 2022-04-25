@@ -42,8 +42,8 @@ public class FreeboardDAO {
 	
 	
 	//게시물 총 갯수
-	public int countBoard() {
-		return sqlSession.selectOne("freeboard.countBoard");
+	public int countBoard(Criteria cri) {
+		return sqlSession.selectOne("freeboard.countBoard",cri);
 	}
 	
 	//게시글 삭제

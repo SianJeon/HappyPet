@@ -59,7 +59,7 @@ public class FreeboardController {
 		
 		model.addAttribute("all", freeboardService.getListPaging(cri));
 		
-		int total = freeboardService.getTotal();
+		int total = freeboardService.getTotal(cri);
 		
 		PageVo pageMake = new PageVo(cri, total);
 		
@@ -94,6 +94,10 @@ public class FreeboardController {
 	        boolean rst = freeboardService.addNewOne(vo);
 	        
 	        for (MultipartFile mf : fileList) {
+	        	if(mf.isEmpty()) {
+	        		System.out.println("!!!파일 비어있음!!!!");
+	        		continue;
+	        	}
 	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 	            long fileSize = mf.getSize(); // 파일 사이즈
 	            String contentType = mf.getContentType(); //파일 타입
@@ -129,7 +133,7 @@ public class FreeboardController {
 	
 	@RequestMapping("/view")
 	public String insertPostHandle(@RequestParam int no, Model model,
-			@SessionAttribute(required = false) Boolean auth) {
+			@SessionAttribute(required = false) Boolean auth, Criteria cri) {
 		
 		
 		
@@ -145,7 +149,16 @@ public class FreeboardController {
 		model.addAttribute("list", fileService.selectFileList(no));
 		// model.addAttribute("listSize", fileService.selectFileList(no));
 		
-		model.addAttribute("all", commentService.listAll(no));
+		//model.addAttribute("all", commentService.listAll(no));
+		cri.setFbNo(no);
+		model.addAttribute("all", commentService.getListPaging(cri));
+	//	int total = commentService.getTotal();	// 이유가 머지?
+		int total = commentService.getTotal(no);
+		
+		PageVo pageMake2 = new PageVo(cri,total);
+		
+		model.addAttribute("pageMaker2", pageMake2);
+		
 		return "freeboard/view";
 	}
 	
@@ -193,6 +206,7 @@ public class FreeboardController {
 		
 		if(dbVo.getPw().equals(vo.getPw()) ){
 			model.addAttribute("dbVo", dbVo);
+			
 			return "freeboard/detail/modifyTable";			
 		} else {			
 			return "redirect:/freeboard/detail/modify?no="+vo.getNo();

@@ -87,7 +87,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <%-- 네비게이션  --%>
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.jsp" class="nav-item nav-link active">Home</a>
+                <a href="/" class="nav-item nav-link active">Home</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">입양</a>
                     <div class="dropdown-menu border-0 m-0">
