@@ -14,6 +14,12 @@ a {
 a:link {
 	color: #000000;
 }
+.board_btn{
+	background-color:#FFFFFF;
+	color:#B78D65;
+	border: 1px solid #FFFFFF;
+}
+.board_btn:hover{color:#786450;}
 
 .container {
 	width: 100%;
@@ -33,14 +39,28 @@ a:link {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.bottom_btn *:hover {
+	background:linear-gradient(to bottom, #c49f7c 10%, #c49f7c 100%);
+	background-color:#c49f7c;
+}
+.bottom_btn *:active {
+	position:relative;
+	top:1px;
+}
 </style>
 <meta charset="UTF-8">
 <div class="container">
 	<div style="border-bottom: 1px solid; margin-bottom: 30px;">
 		<div class="h3">
-			<a href="/freeboard/list">자유게시판</a>
-		</div>
+		<button class="board_btn" type="button" onclick="button_click1();">자유게시판</button>
 	</div>
+	</div>
+<script>
+	function button_click1(){
+		history.go(-1);
+	}
+</script>
 	<div style="margin-left: 20px;">
 		<form method="post" enctype="multipart/form-data">
 			<div style="margin-top: 10px;">
@@ -62,7 +82,7 @@ a:link {
 			<div style="margin-top: 10px;">
 				<input type="file" class="file_border" name="file" multiple="multiple">			
 			</div>
-			<div style="margin-top: 10px; text-align: right;">
+			<div class="bottom_btn" style="margin-top: 10px; text-align: right;">
 				<button class="btn_add" type="submit">등록</button>
 				<button class="btn_turn" type="button"
 					onClick="location.href='/freeboard/list'">취소</button>

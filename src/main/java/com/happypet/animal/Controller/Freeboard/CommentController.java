@@ -21,6 +21,14 @@ public class CommentController {
 		boolean r = commentService.addNewOne(vo);
 		
 		return "redirect:/freeboard/view?no="+vo.getFbNo();
-	}	
+	}
+	
+	@PostMapping("/comment/delete")
+	public String deletePostHandle(Model model,@ModelAttribute CommentVo vo) {
+		
+	int r = commentService.deleteOne(vo);
+			
+	return "redirect:/freeboard/view?no="+vo.getFbNo();
+	}
 	
 }
