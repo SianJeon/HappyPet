@@ -38,6 +38,11 @@
 table tr td:#sub {
 	border-left: 1px solid black;
 }
+#he{
+	
+	text-align: right;
+	padding-right: 300px;
+}
 </style>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
@@ -46,7 +51,7 @@ table tr td:#sub {
 </head>
 <body>
 
-		<div>
+		<div id="he">
 			<a href="/animal/decomdelete?no=${detail.owner }">삭제</a>
 			<a href="/animal/deupdate?no=${detail.owner }">수정</a>	
 		</div>
@@ -78,7 +83,7 @@ table tr td:#sub {
 				</tbody>
 			</table>
 			<div class="text-center" style="white-space: pre;">${detail.content }</div>
-			<img src="/download?no=${detail.owner}"
+			<img style="width: 500px" src="/download?no=${detail.owner}"
 				class="rounded mx-auto d-block mt-2" alt="...">
 
 			<div id="comment"></div>

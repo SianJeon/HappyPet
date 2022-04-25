@@ -31,35 +31,41 @@ textarea {
 }
 
 #test_btn2 {
-	
+	display: inline-block;
+	padding: .5em .75em;
+	width: 67.52px;
+	height:40px;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-top-left-radius: 5px;
+	-webkit-transition: background-color 0.2s;
+	transition: background-color 0.2s;
+	vertical-align: middle;
+	font-size: inherit;
 }
 
 #btn_group button {
-	border: 1px solid skyblue;
+	border: 1px solid black;
 	background-color: rgba(0, 0, 0, 0);
-	color: skyblue;
+	
 	padding: 5px;
 }
 
 #btn_group button:hover {
 	color: white;
-	background-color: skyblue;
+	background-color: #B78D65;
 }
 
 .filebox label {
 	display: inline-block;
 	padding: .5em .75em;
-	color: #fff;
+	color: black;
 	font-size: inherit;
 	line-height: normal;
 	vertical-align: middle;
-	background-color: skyblue;
 	cursor: pointer;
-	border: 1px solid #4cae4c;
+	border: 1px solid black;
 	border-radius: .25em;
 	-webkit-transition: background-color 0.2s;
 	transition: background-color 0.2s;
@@ -70,7 +76,7 @@ textarea {
 }
 .filebox label:hover {
 	color:white;
-	background-color: skyblue;
+	background-color: #B78D65;
 }
 
 .filebox label:active {
@@ -89,6 +95,10 @@ textarea {
 }
 </style>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/heads/sian_Market&Admin
 <script
 	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 <meta charset="UTF-8">

@@ -10,7 +10,7 @@
             </nav>
         </div>
     </div> 
-    <div class="row g-12" style="margin: 0 25%;">
+    <div class="container">
     
 				<form action="/session" method="post" autocomplete="off">
 					<c:if test="${not empty err }">
@@ -29,8 +29,8 @@
                     </div>
                     <hr class="col-12 col-sm-6">
                     <p><a href="/signup" class="text-info">계정이 없습니다</a></p>
-                    <p class="text-info">아이디가 생각나지 않습니다?</p>
-					<p class="text-info">비밀번호가 생각나지 않습니다?</p>
+                    <p class="text-info"><a href="/forgetId">아이디가 생각나지 않습니다?</a></p>
+					<p class="text-info"><a href="/forgetPw">비밀번호가 생각나지 않습니다?</a></p>
 				
 					<hr class="col-12 col-sm-6">
 				

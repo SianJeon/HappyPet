@@ -15,32 +15,47 @@
 	justify-content: space-evenly
 }
 
-#fo {
+.selectBox{
 	
-.category{
 	text-align: right;
-	padding-right: 80px;
+	padding-right: 75px;
+}
+.selectBox .select {
+	width : 60px;
+	text-align:center;
+	border-radius:5px;
+   -webkit-appearance:none; /* for chrome */
+
+   -moz-appearance:none; /*for firefox*/
+   
+   appearance:none;
+
+}
+
+.selectBox::-ms-expand{
+
+   display:none;/*for IE10,11*/
 
 }
 
 </style>
 <script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js">
+</script>	
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
 
-	<div id="cho">
-		<select name="category" id="category">
+	<div id="cho" class="selectBox">
+		<select class="select" name="category" id="category" >
 			<option value="-">전체</option>
-			<option value="417000">강아지</option>
-			<option value="422400">고양이</option>
-			<option value="429900">기타</option>
+			<option value="417000" >🐶강아지</option>
+			<option value="422400">🐈고양이</option>
+			<option value="429900">🐥기타</option>
 
 		</select>
-
 	</div>
 
 
@@ -120,6 +135,7 @@
 
 	</div>
 
-	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

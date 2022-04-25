@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+    <insert id="insert-paymentInfo">
+        insert into pay
+        values (#{success}, #{error_code}, #{error_msg}, #{imp_uid}, #{merchant_uid}, 
+        #{pay_method}, #{paid_amount}, #{status}, #{name}, #{pg_provider}, #{emb_pg_provider},
+        #{pg_tid}, #{buyer_name}, #{buyer_email}, #{buyer_tel}, #{buyer_addr}, #{buyer_postcode},
+        #{custom_data}, #{paid_at}, #{receipte_url}, #{apply_num}, #{vbank_num}, #{vbank_name},
+        #{vbank_holder}, #{vbank_data})
+    </insert>
+
+    <insert id="insert-patmentAccountInfo">
+        insert into account_buyinfo
+        values (#{accountNo}, #{impUid}, #{merchantUid}, #{paidAmount})
+    </insert>
+
+    <select id="select-paymentVaildChecked">
+        select m.product_name, m.product_price, m.discount, mc.buy_amount, p.imp_uid
+        from market m left outer join market_cart mc on (m.no = mc.product_no)
+                left outer join account_buyinfo ac on(ac.account_no = mc.account_no)
+                left outer join pay p on(p.imp_uid = ac.imp_uid)
+        where mc.account_no = #{accountNo} and ac.imp_uid = #{imp_uid};
+    </select>
+
+    <select id="">
+        selec ac.imp_uid, p.*
+        from account_buyinfo ac right outer join pay p on(ac.imp_uid = p.imp_uid)
+        where account_no = #{accountNo}
+    </select>
+
+    <select id="select-pamentBuyList" resultType="paymentVo">
+        select custom_data from pay
+    </select>
+</mapper>   

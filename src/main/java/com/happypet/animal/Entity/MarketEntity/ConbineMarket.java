@@ -3,7 +3,6 @@ package com.happypet.animal.Entity.MarketEntity;
 import java.util.List;
 
 public class ConbineMarket extends MarketVo{
-    
 
     int no;
 

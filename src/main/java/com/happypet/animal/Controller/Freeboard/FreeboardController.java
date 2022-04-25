@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -46,14 +47,7 @@ public class FreeboardController {
 	@Autowired
 	FreeboardFileService fileService;
 	
-	@RequestMapping("/list")
-	public String listHandler() {
-		return "freeboard/list";
-	}
-	
-	//properties에 있는 uploadPath값 가져오기
-   
-	
+
 	@RequestMapping(path="/list", method= RequestMethod.GET)
 	public String listGetHandler(Model model,Criteria cri) {
 		

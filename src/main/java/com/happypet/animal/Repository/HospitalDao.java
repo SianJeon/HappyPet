@@ -57,10 +57,14 @@ public class HospitalDao {
 		return ss.insert("hospital.insertReviewComment", vo);
 	}
 	
-	public List<HospitalReviewCommentVo> findCommentByOwner(int owner){
-		List<HospitalReviewCommentVo> co = ss.selectList("hospital.findCommentByOwner", owner);
+	public List<HospitalReviewCommentVo> findCommentByOwner(Map<String, Object> parameters){
+		List<HospitalReviewCommentVo> co = ss.selectList("hospital.findCommentByOwner", parameters);
 		
 		return co;
+	}
+	
+	public int getCommentCountByOwner(int owner) {
+		return ss.selectOne("hospital.getCommentCountByOwner", owner);
 	}
 	
 	public void deleteCommentByNo(int no) {

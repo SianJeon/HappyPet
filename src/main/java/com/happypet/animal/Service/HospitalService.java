@@ -121,8 +121,21 @@ public class HospitalService {
 		
 	}
 	
-	public List<HospitalReviewCommentVo> findCommentByOwner(int owner){
-		return dao.findCommentByOwner(owner);
+	public Map<String, Object> findCommentByOwner(int owner, PagingVo vo ){
+		vo.setTotalCount(dao.getCommentCountByOwner(owner));
+		vo.update();
+		
+		Map<String, Object> parameters = new HashMap();
+		
+		parameters.put("owner", owner);
+		parameters.put("offset", vo.getOffset());
+		
+		Map<String, Object> oo = new HashMap();
+		
+		oo.put("paging", vo);
+		oo.put("list", dao.findCommentByOwner(parameters));
+		
+		return oo;
 	}
 	
 	public void deleteCommentByNo(int no) {
