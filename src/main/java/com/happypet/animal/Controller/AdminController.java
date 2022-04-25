@@ -48,7 +48,6 @@ public class AdminController {
     @RequestMapping("/market/insert")
     public String adminMarketHometHandle() 
     {
-    	System.out.println("insert");
     	return "admin/market/market-insert";
 	}
 

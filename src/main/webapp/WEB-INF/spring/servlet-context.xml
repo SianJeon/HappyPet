@@ -46,12 +46,15 @@
 	
 
 	<!-- interceptor 설정시 주석 해제 하고 path, bean 클래스 설정 바람 -->
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="" />
-			<bean class="com.happypet.animal." />
+			<mvc:mapping path="/market/**" />
+			<mvc:exclude-mapping path="/market/product" />
+			<mvc:exclude-mapping path="/market/review" />
+			<mvc:exclude-mapping path="/market" />
+			<bean class="com.happypet.animal.Interceptor.marketInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 
 	<!-- WebSocket -->
 	<!-- 웹소켓 사용시 해제 -->

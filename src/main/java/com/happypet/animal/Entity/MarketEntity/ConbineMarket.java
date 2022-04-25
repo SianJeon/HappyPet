@@ -9,7 +9,6 @@ public class ConbineMarket extends MarketVo{
 
     List<String> arrPath;
 
-    
     public List<String> getArrPath() {
         return this.arrPath;
     }

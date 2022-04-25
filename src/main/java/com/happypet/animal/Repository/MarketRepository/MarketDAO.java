@@ -8,6 +8,7 @@ import com.happypet.animal.Entity.MarketEntity.Market;
 import com.happypet.animal.Entity.MarketEntity.MarketCart;
 import com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo;
 import com.happypet.animal.Entity.MarketEntity.MarketCartView;
+import com.happypet.animal.Entity.MarketEntity.MarketCompanyView;
 import com.happypet.animal.Entity.MarketEntity.MarketFileVo;
 import com.happypet.animal.Entity.MarketEntity.MarketPageVo;
 import com.happypet.animal.Entity.MarketEntity.MarketVo;
@@ -151,7 +152,7 @@ public class MarketDAO {
     }
 
     // 페이징
-    public List<ConbineMarket> selectPaging(MarketPageVo vo)
+    public List<ConbineMarket> selectPaging(MarketCompanyView vo)
     {
         return sqlSession.selectList("market.select-paging", vo);
     }
@@ -166,6 +167,4 @@ public class MarketDAO {
     {
         return sqlSession.selectList("market.select-company");
     }
-    
-    
 }

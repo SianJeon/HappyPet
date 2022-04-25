@@ -229,7 +229,7 @@
     <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
        <div class = "d-flex justify-content-between">
             <div><h3>구매 후기</h3></div>
-            <div><Button>더 보기</Button></div>
+            <div><a href = "/market/review">더 보기</a></div>
         </div>
         
         <div class="" style = "border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
@@ -269,7 +269,7 @@
     <div class = "QnABoard container-fluid mr-5 ml-5 mt-5">
         <div class = "d-flex justify-content-between" >
             <div><h3>취소/교환/반품 안내</h3></div>
-            <div><Button>더 보기</Button></div>
+            <div><a href = "/market/review">더 보기</a></div>
         </div>
         <div class = "" data-toggle="modal" data-target="#myModal"
                 style = " cursor: pointer; border-bottom: 1px solid #d1d1d1; border-top: 3px solid black;">
@@ -400,7 +400,12 @@
 
     function addCart()
     {
-        if($("[name=accountId]").val() == '' || $("[name=accountId]").val() == null) return;
+        if($("[name=accountId]").val() == '' || $("[name=accountId]").val() == null) 
+        {
+            alert("로그인 후 장바구니에 담을수 있습니다.");
+            return;
+        }
+        
 
         var vo = 
         {

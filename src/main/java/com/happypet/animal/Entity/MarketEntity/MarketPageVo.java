@@ -9,6 +9,14 @@ public class MarketPageVo {
     int endPage;        // 마지막 페이지
     int displayPage;    // 표시할 페이지갯수
 
+    public MarketPageVo() 
+    {
+        this.startPage = 1;
+        this.curPage = 1;
+        this.pageRows = 8;
+        this.endPage = totalPage / 8;
+        this.displayPage = 10;
+    }
     public MarketPageVo(int totalPage)
     {
         this.totalPage = totalPage;
