@@ -16,6 +16,7 @@ import com.happypet.animal.Entity.PagingVo;
 import com.happypet.animal.Repository.AnimalDao;
 import com.happypet.animal.Repository.FileDao;
 import com.happypet.animal.Repository.FileDataDao;
+import com.happypet.animal.Repository.LikeDao;
 import com.happypet.animal.Repository.PagingDao;
 
 @Service
@@ -32,6 +33,9 @@ public class AnimalReviewService {
 	
 	@Autowired
 	FileDataDao fileDataDao;
+	
+	@Autowired
+	LikeDao likeDao;
 
 	public Map<String, Object> animalreview(PagingVo vo) {
 
@@ -43,6 +47,7 @@ public class AnimalReviewService {
 
 		map.put("paging", vo);
 		map.put("datas", fileDao.adoptreview(vo.getOffset()));
+		
 		return map;
 
 	}

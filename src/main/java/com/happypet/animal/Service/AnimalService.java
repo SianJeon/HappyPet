@@ -97,6 +97,43 @@ public class AnimalService {
 		return map;
 	}
 	
+
+	public int animaltotal() {
+		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
+		
+		
+		
+		System.out.println("bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D");
+		String key = "bSD7tbU0huUXGhalXBOZRwGypzbQhTO8%2Bz0VC94EC%2BqkuDKKH9HShaJa4Ljf4B0K2uIas8S1HSvlAZmKTikvCw%3D%3D";
+		URI url =  UriComponentsBuilder.fromHttpUrl("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
+				.queryParam("serviceKey", key)
+				.queryParam("numOfRows", 20)
+				.queryParam("_type", "json").build(true).toUri();
+		
+		
+		System.out.println(url);
+		
+		
+		
+		Map rest = restTemplate.getForObject(url, Map.class);			
+		
+		Map res =(Map)rest.get("response");
+		res = (Map)res.get("body");
+		
+		int cnt = ((Double)res.get("totalCount")).intValue();
+		
+		
+		System.out.println(cnt);
+		
+		return cnt;
+	}
+
 	
 	
 	public List animalinsert() throws ParseException {

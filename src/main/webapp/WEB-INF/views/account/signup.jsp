@@ -9,7 +9,7 @@
         </div>
     </div>
     
-   <div class="row g-12" style="margin: 0 25%;"> 
+   <div class="container">
 
 	<form:form action="/signup" method="post" autocomplete="off"
 				onsubmit="return valid_form();" modelAttribute="accountVo">
@@ -73,6 +73,12 @@
 			$("#pwd_confirm").addClass("is-invalid");
 			$("#pwd_confirm").focus();
 			return false;
+		}
+		if($("#address").val() == ""){
+			$("#address").addClass("is-valid"); 
+		}
+		if($("#email").val() == ""){
+			$("#email").addClass("is-valid");
 		}
 	}
 	

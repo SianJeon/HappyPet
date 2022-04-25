@@ -68,6 +68,11 @@ public class AccountVo {
 	public void setAttach(MultipartFile attach) {
 		this.attach = attach;
 	}
-	
+	@Override
+	public String toString() {
+		return "AccountVo [email=" + email + ", zipcode=" + zipcode + ", address=" + address + ", profile=" + profile
+				+ ", auth=" + auth + ", admin=" + admin + ", attach=" + attach + ", userId=" + userId + ", userPass="
+				+ userPass + ", userName=" + userName + "]";
+	}
 	
 }

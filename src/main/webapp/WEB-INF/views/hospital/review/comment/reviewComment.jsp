@@ -18,9 +18,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
-<c:forEach items="${comments }" var="comments" varStatus="status">
-${status.index eq 0 ? '<hr>' : ''}
+<div class="container comments">
+<c:forEach items="${obj.list }" var="comments" varStatus="status">
+${status.index eq 0 ? '<hr>' : ''}  <!-- 없으면 줄이 안생김 -->
 	<div data-id="${comments.no }">
 		<div>
 			<span>${comments.writer } [ ${comments.writedate } ]</span>
@@ -36,8 +36,17 @@ ${status.index eq 0 ? '<hr>' : ''}
 	</div>
 	<hr>
 </c:forEach>
+<div class='bteSet'>
+			<div class='page-list container'></div>
+		</div>
 </div>
 <script>
+
+$(function(){
+	makePage( ${obj.paging.totalCount}, ${obj.paging.page}, 10, 10);
+});
+
+
 
 $('.btn-delete-cancel').on('click', function(){
 	var $div = $(this).closest('div').parent('div');

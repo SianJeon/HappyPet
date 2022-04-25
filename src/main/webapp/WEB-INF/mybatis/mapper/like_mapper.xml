@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="like">
+
+
+
+<insert id="like_insert">
+
+	INSERT INTO liketo(likeno,boardno,memberno)
+	VALUES(like_seq.nextval,#{boardno},#{memberno})
+
+</insert>
+
+<select id="like_select" resultType="com.happypet.animal.Entity.LikeVo">
+	select count(*) cnt ,boardno, memberno , like_check
+	from liketo
+    where boardno = #{boardno}
+	group by boardno ,memberno, like_check
+
+</select>
+
+<update id="like_update">
+	UPDATE liketo
+	Set like_check = 0
+	where boardno = #{boardno}
+
+</update>
+	
+	<delete id="like_delete">
+		delete from liketo
+		where like_check = 0 and boardno = #{boardno}
+	
+	</delete>
+
+
+
+
+</mapper>
