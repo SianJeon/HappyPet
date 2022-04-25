@@ -4,6 +4,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <style>
+
+.search_area{margin-bottom:5px;}
+.search_btn{
+	color: #ffffff;
+	background:#b78d65;
+	border:2px solid #b78d65;
+}
+.search_btn:hover {
+	background-color:#c49f7c;
+	border:2px solid #c49f7c;
+}
+.search_btn:active {
+	position:relative;
+	top:1px;
+}
 th, td {
 	
 	padding: 4px;
@@ -24,14 +39,12 @@ tr, td{
 
 thead th {
 	border-bottom: 2px solid;
+	text-align:center;
 }
 
 .btn_a {
-	
-	background:linear-gradient(to bottom, #debc9b 10%, #B78D65 100%);
 	background-color:#B78D65;
-	border-radius:6px;
-	border: 1px solid #cecdce;
+	border: 1px solid #B78D65;
 	display:inline-block;
 	cursor:pointer;
 	color:#FFFFFF;
@@ -39,18 +52,16 @@ thead th {
 	font-size:15px;
 	font-weight:bold;
 	padding:9px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #29190b;
 }
 .btn_a:hover {
-	background:linear-gradient(to bottom, #f59536 10%, #cf8032 100%);
-	background-color:#f59536;
+	background:linear-gradient(to bottom, #c49f7c 10%, #c49f7c 100%);
+	background-color:#c49f7c;
 }
 .btn_a:active {
 	position:relative;
 	top:1px;
 }
-.btnboxR{margin-top:10px; }
+.btnboxR{margin-top:10px; float:right;}
 
 .btn-small{
 	border: 1px solid #cecdce;
@@ -91,26 +102,39 @@ justify-content: center;
     text-align: center;
 }
 tbody{background-color:#f9f9f9;}
+ .pageInfo{
+      list-style : none;
+      display: inline-block;
+      margin: 50px 0 0 0;
+      padding-left:0;      
+  }
+  .pageInfo li{
+    float: left;
+    font-size: 17px;
+    margin-left: 18px;
+    padding: 7px;
+    font-weight: 500;
+  }
+  .pageInfo_area{text-align:center;}
+  
+  
+ .page-item  > a:link {color:black; text-decoration: none;}
+ .page-item > a:visited {color:black; text-decoration: none;}
+.page-item > a:hover {color:#b78d65; text-decoration: underline;}
+.current{color:#b78d65; background-color:#cdd5ec;}
 </style>
 		<div id="real_body" class="container" >
 			<div class="h3">
 			<a href="/freeboard/list">자유게시판</a>
 			</div>
 				<form id="listSearch" name="list" >
-				<div class="bod_head">
-					<fieldset class="bod_search">
-						<label for="searchType" class="hidden">검색구분 선택 :</label>
-						<select id="searchType" name="searchType" title="검색유형 선택">
-							<option value="b-title">제목</option>
-							<option value="b_write">작성자</option>
-							<option value="b_content">내용</option>
-						</select>
-						<label for="searchTxt" class="hidden">검색어 입력:</label>
-						<input id="searchTxt" name="searchTxt" title="검색어 입력" 
-							type="text" value="">
-						<input type="submit" value="검색" name="searchBt" title="검색"
-							onclick="" class="btn-small">
-					</fieldset>
+				<div class="bod_head">			
+					<div class="search_wrap">
+						<div class="search_area">
+							<input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+							<button class="search_btn">검색</button>
+						</div>
+					</div>
 				</div>
 				</form>
 				<form action="/freeboard/insert" id="list" >
@@ -119,19 +143,19 @@ tbody{background-color:#f9f9f9;}
 					<tr><th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>날짜</th>
-						<th>조회수</th>
+						<th style="text-align:center;">날짜</th>
+						<th style="text-ailgn:center;">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="one" items="${all }">
 						<tr>
-							<td>${one.no }</td>
+							<td style="width:10%; text-align:center;">${one.no }</td>
 							<td><a href="/freeboard/view?no=${one.no }">${one.title }</a></td>
-							<td>${one.writer }</td>
-							<td><fmt:formatDate value="${one.writedate }"
+							<td style="width:15%; text-align:center;">${one.writer }</td>
+							<td style="width:10%; font-size:12px; text-align:center;"><fmt:formatDate value="${one.writedate }"
 									pattern="yyyy.MM.dd" /></td>
-							<td><c:out value="${one.hit }"/> </td>
+							<td style="width:10%; text-align:center; font-size:12px"><c:out value="${one.hit }"/> </td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -141,28 +165,47 @@ tbody{background-color:#f9f9f9;}
 				</div>
 				</form>
 				
-				<!-- <div class="btnboxR">
-					<a href="insert" class="btn_a" title="자유게시판 게시글 작성하기">글쓰기</a>
-				</div> -->
-				<div class="prev_next">
-					<c:if test="${paging.startPage != 1 }">
-					<a href="/feeboard/boardPaging?nowPage=${paging.startPage -1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-					</c:if>
-					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == paging.nowPage }">
-							<b>${p }</b>
-						</c:when>
-						<c:when test="${p != paging.nowPage }">
-							<a href="/freeboard/boardPaging?nowPage=${ p}&cntPerPage=${paging.cntPerPage}">${p }</a>
-						</c:when>
-					</c:choose>
-					<c:if test="${paging.endPage != paging.lastPage}">
-				<a
-					href="/freeboard/boardPaging?nowPage=${paging.endPage+1 }&cntPerPage=${paging}">&gt;</a>
-			</c:if>
-				</c:forEach>
-				</div>
-	</div>			
+				
+	<div class="pageInfo_wrap">
+		<div class="pageInfo_area">			
+  			<ul id="pageInfo" class="pageInfo paging">  
+  				<c:if test="${pageMaker.prev }">
+  					<li class="page_btn previous"><a href="/freeboard/list?pageNum=${pageMaker.startPage -1 }">< Prev</a></li>
+  				</c:if>
+ 				 <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+					
+   					<li class="page-item ${pageMaker.cri.pageNum == num ? 'current':'' }">
+   		<a href="/freeboard/list?pageNum=${num }">${num }</a></li>
+   				</c:forEach> 
+   				<c:if test="${pageMaker.next }">
+   					<li class="page_btn next"><a class="num" href="/freeboard/list?pageNum=${pageMaker.endPage +1 }">Next ></a></li>
+   				</c:if>
+  			</ul>
+  		</div>
+	</div>
 
+		<form id="moveForm" method="get">
+				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+				<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}"> 
+		</form>
+	</div>
+<script>
+	let moveForm = $("#moveForm");
+	$(".move").on("click", function(e){
+		e.preventDefault();
+		
+		moveForm.append("<input type='hidden' name='no' value='"+$(this).attr("href")+"'>");
+		moveForm.attr("action", '/freeboard/view');
+		moveForm.submit();
+	});
+	
+	$(".search_area button").on("click", function(e){
+		e.preventDefault();
+		let val = $("input[name='keyword']").val();
+		moveForm.find("input[name='keyword']").val(val);
+		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.submit();
+	});
+</script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

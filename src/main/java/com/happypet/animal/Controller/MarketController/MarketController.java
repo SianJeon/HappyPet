@@ -1,8 +1,10 @@
 package com.happypet.animal.Controller.MarketController;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import com.happypet.animal.Entity.AccountVo;
@@ -27,17 +29,19 @@ public class MarketController {
     MarketService marketService;
 
     @RequestMapping("/market")
-    public String marketHomeHandle(@RequestParam int page, Model model)
+    public String marketHomeHandle(@RequestParam int page, 
+                                    @RequestParam(required = false) List<String> brand,
+                                    @RequestParam(required = false) String category, Model model)
     {
         int nextPage = page;
-        List<ConbineMarket> vo = marketService.marketHomeList(nextPage);
-      
-        model.addAttribute("vo", vo);
+        List<ConbineMarket> vo = marketService.marketHomeList(nextPage, brand, category);
         
+        model.addAttribute("vo", vo);
         model.addAttribute("pageCount", marketService.countProduct() / 8);
-
+        model.addAttribute("company", marketService.selectCompany());
+        model.addAttribute("brand", brand);
     	return "market/market";
-    }
+    }   
 
     @RequestMapping("/market/product")
     public String productDetailHandle(@RequestParam int no, Model model)
@@ -62,14 +66,10 @@ public class MarketController {
         List<MarketCartOrderVo> orderList = new ArrayList<MarketCartOrderVo>();
         
         if(vo.getProductNo() == 0)
-            orderList = marketService.cartListOrder("qwer");
+            orderList = marketService.cartListOrder(acVo.getUserId());
         else 
             orderList.add(marketService.waitingOrderList(vo.getProductNo(), buyAmount));
 
-        for (MarketCartOrderVo marketCartOrderVo : orderList) {
-            System.out.println("discount : " + marketCartOrderVo.getDiscountPrice());
-            System.out.println("price : " + marketCartOrderVo.getProductPrice());
-        }
         model.addAttribute("vo", orderList);
         return "market/order";
     }
@@ -84,9 +84,8 @@ public class MarketController {
     @RequestMapping("/market/cart")
     public String cartHandle(Model model, HttpSession session)
     {
-        // AccountVo accountVo = (AccountVo)session.getAttribute("loginUser");
-        String accountVo = "qwer";
-        List<MarketCartView> cartVo = marketService.selectAllCart(accountVo);
+        AccountVo accountVo = (AccountVo)session.getAttribute("loginUser");
+        List<MarketCartView> cartVo = marketService.selectAllCart(accountVo.getUserId());
 
         model.addAttribute("vo", cartVo);
         return "market/marketCart";
@@ -118,12 +117,12 @@ public class MarketController {
     }
 
     @RequestMapping("/market/orderList")
-    public String orderList(Model model, HttpSession session)
+    public String orderListHandle(Model model, HttpSession session)
     {
         AccountVo vo = (AccountVo)session.getAttribute("loginUser");
 
-        model.addAttribute("vo", marketService.orderList("qwer"));
-        // model.addAttribute("vo", marketService.orderList(vo.getUserId()));
+        // model.addAttribute("vo", marketService.orderList("qwer"));
+        model.addAttribute("vo", marketService.orderList(vo.getUserId()));
         return "market/orderList";
     }
 }

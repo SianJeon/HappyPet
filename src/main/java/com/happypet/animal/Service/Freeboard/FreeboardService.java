@@ -1,9 +1,11 @@
 package com.happypet.animal.Service.Freeboard;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.happypet.animal.Entity.Freeboard.Criteria;
 import com.happypet.animal.Entity.Freeboard.FreeboardVo;
 import com.happypet.animal.Repository.Freeboard.FreeboardDAO;
 
@@ -20,11 +22,22 @@ public class FreeboardService {
 	}
 	
 	public List<FreeboardVo> getAll() {
-		List<FreeboardVo> list = freeboardDao.selectAll();
-		
-		
+		List<FreeboardVo> list = freeboardDao.selectAll();		
 		
 		return list;
+	}
+	
+	/* 게시판 목록(페이징 적용) */
+	public List<FreeboardVo> getListPaging(Criteria cri){
+		List<FreeboardVo> listPaging = freeboardDao.getListPaging(cri);
+		
+		return listPaging;
+	}
+	
+	/* 게시물 총 갯수 */
+	public int getTotal(Criteria cri) {
+		int total = freeboardDao.countBoard(cri);
+		return total;
 	}
 
 	public FreeboardVo getOneByNo(int no){

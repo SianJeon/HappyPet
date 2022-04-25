@@ -14,7 +14,7 @@ public class MailService {
 	@Autowired
 	JavaMailSender jms;
 	
-	private int size;
+	// private int size;
 	
 	public Map<String, Object> sendAuthMail(String email){
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -35,7 +35,6 @@ public class MailService {
 		try {
 			jms.send(mail);
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			map.put("rst", false);
 			return map;
