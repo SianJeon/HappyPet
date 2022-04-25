@@ -47,7 +47,6 @@ public class AnimalController {
 
 	}
 	
-<<<<<<< HEAD
 	@ResponseBody
 	@RequestMapping("/animal/total")
 	public int animalCho(){
@@ -55,8 +54,7 @@ public class AnimalController {
 		return animalService.animaltotal();
 		
 	}
-=======
->>>>>>> refs/heads/master
+
 
 	@RequestMapping("/animal/detail")
 	public String animalDetail(@RequestParam String desertionNo, Model model) {

@@ -135,10 +135,7 @@
 
 	</div>
 
-<<<<<<< HEAD
-	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
-=======
+
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
->>>>>>> refs/heads/sian_Market&Admin
 </body>
 </html>

@@ -97,7 +97,7 @@ public class AnimalService {
 		return map;
 	}
 	
-<<<<<<< HEAD
+
 	public int animaltotal() {
 		
 		
@@ -133,8 +133,7 @@ public class AnimalService {
 		
 		return cnt;
 	}
-=======
->>>>>>> refs/heads/master
+
 	
 	
 	public List animalinsert() throws ParseException {
