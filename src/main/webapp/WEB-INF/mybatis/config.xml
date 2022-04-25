@@ -24,15 +24,37 @@
 		<typeAlias
 			type="com.happypet.animal.Entity.MarketEntity.ConbineMarket"
 			alias="ConbineMarketVo" />
+		<typeAlias
+			type="com.happypet.animal.Entity.MarketEntity.MarketCart"
+			alias="marketCartVo" />
+		<typeAlias type="com.happypet.animal.Entity.MarketEntity.MarketCartView" alias="marketCartViewVo" />
+		<typeAlias type="com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo" alias="marketCartOrderVo" />
+		
+		<!-- pay -->
+		<typeAlias type="com.happypet.animal.Entity.MarketEntity.Payment.PaymentAccountInfo" alias="paymentAccountInfo" />
+		<typeAlias type="com.happypet.animal.Entity.MarketEntity.Payment.PaymentVo" alias="paymentVo" />
+		<!--  -->
+
+
 		<typeAlias type="com.happypet.animal.Entity.AccountVo"
 			alias="accountVo" />
 		<typeAlias type="com.happypet.animal.Entity.HospitalVo"
 			alias="hospitalVo" />
 		<typeAlias
-			type="com.happypet.animal.Entity.HospitalReviewVo" alias="hospitalReviewVo" />
+			type="com.happypet.animal.Entity.HospitalReviewVo"
+			alias="hospitalReviewVo" />
 		<typeAlias
-			type="com.happypet.animal.Entity.HospitalReviewCommentVo" alias="hospitalReviewCommentVo" />
+			type="com.happypet.animal.Entity.HospitalReviewCommentVo"
+			alias="hospitalReviewCommentVo" />
+		<typeAlias type="com.happypet.animal.Entity.FileDataVo"
+			alias="fileDataVo" />
 		<typeAlias
-			type="com.happypet.animal.Entity.FileDataVo" alias="fileDataVo" />
+			type="com.happypet.animal.Entity.Freeboard.FreeboardVo"
+			alias="freeboard" />
+		<typeAlias
+			type="com.happypet.animal.Entity.Freeboard.CommentVo" alias="comment" />
+		<typeAlias
+			type="com.happypet.animal.Entity.Freeboard.FileVo" alias="file" />
 	</typeAliases>
+
 </configuration> 

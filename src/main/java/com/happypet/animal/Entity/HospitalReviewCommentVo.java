@@ -36,6 +36,12 @@ public class HospitalReviewCommentVo {
 	public void setWritedate(Date writedate) {
 		this.writedate = writedate;
 	}
+	@Override
+	public String toString() {
+		return "HospitalReviewCommentVo [no=" + no + ", owner=" + owner + ", writer=" + writer + ", content=" + content
+				+ ", writedate=" + writedate + "]";
+	}
+	
 	
 	
 }

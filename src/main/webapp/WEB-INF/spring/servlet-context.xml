@@ -38,7 +38,12 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="maxUploadSize" value="104857600" />
 	</bean>
-
+	
+	<!-- 파일 업로드 디렉토리 설정 -->
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="/Users/leemyeonghan/Documents/upload"/>
+	</bean>
+	
 
 	<!-- interceptor 설정시 주석 해제 하고 path, bean 클래스 설정 바람 -->
 	<!-- <mvc:interceptors>
@@ -66,5 +71,5 @@
 		<task:scheduled ref="simpleTask" method="animalinsertDay" cron="0 0 10 * * *"/>
 	</task:scheduled-tasks> 
 	<task:annotation-driven />
-
+	
 </beans>

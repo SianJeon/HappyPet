@@ -34,6 +34,8 @@
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="/js/common.js?<%=new java.util.Date().getTime()%>"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 .stop-dragging
@@ -96,9 +98,16 @@
                         <a href="/adopt" class="dropdown-item">입양후기</a>
                     </div>
                 </div>    
-                <a href="" class="nav-item nav-link">자유게시판</a>
+                <a href="/freeboard/list" class="nav-item nav-link">자유게시판</a>
                 <a href="/hospital" class="nav-item nav-link">주변병원</a>
-                <a href="/market" class="nav-item nav-link">마켓</a>
+                <div class="nav-item dropdown">
+                    <a href="/market?page=1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마켓</a>
+                    <div class="dropdown-menu border-0 m-0">
+                        <a href="/market?page=1" class="dropdown-item">상품목록</a>
+                        <a href="/market/cart" class="dropdown-item">장바구니</a>
+                        <a href="/market/orderList" class="dropdown-item">주문목록</a>
+                    </div>
+                </div>
             </div>
             <c:choose>
 				<c:when test="${empty sessionScope.loginUser }">

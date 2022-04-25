@@ -12,7 +12,7 @@
 			<br>
 			<input type="button"class="btn btn-primary w-50 py-6" onclick="passChk()" value="비밀번호 확인">
 		</div>
-		<div class="newPass" style="display:none;">
+	<div class="newPass" style="display:none;">
 		<hr>
 			<label for="password">변경할 비밀번호</label>
 			<div class="col-3">

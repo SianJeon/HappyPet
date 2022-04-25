@@ -1,6 +1,8 @@
 package com.happypet.animal.Service;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -101,6 +103,27 @@ public class AccountService {
 	
 	public void deleteId(String id) {
 		dao.deleteId(id);
+	}
+	
+	public String getIdByNameandEmail(String name, String email) {
+		
+		Map<String, Object> parameters = new HashMap();
+		
+		parameters.put("name", name);
+		parameters.put("email", email);
+		
+		return dao.getIdByNameandEmail(parameters);
+	}
+	
+	public AccountVo getDataByParameters(String name, String email, String id) {
+		
+		Map<String, Object> parameters = new HashMap();
+		
+		parameters.put("name", name);
+		parameters.put("email", email);
+		parameters.put("id", id);
+		
+		return dao.getDataByParameters(parameters);
 	}
 	
 }
