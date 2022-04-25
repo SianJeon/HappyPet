@@ -71,16 +71,25 @@
     </insert>
 
     <select id="select-paging" resultType="ConbineMarketVo">
-    <![CDATA[
         select b.rnum, b.no, b.product_name, b.product_price, b.company, b.main_path
         from 
             (select rownum as rnum, a.no, a.product_name, a.product_price, a.company, a.main_path
                 from (select m.no, m.product_name, m.product_price, m.company, mf.main_path
                         from market m left outer join marketfile mf on(m.no = mf.product_no)
-                        where mf.main_path like '%'||'_01'
-                        order by m.no desc) a
-            where rownum <= #{pageRows} * #{curPage}) b
-        where b.rnum >= ((#{curPage} * #{pageRows} + 1) - #{pageRows})
+                where mf.main_path like '%'||'_01'
+        <if test="companyList != null">
+                and m.company in 
+        <foreach collection="companyList" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        </if>
+        <if test="category != null">
+            and m.category = #{category}
+        </if>
+        order by m.no desc) a
+        <![CDATA[
+            where rownum <= #{marketPageVo.pageRows} * #{marketPageVo.curPage}) b
+        where b.rnum >= ((#{marketPageVo.curPage} * #{marketPageVo.pageRows} + 1) - #{marketPageVo.pageRows})
     ]]>
     </select>
 
@@ -175,10 +184,11 @@
         where m.no = #{no} and mf.main_path like '%'||'_01'
     </select>
 
-    <select id="select-company">
-        select distinct company from market
+    <select id="select-company" resultType="com.happypet.animal.Entity.MarketEntity.CompanyCount">
+        select company, count(company) as count
+        from market
+        group by company
+        having count(company) > 0
+        order by count(company) desc
     </select>
-    <select id="select-cagegory">
-        select distinct category from market
-    </select>
-</mapper>   
+</mapper>

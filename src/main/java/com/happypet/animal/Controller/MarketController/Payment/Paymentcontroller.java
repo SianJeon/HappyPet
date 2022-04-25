@@ -24,11 +24,12 @@ public class Paymentcontroller {
     
     @RequestMapping("/market/Checkedvaild/{imp_uid}")
     @ResponseBody
-    public IamportResponse<Payment> vaildCheckHandle(@PathVariable(value = "imp_uid") String imp_uid)
+    public IamportResponse<Payment> vaildCheckHandle(@PathVariable(value = "imp_uid") String imp_uid, HttpSession session)
     {
         // System.out.println(imp_uid);
         // 세션 로그인 아이디 필요
-        return paymentService.vaildCheck(imp_uid, "qwer");
+        AccountVo acVo = (AccountVo)session.getAttribute("loginUser");
+        return paymentService.vaildCheck(imp_uid, acVo.getUserId());
     }
     
     // @ResponseBody
@@ -37,7 +38,7 @@ public class Paymentcontroller {
     {	
         AccountVo acVo = (AccountVo)session.getAttribute("loginUser");
         // boolean success =  paymentService.insertPaymentInfo(vo, acVo.getUserId());
-        boolean success =  paymentService.insertPaymentInfo(vo, "qwer");
+        boolean success =  paymentService.insertPaymentInfo(vo,acVo.getUserId());
     	if(success)
         {
             System.out.println("저장 성공");

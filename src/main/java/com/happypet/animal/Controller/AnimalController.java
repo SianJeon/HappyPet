@@ -50,9 +50,7 @@ public class AnimalController {
 	@ResponseBody
 	@RequestMapping("/animal/total")
 	public int animalCho(){
-		
 		return animalService.animaltotal();
-		
 	}
 
 

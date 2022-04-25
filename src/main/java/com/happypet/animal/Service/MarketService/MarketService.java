@@ -4,6 +4,7 @@ package com.happypet.animal.Service.MarketService;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,11 +12,13 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 
 import com.google.gson.Gson;
+import com.happypet.animal.Entity.MarketEntity.CompanyCount;
 import com.happypet.animal.Entity.MarketEntity.ConbineMarket;
 import com.happypet.animal.Entity.MarketEntity.Market;
 import com.happypet.animal.Entity.MarketEntity.MarketCart;
 import com.happypet.animal.Entity.MarketEntity.MarketCartOrderVo;
 import com.happypet.animal.Entity.MarketEntity.MarketCartView;
+import com.happypet.animal.Entity.MarketEntity.MarketCompanyView;
 import com.happypet.animal.Entity.MarketEntity.MarketFileVo;
 import com.happypet.animal.Entity.MarketEntity.MarketOrderList;
 import com.happypet.animal.Entity.MarketEntity.MarketPageVo;
@@ -59,11 +62,15 @@ public class MarketService {
     }
 
     // 마켓 홈화면 리스트
-    public List<ConbineMarket> marketHomeList(int nextPage)
+    public List<ConbineMarket> marketHomeList(int nextPage, List<String> brand, String category)
     {
         MarketPageVo pageVo = new MarketPageVo(marketDAO.selectProductCount(), nextPage);
+        MarketCompanyView vo = new MarketCompanyView();
         
-        return marketDAO.selectPaging(pageVo);
+        vo.setMarketPageVo(pageVo);
+        vo.setCompanyList(brand);
+        vo.setCategory(category);
+        return marketDAO.selectPaging(vo);
     }
 
     // 마켓 디테일
@@ -256,4 +263,10 @@ public class MarketService {
     {
         return marketDAO.selectProductCount();
     }
+
+    public List<CompanyCount> selectCompany()
+    {
+        return marketDAO.selectCompany();
+    }
+
 }
