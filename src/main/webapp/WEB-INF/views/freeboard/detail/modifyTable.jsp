@@ -57,7 +57,7 @@ a:link {
 				<div class="text_tb">
 					<input type="hidden" name="no" value="${dbVo.no}">
 					<button class="btn_add" type="submit">수정</button>
-					<button class="btn_turn" type="button" onClick="location.href='/freeboard/list?pageNum=${num}'">취소</button>
+					<button class="btn_turn" type="button" onClick="location.href='/freeboard/list'">취소</button>
 				</div>
 			</form>
 	</div>
